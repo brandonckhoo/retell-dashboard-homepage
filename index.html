@@ -6,14 +6,7 @@
 <title>Retell AI — Home</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif; color: #0A0A0A; background: #fff; display: flex; flex-direction: column; height: 100vh; overflow: hidden; min-width: 1280px; }
-
-/* ── Demo bar ── */
-#demo-bar { background: #13162b; height: 36px; display: flex; align-items: center; gap: 6px; padding: 0 16px; flex-shrink: 0; z-index: 200; }
-.demo-label { font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.08em; margin-right: 4px; }
-.demo-btn { font-size: 11.5px; font-weight: 500; color: rgba(255,255,255,0.55); background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; padding: 3px 10px; cursor: pointer; font-family: inherit; transition: all 0.15s; white-space: nowrap; }
-.demo-btn:hover { color: #fff; background: rgba(255,255,255,0.12); }
-.demo-btn.active { color: #fff; background: rgba(61,100,215,0.45); border-color: rgba(61,100,215,0.6); }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif; color: #0A0A0A; background: #fff; display: flex; height: 100vh; overflow: hidden; min-width: 1280px; }
 
 /* ── App chrome ── */
 #app { flex: 1; display: flex; overflow: hidden; }
@@ -117,10 +110,11 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
 .cp-inner { width: 100%; max-width: 680px; display: flex; flex-direction: column; align-items: center; }
 .cp-orb-wrap { margin-bottom: 18px; }
 .cp-greeting { font-size: 19px; font-weight: 600; color: #0A0A0A; text-align: center; margin-bottom: 18px; line-height: 1.3; }
-.cp-input-wrap { width: 100%; background: #fff; border: 1px solid #D1D5DB; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); display: flex; align-items: flex-end; gap: 8px; padding: 10px 10px 10px 14px; margin-bottom: 24px; transition: border-color 0.15s, box-shadow 0.15s; }
+.cp-input-wrap { position: relative; width: 100%; background: #fff; border: 1px solid #D1D5DB; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); display: flex; align-items: flex-end; gap: 8px; padding: 10px 10px 10px 14px; margin-bottom: 24px; transition: border-color 0.15s, box-shadow 0.15s; }
 .cp-input-wrap:focus-within { border-color: #3d64d7; box-shadow: 0 0 0 3px rgba(61,100,215,0.1); }
 .cp-input { flex: 1; border: none; outline: none; font-family: inherit; font-size: 14px; color: #0A0A0A; resize: none; background: transparent; line-height: 1.5; min-height: 22px; max-height: 100px; overflow-y: auto; }
 .cp-input::placeholder { color: #CACFD8; }
+.cp-ph-anim { position: absolute; top: 10px; left: 14px; font-size: 14px; color: #CACFD8; pointer-events: none; white-space: nowrap; overflow: hidden; }
 .cp-send { width: 30px; height: 30px; background: #0E121B; border: none; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
 .cp-send:hover { background: #1c2333; }
 .cp-send:disabled { background: #E1E4EA; cursor: not-allowed; }
@@ -203,15 +197,6 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
 </head>
 <body>
 
-<!-- Demo bar -->
-<div id="demo-bar">
-  <span class="demo-label">Demo</span>
-  <button class="demo-btn active" onclick="setPath('C')">Path C — Returning (2/6)</button>
-  <button class="demo-btn" onclick="setPath('A')">Path A — New user</button>
-  <button class="demo-btn" onclick="setPath('convo')">Copilot active</button>
-  <button class="demo-btn" onclick="setPath('done')">Checklist complete</button>
-</div>
-
 <div id="app">
 
 <!-- Sidebar -->
@@ -283,24 +268,24 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
     </div>
     <div class="rail-hist-label">History</div>
     <div class="rail-history" id="hist-list">
-      <div class="hist-item active" onclick="loadConvo('drop')">
-        <div class="hist-title">Why did my last call drop?</div>
+      <div class="hist-item active" onclick="loadConvo('droprate')">
+        <div class="hist-title">Why is my call drop rate 12%?</div>
         <div class="hist-time">2 hours ago</div>
       </div>
-      <div class="hist-item" onclick="loadConvo('kb')">
-        <div class="hist-title">Add FAQ topics to knowledge base</div>
+      <div class="hist-item" onclick="loadConvo('support')">
+        <div class="hist-title">Customer support agent setup</div>
         <div class="hist-time">Yesterday</div>
       </div>
-      <div class="hist-item" onclick="loadConvo('transfer')">
-        <div class="hist-title">Set up transfer to human agent</div>
+      <div class="hist-item" onclick="loadConvo('booking')">
+        <div class="hist-title">Appointment booking with calendar sync</div>
         <div class="hist-time">2 days ago</div>
       </div>
-      <div class="hist-item" onclick="loadConvo('analytics')">
-        <div class="hist-title">Call analytics — last 7 days</div>
+      <div class="hist-item" onclick="loadConvo('batchsales')">
+        <div class="hist-title">Outbound sales batch call — 500 leads</div>
         <div class="hist-time">3 days ago</div>
       </div>
-      <div class="hist-item" onclick="loadConvo('qa')">
-        <div class="hist-title">How does AI QA scoring work?</div>
+      <div class="hist-item" onclick="loadConvo('rubric')">
+        <div class="hist-title">AI QA rubric — add tone scoring</div>
         <div class="hist-time">4 days ago</div>
       </div>
     </div>
@@ -392,9 +377,11 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
         </div>
         <div class="cp-greeting" id="cp-greeting">Hey Brandon, what are we working on today?</div>
         <div class="cp-input-wrap">
-          <textarea id="cp-input" class="cp-input" placeholder="Build, test, or ask anything about your agent..." rows="1"
-            oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"
-            onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg()}"></textarea>
+          <span class="cp-ph-anim" id="cp-ph-anim"></span>
+          <textarea id="cp-input" class="cp-input" placeholder="" rows="1"
+            oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px';updatePhAnim()"
+            onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg()}"
+            onfocus="updatePhAnim()" onblur="updatePhAnim()"></textarea>
           <button class="cp-send" onclick="sendMsg()">
             <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 3l5 5-5 5" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
@@ -600,25 +587,25 @@ function sendInvite() {
 
 /* ── Copilot conversations ── */
 const convos = {
-  drop: {
-    user: 'Why did my last call drop?',
-    resp: `<strong>Looking at your most recent call (call_a3c7e4f1, May 22 at 9:42 AM PDT)...</strong><br><br>The call ended with a <code>user_hangup</code> disconnect reason after 1 minute 24 seconds. Based on the transcript, the agent paused for approximately 3.2 seconds after the user asked about appointment availability — likely waiting on a knowledge base lookup.<br><br>The user said <em>"Hello?"</em> once during the silence, then disconnected.<br><br><strong>What to fix:</strong><ul><li>Add a filler phrase ("Let me check that for you") to cover long lookups</li><li>Review your KB response time under <strong>Analytics → Latency</strong></li><li>Consider reducing the lookup timeout in <strong>Agent Settings → Call Related Settings</strong></li></ul>Want me to walk you through updating the prompt to add the filler phrase?`
+  droprate: {
+    user: 'Why is my call drop rate 12%?',
+    resp: `Your 12% drop rate over the past 7 days is above the workspace average of 8.4%. Here's the breakdown:<br><br><strong>Top causes:</strong><ul><li><strong>Long agent pauses (4.1s avg)</strong> — accounts for 38% of early drops. Users hang up during knowledge base lookups.</li><li><strong>Late-night calls</strong> — 61% of drops happen between 10 PM and 6 AM. Your after-hours prompt may need tuning.</li><li><strong>Transfer wait time</strong> — 23% of transfers to human agents exceed 40 seconds before the user hangs up.</li></ul><strong>Recommended fixes:</strong><ul><li>Add a filler phrase like "Let me look that up for you..." to cover long KB lookups</li><li>Update the after-hours prompt to set clearer expectations</li><li>Reduce transfer timeout in <strong>Agent Settings → Call Related Settings</strong></li></ul>Want me to draft the filler phrase and after-hours copy?`
   },
-  kb: {
-    user: 'Add FAQ topics to knowledge base',
-    resp: `Sure. The fastest way is to paste your FAQ content directly. I can chunk and index it for you.<br><br><strong>What format is your FAQ in?</strong><ul><li>A URL (I'll scrape it)</li><li>Plain text or markdown (paste below)</li><li>A PDF or document file</li></ul>Once I know the format, I'll walk you through uploading it to your <strong>Customer Support Agent</strong> knowledge base.`
+  support: {
+    user: 'Help me build a customer support agent that handles inbound calls, resolves common FAQs, and routes complex issues to a human.',
+    resp: `Great starting point. Here's the setup path:<br><br><strong>1. Create the agent</strong><ul><li>Go to <strong>Agents → + New Agent → Customer Support</strong> template</li><li>This pre-fills the system prompt with inbound handling logic</li></ul><strong>2. Connect a knowledge base</strong><ul><li>Paste your help docs or FAQ URL in <strong>Knowledge Base</strong></li><li>Enable KB lookup in <strong>Agent Settings → Functions</strong></li></ul><strong>3. Set up human transfer</strong><ul><li>Add a <strong>Call Transfer</strong> node for escalations</li><li>Set a trigger phrase like "speak to a human" or "talk to an agent"</li></ul><strong>4. Test it</strong><ul><li>Use the built-in <strong>Test Agent</strong> tab to run a simulated inbound call</li></ul>Want me to generate the system prompt now? Just tell me your company name and top 3 FAQs.`
   },
-  transfer: {
-    user: 'Set up transfer to human agent',
-    resp: `To route calls to a human agent, you'll use a <strong>Call Transfer</strong> node in the Conversational Flow builder.<br><br><strong>Steps:</strong><ul><li>Open <strong>Agents → Customer Support Agent → Edit</strong></li><li>Switch to <strong>Conversational Flow</strong> mode</li><li>Drag a <strong>Call Transfer</strong> node onto the canvas</li><li>Set the destination number (SIP URI or PSTN)</li><li>Wire the node to any intent that should escalate (e.g., "speak to a human")</li></ul>Want me to open the agent builder and start this for you?`
+  booking: {
+    user: 'Walk me through setting up an appointment booking agent with calendar integration and confirmation messages.',
+    resp: `Here's the full setup for an appointment booking agent:<br><br><strong>1. Create the agent</strong><ul><li>Go to <strong>Agents → + New Agent → Appointment Booking</strong> template</li></ul><strong>2. Connect your calendar</strong><ul><li>Go to <strong>Settings → Integrations → Google Calendar</strong> or Calendly</li><li>Once connected, enable the <strong>Check Availability</strong> function in the agent's function list</li></ul><strong>3. Set up confirmation messages</strong><ul><li>Enable <strong>Post-call SMS</strong> in <strong>Agent Settings → Functions</strong></li><li>Use a template like: <em>"Your appointment is confirmed for {date} at {time}."</em></li></ul><strong>4. Test it</strong><ul><li>Use the <strong>Test Agent</strong> tab to simulate a full booking flow</li></ul>Want me to generate the system prompt?`
   },
-  analytics: {
-    user: 'Call analytics — last 7 days',
-    resp: `<strong>May 15–22, 2026 — Workspace summary</strong><br><br><ul><li><strong>Total calls:</strong> 847 &nbsp;(+12% vs prior week)</li><li><strong>Avg duration:</strong> 2m 14s</li><li><strong>Task completion:</strong> 81.4% &nbsp;(up from 78.2%)</li><li><strong>User sentiment:</strong> 74% positive, 18% neutral, 8% negative</li><li><strong>Transfer rate:</strong> 6.3%</li></ul><strong>Calls to watch:</strong> 23 calls flagged by AI QA with scores below 60. Most common failure mode: agent gave incorrect hours of operation on May 19–20. That knowledge base entry may need updating.`
+  batchsales: {
+    user: 'Help me set up an outbound sales agent that calls prospects, introduces our product, and books demos.',
+    resp: `Here's how to run an outbound sales campaign to 500 prospects:<br><br><strong>1. Create the agent</strong><ul><li>Go to <strong>Agents → + New Agent → Outbound Sales</strong> template</li><li>Customize the intro script with your product name and value proposition</li></ul><strong>2. Upload your contact list</strong><ul><li>Go to <strong>Batch Call → + New Batch</strong></li><li>Upload a CSV with columns: <code>phone_number</code>, <code>first_name</code>, <code>company</code></li><li>Map the columns to the agent's variables</li></ul><strong>3. Configure the campaign</strong><ul><li>Set call hours (e.g., 9 AM to 5 PM local time)</li><li>Enable retries for no-answer: 2 attempts, 2 hours apart</li></ul><strong>4. Launch and monitor</strong><ul><li>Start the batch from the <strong>Batch Call</strong> page — live stats appear in Analytics within minutes</li></ul>How many contacts are in your list and what's your target conversion action?`
   },
-  qa: {
-    user: 'How does AI QA scoring work?',
-    resp: `AI QA scores each call on a 0–100 scale using the criteria you define in <strong>AI Quality Assurance → Rubric</strong>.<br><br><strong>Default dimensions:</strong><ul><li><strong>Task completion</strong> — Did the agent accomplish the caller's goal?</li><li><strong>Tone and empathy</strong> — Was the agent appropriately warm and professional?</li><li><strong>Accuracy</strong> — Were facts and product details correct?</li><li><strong>Call efficiency</strong> — Did the agent resolve the call without unnecessary detours?</li></ul>Scores below your threshold (default: 70) are flagged for review and surface in the QA queue. You can override any score manually and leave a note for the team.`
+  rubric: {
+    user: 'How do I add a tone and empathy score to my AI QA rubric?',
+    resp: `You can add custom scoring dimensions in <strong>AI Quality Assurance → Rubric → + Add Dimension</strong>.<br><br><strong>Recommended setup for Tone and Empathy:</strong><ul><li><strong>Name:</strong> Tone and Empathy</li><li><strong>Weight:</strong> 20% (adjust to your preference)</li><li><strong>Scoring criteria:</strong> <em>"Did the agent use a warm, professional tone throughout the call? Did it acknowledge frustration or confusion with empathy?"</em></li><li><strong>Passing threshold:</strong> 70</li></ul>Once saved, all future calls will be scored on this dimension. You can backfill existing calls by clicking <strong>Re-score historical calls</strong>.<br><br>Want a full rubric template for customer support calls?`
   }
 };
 
@@ -704,7 +691,7 @@ function startConvo(text) {
   }, delay);
 }
 
-function loadConvo(key) {
+function loadConvo(key, srcEl) {
   const c = convos[key];
   if (!c) return;
   showConvoState();
@@ -713,7 +700,8 @@ function loadConvo(key) {
   appendMsg(msgs, 'user', c.user);
   appendMsg(msgs, 'assistant', c.resp);
   document.querySelectorAll('.hist-item').forEach(i => i.classList.remove('active'));
-  event.currentTarget && event.currentTarget.classList.add('active');
+  const el = srcEl || (typeof event !== 'undefined' && event.currentTarget);
+  if (el) el.classList.add('active');
 }
 
 function sendConvoMsg() {
@@ -863,6 +851,49 @@ renderTemplates('all');
 
 // Default: collapse checklist on load so copilot is visible
 document.getElementById('cl-strip').classList.remove('open');
+
+/* ── Animated placeholder ── */
+(function() {
+  const prompts = [
+    'Ask Retell to build a customer support agent...',
+    'Ask Retell to analyze my call drop rate...',
+    'Ask Retell to create an outbound campaign...',
+    'Ask Retell to set up appointment booking...',
+    'Ask Retell to check my AI QA scores...',
+    'Ask Retell to add a knowledge base...',
+  ];
+  const el = document.getElementById('cp-ph-anim');
+  const input = document.getElementById('cp-input');
+  let pi = 0, ci = 0, dir = 1, pauseTicks = 0, running = true;
+
+  function tick() {
+    if (!running) return;
+    const focused = document.activeElement === input;
+    if (focused || input.value) {
+      el.textContent = '';
+      setTimeout(tick, 80);
+      return;
+    }
+    if (pauseTicks > 0) { pauseTicks--; setTimeout(tick, 50); return; }
+    const str = prompts[pi];
+    if (dir === 1) {
+      ci++;
+      el.textContent = str.substring(0, ci);
+      if (ci >= str.length) { dir = -1; pauseTicks = 55; }
+      setTimeout(tick, 68);
+    } else {
+      ci--;
+      el.textContent = str.substring(0, ci);
+      if (ci <= 0) { dir = 1; pi = (pi + 1) % prompts.length; pauseTicks = 10; }
+      setTimeout(tick, 32);
+    }
+  }
+  tick();
+
+  window.updatePhAnim = function() {
+    el.textContent = (document.activeElement === input || input.value) ? '' : el.textContent;
+  };
+})();
 </script>
 </body>
 </html>
