@@ -82,7 +82,7 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
 /* ── Checklist ── */
 .cl-wrap { padding: 10px 24px 0; flex-shrink: 0; }
 .cl-strip { background: #fff; border: 1px solid #E1E4EA; border-radius: 8px; overflow: hidden; }
-.cl-hdr { display: flex; align-items: center; gap: 10px; padding: 9px 12px; cursor: pointer; user-select: none; }
+.cl-hdr { display: flex; align-items: center; gap: 10px; padding: 10px 12px; cursor: pointer; user-select: none; }
 .cl-hdr:hover { background: #FAFAFA; }
 .cl-title { font-size: 13px; font-weight: 600; color: #0A0A0A; white-space: nowrap; }
 .cl-track { flex: 1; height: 4px; background: #E1E4EA; border-radius: 2px; max-width: 160px; }
@@ -94,16 +94,18 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
 .cl-strip.open .cl-chevron { transform: rotate(180deg); }
 .cl-body { display: none; border-top: 1px solid #F0F2F5; }
 .cl-strip.open .cl-body { display: block; }
-.cl-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; font-size: 13px; }
+.cl-item { display: flex; align-items: flex-start; gap: 10px; padding: 9px 12px; font-size: 13px; }
 .cl-item + .cl-item { border-top: 1px solid #F8F9FA; }
-.cl-ico { width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.3s; }
+.cl-ico { width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.3s; margin-top: 1px; }
 .cl-ico.done { background: #ECFDF5; border: 1.5px solid #A7F3D0; }
 .cl-ico.todo { background: #fff; border: 1.5px solid #D1D5DB; }
-.cl-item-lbl { flex: 1; }
+.cl-item-main { flex: 1; min-width: 0; }
+.cl-item-lbl { display: block; color: #0A0A0A; }
 .cl-item.is-done .cl-item-lbl { color: #99A0AE; text-decoration: line-through; }
-.cl-opt { font-size: 11px; color: #CACFD8; margin-left: 3px; }
-.cl-go { font-size: 12px; color: #3d64d7; font-weight: 500; cursor: pointer; white-space: nowrap; padding: 2px 0; }
-.cl-go:hover { text-decoration: underline; }
+.cl-item-desc { display: block; font-size: 11.5px; color: #99A0AE; margin-top: 2px; line-height: 1.3; }
+.cl-item.is-done .cl-item-desc { display: none; }
+.cl-go { font-size: 15px; color: #CACFD8; cursor: pointer; padding: 0 2px; flex-shrink: 0; line-height: 1; margin-top: 1px; }
+.cl-go:hover { color: #3d64d7; }
 
 /* ── Copilot blank state ── */
 #cp-blank { flex: 1; overflow-y: auto; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 32px 24px 40px; }
@@ -328,9 +330,9 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
     <div class="cl-wrap" id="cl-wrap">
       <div class="cl-strip open" id="cl-strip">
         <div class="cl-hdr" onclick="toggleCl()">
-          <span class="cl-title">Get started</span>
-          <div class="cl-track"><div class="cl-fill" id="cl-fill" style="width:33.33%"></div></div>
-          <span class="cl-count" id="cl-count">2 of 6 done</span>
+          <span class="cl-title">🚀 Get Your Workspace Ready</span>
+          <div class="cl-track"><div class="cl-fill" id="cl-fill" style="width:57.14%"></div></div>
+          <span class="cl-count" id="cl-count">4 of 7 done</span>
           <div class="cl-vid" title="Watch walkthrough">
             <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polygon points="3,2 10,6 3,10" fill="currentColor"/></svg>
           </div>
@@ -339,31 +341,43 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
         <div class="cl-body" id="cl-body">
           <div class="cl-item is-done" id="cli-0">
             <div class="cl-ico done" id="cl-ico-0"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#059669" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span class="cl-item-lbl">Test your agent</span>
+            <div class="cl-item-main"><span class="cl-item-lbl">Create your workspace</span></div>
           </div>
           <div class="cl-item is-done" id="cli-1">
             <div class="cl-ico done" id="cl-ico-1"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#059669" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <span class="cl-item-lbl">View call transcript + analysis</span>
+            <div class="cl-item-main"><span class="cl-item-lbl">Build your first agent</span></div>
           </div>
-          <div class="cl-item" id="cli-2">
-            <div class="cl-ico todo" id="cl-ico-2"></div>
-            <span class="cl-item-lbl">Import or create a phone number</span>
-            <span class="cl-go" onclick="goTo('phone')">Go →</span>
+          <div class="cl-item is-done" id="cli-2">
+            <div class="cl-ico done" id="cl-ico-2"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#059669" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="cl-item-main"><span class="cl-item-lbl">Run a test call in Playground</span></div>
           </div>
-          <div class="cl-item" id="cli-3">
-            <div class="cl-ico todo" id="cl-ico-3"></div>
-            <span class="cl-item-lbl">Make your first real call</span>
-            <span class="cl-go" onclick="goTo('call')">Go →</span>
+          <div class="cl-item is-done" id="cli-3">
+            <div class="cl-ico done" id="cl-ico-3"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#059669" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="cl-item-main"><span class="cl-item-lbl">View call transcript + analysis</span></div>
           </div>
           <div class="cl-item" id="cli-4">
             <div class="cl-ico todo" id="cl-ico-4"></div>
-            <span class="cl-item-lbl">Invite a teammate <span class="cl-opt">optional</span></span>
-            <span class="cl-go" onclick="openModal()">Go →</span>
+            <div class="cl-item-main">
+              <span class="cl-item-lbl">Import or create a phone number</span>
+              <span class="cl-item-desc">Bring your own number or get one from Retell</span>
+            </div>
+            <span class="cl-go" onclick="goTo('phone')">→</span>
           </div>
           <div class="cl-item" id="cli-5">
             <div class="cl-ico todo" id="cl-ico-5"></div>
-            <span class="cl-item-lbl">Advanced functions <span class="cl-opt">optional</span></span>
-            <span class="cl-go" onclick="goTo('qa')">Go →</span>
+            <div class="cl-item-main">
+              <span class="cl-item-lbl">Make your first real call</span>
+              <span class="cl-item-desc">Requires a phone number</span>
+            </div>
+            <span class="cl-go" onclick="goTo('call')">→</span>
+          </div>
+          <div class="cl-item" id="cli-6">
+            <div class="cl-ico todo" id="cl-ico-6"></div>
+            <div class="cl-item-main">
+              <span class="cl-item-lbl">Invite a teammate</span>
+              <span class="cl-item-desc">Teams using Retell together retain 2× longer</span>
+            </div>
+            <span class="cl-go" onclick="openModal()">→</span>
           </div>
         </div>
       </div>
@@ -517,42 +531,61 @@ function initOrb(canvas) {
 initOrb(document.getElementById('orb-main'));
 
 /* ── Checklist state ── */
-let doneCount = 2;
-let totalRequired = 4;
+let doneCount = 4;
+const TOTAL = 7;
 
 function toggleCl() {
   document.getElementById('cl-strip').classList.toggle('open');
 }
 
 function updateChecklistUI() {
-  const pct = (doneCount / 6) * 100;
+  const pct = (doneCount / TOTAL) * 100;
   document.getElementById('cl-fill').style.width = pct + '%';
-  document.getElementById('cl-count').textContent = doneCount + ' of 6 done';
-  if (doneCount >= totalRequired) {
+  document.getElementById('cl-count').textContent = doneCount + ' of ' + TOTAL + ' done';
+  if (doneCount >= TOTAL) {
     setTimeout(() => {
       document.getElementById('cl-wrap').style.display = 'none';
     }, 800);
   }
 }
 
+const CHECK_SVG = '<svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#059669" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
 function completeItem(idx) {
   const item = document.getElementById('cli-' + idx);
   const ico = document.getElementById('cl-ico-' + idx);
-  if (item.classList.contains('is-done')) return;
+  if (!item || item.classList.contains('is-done')) return;
   item.classList.add('is-done');
   ico.classList.remove('todo');
   ico.classList.add('done');
-  ico.innerHTML = '<svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#059669" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  ico.innerHTML = CHECK_SVG;
   const goBtn = item.querySelector('.cl-go');
   if (goBtn) goBtn.remove();
   doneCount++;
   updateChecklistUI();
 }
 
+function resetItem(idx, goFn) {
+  const item = document.getElementById('cli-' + idx);
+  const ico = document.getElementById('cl-ico-' + idx);
+  if (!item) return;
+  item.classList.remove('is-done');
+  ico.classList.remove('done');
+  ico.classList.add('todo');
+  ico.innerHTML = '';
+  if (!item.querySelector('.cl-go') && goFn) {
+    const go = document.createElement('span');
+    go.className = 'cl-go';
+    go.textContent = '→';
+    go.setAttribute('onclick', goFn);
+    item.appendChild(go);
+  }
+}
+
 function goTo(dest) {
-  const labels = { phone: 'Phone Numbers', call: 'Phone Numbers', qa: 'AI Quality Assurance' };
-  showToast('Opening ' + labels[dest] + '...');
-  if (dest === 'phone') setTimeout(() => completeItem(2), 900);
+  const labels = { phone: 'Phone Numbers', call: 'Phone Numbers' };
+  showToast('Opening ' + (labels[dest] || dest) + '...');
+  if (dest === 'phone') setTimeout(() => completeItem(4), 900);
 }
 
 /* ── Invite modal ── */
@@ -581,7 +614,7 @@ function sendInvite() {
   newAv.textContent = email.substring(0, 2).toUpperCase();
   avs.insertBefore(newAv, overflow);
   // Mark checklist item done
-  completeItem(4);
+  completeItem(6);
   setTimeout(closeModal, 1800);
 }
 
@@ -755,44 +788,36 @@ function setPath(path) {
   newChat();
 
   if (path === 'A') {
-    // 0 of 6 done
-    [0,1].forEach(i => {
-      const item = document.getElementById('cli-' + i);
-      const ico = document.getElementById('cl-ico-' + i);
-      item.classList.remove('is-done');
-      ico.classList.remove('done');
-      ico.classList.add('todo');
-      ico.innerHTML = '';
-      if (!item.querySelector('.cl-go')) {
-        const go = document.createElement('span');
-        go.className = 'cl-go';
-        go.textContent = 'Go →';
-        if (i === 0) go.setAttribute('onclick', "goTo('agent')");
-        if (i === 1) go.setAttribute('onclick', "goTo('transcript')");
-        item.appendChild(go);
-      }
-    });
-    doneCount = 0;
-    document.getElementById('cl-fill').style.width = '0%';
-    document.getElementById('cl-count').textContent = '0 of 6 done';
-    banner.classList.add('visible');
-    clStrip.classList.add('open');
-    greeting.textContent = 'Welcome to Retell! What would you like to build?';
-  } else if (path === 'C') {
-    // 2 of 6 done (default)
+    // Path A — new user: workspace + agent built (2/7 done), test call pending
     [0,1].forEach(i => {
       const item = document.getElementById('cli-' + i);
       const ico = document.getElementById('cl-ico-' + i);
       item.classList.add('is-done');
-      ico.classList.add('done');
-      ico.classList.remove('todo');
-      ico.innerHTML = '<svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#059669" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-      const go = item.querySelector('.cl-go');
-      if (go) go.remove();
+      ico.classList.add('done'); ico.classList.remove('todo');
+      ico.innerHTML = CHECK_SVG;
+      const go = item.querySelector('.cl-go'); if (go) go.remove();
     });
+    [2,3,4,5,6].forEach(i => resetItem(i, i===4?"goTo('phone')": i===5?"goTo('call')": i===6?"openModal()": null));
     doneCount = 2;
-    document.getElementById('cl-fill').style.width = '33.33%';
-    document.getElementById('cl-count').textContent = '2 of 6 done';
+    document.getElementById('cl-fill').style.width = ((2/TOTAL)*100).toFixed(2) + '%';
+    document.getElementById('cl-count').textContent = '2 of ' + TOTAL + ' done';
+    banner.classList.add('visible');
+    clStrip.classList.add('open');
+    greeting.textContent = 'Welcome to Retell! What would you like to build?';
+  } else if (path === 'C') {
+    // Path C — returning: 4/7 done (default)
+    [0,1,2,3].forEach(i => {
+      const item = document.getElementById('cli-' + i);
+      const ico = document.getElementById('cl-ico-' + i);
+      item.classList.add('is-done');
+      ico.classList.add('done'); ico.classList.remove('todo');
+      ico.innerHTML = CHECK_SVG;
+      const go = item.querySelector('.cl-go'); if (go) go.remove();
+    });
+    [4,5,6].forEach(i => resetItem(i, i===4?"goTo('phone')": i===5?"goTo('call')": "openModal()"));
+    doneCount = 4;
+    document.getElementById('cl-fill').style.width = ((4/TOTAL)*100).toFixed(2) + '%';
+    document.getElementById('cl-count').textContent = '4 of ' + TOTAL + ' done';
     clStrip.classList.add('open');
     greeting.textContent = 'Hey Brandon, what are we working on today?';
   } else if (path === 'convo') {
