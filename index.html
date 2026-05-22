@@ -113,30 +113,37 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
 .cl-go:hover { text-decoration: underline; }
 
 /* ── Copilot blank state ── */
-#cp-blank { flex: 1; overflow-y: auto; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px 24px 40px; }
-.cp-inner { width: 100%; max-width: 600px; display: flex; flex-direction: column; align-items: center; }
+#cp-blank { flex: 1; overflow-y: auto; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 32px 24px 40px; }
+.cp-inner { width: 100%; max-width: 680px; display: flex; flex-direction: column; align-items: center; }
 .cp-orb-wrap { margin-bottom: 18px; }
 .cp-greeting { font-size: 19px; font-weight: 600; color: #0A0A0A; text-align: center; margin-bottom: 18px; line-height: 1.3; }
-.cp-input-wrap { width: 100%; background: #fff; border: 1px solid #D1D5DB; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); display: flex; align-items: flex-end; gap: 8px; padding: 10px 10px 10px 14px; margin-bottom: 20px; transition: border-color 0.15s, box-shadow 0.15s; }
+.cp-input-wrap { width: 100%; background: #fff; border: 1px solid #D1D5DB; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); display: flex; align-items: flex-end; gap: 8px; padding: 10px 10px 10px 14px; margin-bottom: 24px; transition: border-color 0.15s, box-shadow 0.15s; }
 .cp-input-wrap:focus-within { border-color: #3d64d7; box-shadow: 0 0 0 3px rgba(61,100,215,0.1); }
 .cp-input { flex: 1; border: none; outline: none; font-family: inherit; font-size: 14px; color: #0A0A0A; resize: none; background: transparent; line-height: 1.5; min-height: 22px; max-height: 100px; overflow-y: auto; }
 .cp-input::placeholder { color: #CACFD8; }
 .cp-send { width: 30px; height: 30px; background: #0E121B; border: none; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
 .cp-send:hover { background: #1c2333; }
 .cp-send:disabled { background: #E1E4EA; cursor: not-allowed; }
-.cp-tabs { display: flex; border-bottom: 1px solid #E1E4EA; margin-bottom: 12px; width: 100%; }
-.cp-tab { padding: 7px 14px; font-size: 13px; color: #525866; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap; }
-.cp-tab:hover { color: #0A0A0A; }
-.cp-tab.active { color: #0A0A0A; font-weight: 500; border-bottom-color: #0A0A0A; }
-.cp-tabs-wrap { width: 100%; }
-.prompt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.pt { padding: 10px 12px; background: #fff; border: 1px solid #E1E4EA; border-radius: 8px; font-size: 13px; cursor: pointer; line-height: 1.4; transition: border-color 0.15s, box-shadow 0.15s; }
-.pt:hover { border-color: #3d64d7; box-shadow: 0 0 0 3px rgba(61,100,215,0.08); }
-.pt-icon { font-size: 15px; margin-bottom: 5px; display: block; }
-.pt-text { display: block; color: #0A0A0A; font-weight: 500; }
-.pt-sub { display: block; font-size: 11.5px; color: #99A0AE; margin-top: 2px; }
-.tab-panel { display: none; }
-.tab-panel.active { display: block; }
+/* ── Template gallery ── */
+.tpl-header { width: 100%; display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.tpl-label { font-size: 13px; font-weight: 600; color: #0A0A0A; }
+.tpl-filters { display: flex; gap: 6px; flex-wrap: wrap; }
+.tpl-chip { padding: 4px 10px; font-size: 12px; font-weight: 500; color: #525866; background: #fff; border: 1px solid #E1E4EA; border-radius: 20px; cursor: pointer; white-space: nowrap; transition: all 0.12s; }
+.tpl-chip:hover { border-color: #3d64d7; color: #3d64d7; }
+.tpl-chip.active { background: #EEF3FF; border-color: #3d64d7; color: #3d64d7; font-weight: 600; }
+.tpl-grid { width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.tpl-card { padding: 11px 12px; background: #fff; border: 1px solid #E1E4EA; border-radius: 8px; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; }
+.tpl-card:hover { border-color: #3d64d7; box-shadow: 0 0 0 3px rgba(61,100,215,0.08); }
+.tpl-card-top { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+.tpl-card-icon { font-size: 15px; flex-shrink: 0; }
+.tpl-card-name { font-size: 13px; font-weight: 600; color: #0A0A0A; flex: 1; }
+.tpl-tag { font-size: 10.5px; font-weight: 500; padding: 2px 6px; border-radius: 3px; white-space: nowrap; flex-shrink: 0; }
+.tpl-tag-inbound  { background: #DBEAFE; color: #1D4ED8; }
+.tpl-tag-outbound { background: #EDE9FE; color: #6D28D9; }
+.tpl-tag-sales    { background: #DCFCE7; color: #15803D; }
+.tpl-tag-healthcare { background: #FCE7F3; color: #9D174D; }
+.tpl-card-desc { font-size: 12px; color: #99A0AE; line-height: 1.4; }
+.tpl-card.hidden { display: none; }
 
 /* ── Copilot conversation ── */
 #cp-convo { flex: 1; display: none; flex-direction: column; overflow: hidden; }
@@ -392,46 +399,17 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
             <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 3l5 5-5 5" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </button>
         </div>
-        <div class="cp-tabs-wrap">
-          <div class="cp-tabs">
-            <div class="cp-tab active" onclick="switchTab('build',this)">Build</div>
-            <div class="cp-tab" onclick="switchTab('test',this)">Test</div>
-            <div class="cp-tab" onclick="switchTab('ask',this)">Ask</div>
-            <div class="cp-tab" onclick="switchTab('analyze',this)">Analyze</div>
-          </div>
-          <div id="tab-build" class="tab-panel active">
-            <div class="prompt-grid">
-              <div class="pt" onclick="clickTile(this)"><span class="pt-icon">🏗️</span><span class="pt-text">Walk me through building an agent</span><span class="pt-sub">Guided setup using your company URL</span></div>
-              <div class="pt" onclick="clickTile(this)"><span class="pt-icon">✏️</span><span class="pt-text">Help my agent handle a new topic</span><span class="pt-sub">Add instructions or expand its scope</span></div>
-              <div class="pt" onclick="clickTile(this)"><span class="pt-icon">📚</span><span class="pt-text">Add a new topic to the knowledge base</span><span class="pt-sub">Upload docs or paste content</span></div>
-              <div class="pt" onclick="clickTile(this)"><span class="pt-icon">🔀</span><span class="pt-text">Set up call transfers to a human agent</span><span class="pt-sub">Configure handoff rules and destinations</span></div>
-            </div>
-          </div>
-          <div id="tab-test" class="tab-panel">
-            <div class="prompt-grid">
-              <div class="pt" onclick="clickTile(this)"><span class="pt-icon">📞</span><span class="pt-text">Run a test call with my latest agent</span><span class="pt-sub">Start a web call right now</span></div>
-              <div class="pt" onclick="clickTile(this)"><span class="pt-icon">⚡</span><span class="pt-text">Simulate an edge case conversation</span><span class="pt-sub">Probe unusual or difficult scenarios</span></div>
-              <div class="pt" onclick="clickTile(this)"><span class="pt-icon">🔁</span><span class="pt-text">Compare two agent versions</span><span class="pt-sub">Side-by-side performance review</span></div>
-              <div class="pt" onclick="clickTile(this)"><span class="pt-icon">🧪</span><span class="pt-text">Run batch simulation testing</span><span class="pt-sub">Test across 50+ scenarios at once</span></div>
-            </div>
-          </div>
-          <div id="tab-ask" class="tab-panel">
-            <div class="prompt-grid">
-              <div class="pt" onclick="clickTile(this)"><span class="pt-icon">🔍</span><span class="pt-text">Why did this call fail?</span><span class="pt-sub">Diagnose a specific call by ID or date</span></div>
-              <div class="pt" onclick="clickTile(this)"><span class="pt-icon">📊</span><span class="pt-text">What is my agent's average task completion score?</span><span class="pt-sub">Across all calls this week</span></div>
-              <div class="pt" onclick="clickTile(this)"><span class="pt-icon">💡</span><span class="pt-text">Explain how call scoring works</span><span class="pt-sub">AI QA criteria and scoring logic</span></div>
-              <div class="pt" onclick="clickTile(this)"><span class="pt-icon">🗺️</span><span class="pt-text">How do I set up a post-call webhook?</span><span class="pt-sub">Step-by-step from the docs</span></div>
-            </div>
-          </div>
-          <div id="tab-analyze" class="tab-panel">
-            <div class="prompt-grid">
-              <div class="pt" onclick="clickTile(this)"><span class="pt-icon">📈</span><span class="pt-text">Review call analytics for the past 7 days</span><span class="pt-sub">Volume, duration, and sentiment trends</span></div>
-              <div class="pt" onclick="clickTile(this)"><span class="pt-icon">😟</span><span class="pt-text">Show me calls with low sentiment scores</span><span class="pt-sub">Find calls that need follow-up</span></div>
-              <div class="pt" onclick="clickTile(this)"><span class="pt-icon">🔄</span><span class="pt-text">Which calls had transfers?</span><span class="pt-sub">Transfer rate and destination breakdown</span></div>
-              <div class="pt" onclick="clickTile(this)"><span class="pt-icon">⏱️</span><span class="pt-text">What is the average call duration this month?</span><span class="pt-sub">Compare to last month</span></div>
-            </div>
+        <div class="tpl-header">
+          <span class="tpl-label">Start from a template</span>
+          <div class="tpl-filters">
+            <span class="tpl-chip active" onclick="filterTpl('all',this)">All</span>
+            <span class="tpl-chip" onclick="filterTpl('inbound',this)">Inbound</span>
+            <span class="tpl-chip" onclick="filterTpl('outbound',this)">Outbound</span>
+            <span class="tpl-chip" onclick="filterTpl('sales',this)">Sales</span>
+            <span class="tpl-chip" onclick="filterTpl('healthcare',this)">Healthcare</span>
           </div>
         </div>
+        <div class="tpl-grid" id="tpl-grid"></div>
       </div>
     </div>
 
@@ -694,9 +672,8 @@ function sendMsg() {
   startConvo(text);
 }
 
-function clickTile(tile) {
-  const text = tile.querySelector('.pt-text').textContent;
-  startConvo(text);
+function clickTemplate(prompt) {
+  startConvo(prompt);
 }
 
 function startConvo(text) {
@@ -844,12 +821,45 @@ function dismissBanner() {
   document.getElementById('path-a-banner').classList.remove('visible');
 }
 
-function switchTab(name, el) {
-  document.querySelectorAll('.cp-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('tab-' + name).classList.add('active');
+/* ── Template gallery ── */
+const TEMPLATES = [
+  { name:'Customer Support',    icon:'🎧', cat:'inbound',    tag:'Inbound',    desc:'Handle inbound support calls, answer FAQs, and route complex issues.', prompt:'Help me build a customer support agent that handles inbound calls, resolves common FAQs, and routes complex issues to a human.' },
+  { name:'Appointment Booking', icon:'📅', cat:'inbound',    tag:'Inbound',    desc:'Book and confirm appointments with smart calendar integration.',       prompt:'Walk me through setting up an appointment booking agent with calendar integration and confirmation messages.' },
+  { name:'Lead Qualification',  icon:'🎯', cat:'inbound',    tag:'Inbound',    desc:'Qualify inbound leads with BANT criteria before routing to sales.',    prompt:'Build an agent that qualifies inbound leads by asking BANT questions and routes qualified leads to the sales team.' },
+  { name:'Outbound Sales',      icon:'📤', cat:'outbound',   tag:'Outbound',   desc:'Engage prospects with personalized outreach at scale.',                 prompt:'Help me set up an outbound sales agent that calls prospects, introduces our product, and books demos.' },
+  { name:'After-Hours Response',icon:'🌙', cat:'inbound',    tag:'Inbound',    desc:'Ensure callers get a helpful response outside business hours.',         prompt:'Create an after-hours agent that takes messages and handles urgent requests when the team is offline.' },
+  { name:'Cold Outreach',       icon:'📞', cat:'outbound',   tag:'Outbound',   desc:'Run personalized cold call campaigns at scale.',                        prompt:'Build a cold outreach agent that introduces our company, qualifies interest, and books follow-up calls.' },
+  { name:'Medical Intake',      icon:'🏥', cat:'healthcare', tag:'Healthcare', desc:'Collect patient info, triage urgency, and route to the right provider.',prompt:'Help me create a medical intake agent that collects patient information and triages call urgency before routing.' },
+  { name:'Debt Collection',     icon:'💳', cat:'outbound',   tag:'Outbound',   desc:'Professional and compliant outreach for overdue accounts.',             prompt:'Build a compliant debt collection agent that contacts customers with overdue balances and arranges payment plans.' },
+  { name:'Real Estate Inquiry', icon:'🏠', cat:'inbound',    tag:'Inbound',    desc:'Answer property questions and schedule showings for buyers.',           prompt:'Create a real estate agent that answers property inquiries and schedules showings with interested buyers.' },
+  { name:'IT Helpdesk',         icon:'💻', cat:'inbound',    tag:'Inbound',    desc:'First-line support for common IT issues with smart escalation.',        prompt:'Build an IT helpdesk agent that handles common technical support requests and escalates complex issues to a human.' },
+  { name:'Sales Follow-up',     icon:'🔄', cat:'outbound',   tag:'Outbound',   desc:'Re-engage warm leads and move them through the pipeline.',              prompt:'Create a sales follow-up agent that re-engages leads who showed interest but haven\'t converted yet.' },
+  { name:'Patient Reminders',   icon:'💊', cat:'healthcare', tag:'Healthcare', desc:'Send proactive appointment reminders and handle rescheduling.',         prompt:'Build a patient reminder agent that calls patients before appointments and handles rescheduling requests.' },
+];
+
+const tagClass = { Inbound:'tpl-tag-inbound', Outbound:'tpl-tag-outbound', Sales:'tpl-tag-sales', Healthcare:'tpl-tag-healthcare' };
+
+function renderTemplates(filter) {
+  const grid = document.getElementById('tpl-grid');
+  grid.innerHTML = '';
+  TEMPLATES.forEach(t => {
+    const show = filter === 'all' || t.cat === filter;
+    if (!show) return;
+    const card = document.createElement('div');
+    card.className = 'tpl-card';
+    card.innerHTML = `<div class="tpl-card-top"><span class="tpl-card-icon">${t.icon}</span><span class="tpl-card-name">${t.name}</span><span class="tpl-tag ${tagClass[t.tag]}">${t.tag}</span></div><div class="tpl-card-desc">${t.desc}</div>`;
+    card.onclick = () => clickTemplate(t.prompt);
+    grid.appendChild(card);
+  });
 }
+
+function filterTpl(cat, el) {
+  document.querySelectorAll('.tpl-chip').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  renderTemplates(cat);
+}
+
+renderTemplates('all');
 
 // Default: collapse checklist on load so copilot is visible
 document.getElementById('cl-strip').classList.remove('open');
