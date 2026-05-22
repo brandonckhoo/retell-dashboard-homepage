@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retell AI — Home</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif; color: #0A0A0A; background: #fff; display: flex; height: 100vh; overflow: hidden; min-width: 1280px; }
+
+/* ── Sidebar ── */
+aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex-direction: column; height: 100vh; border-right: 1px solid #E1E4EA; overflow: hidden; flex-shrink: 0; }
+.sb-logo { padding: 20px 10px 12px 20px; }
+.sb-ws { display: flex; align-items: center; gap: 8px; margin: 0 14px 6px; padding: 10px 10px 10px 12px; height: 40px; background: #F5F7FA; border: 1px solid #E5E7EB; border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); cursor: pointer; }
+.ws-av { width: 20px; height: 20px; background: #3d64d7; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: #fff; flex-shrink: 0; }
+.ws-name { font-size: 13px; font-weight: 500; color: #0A0A0A; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sb-nav { flex: 1; overflow-y: auto; padding: 4px 0 16px; }
+.sb-section { margin-top: 8px; }
+.sb-label { display: flex; align-items: center; padding: 4px; margin: 0 14px; height: 24px; font-size: 12px; font-weight: 500; color: #99A0AE; text-transform: uppercase; letter-spacing: 0.04em; }
+.sb-items { padding: 0 14px; }
+.sb-item { display: flex; align-items: center; gap: 8px; padding: 8px; height: 36px; border-radius: 6px; font-size: 14px; color: #525866; cursor: pointer; margin-top: 4px; white-space: nowrap; }
+.sb-item:first-child { margin-top: 0; }
+.sb-item:hover { background: rgba(0,0,0,0.03); }
+.sb-item.active { background: #fff; color: #0A0A0A; font-weight: 500; }
+.sb-item svg { flex-shrink: 0; width: 20px; height: 20px; }
+.sb-item:not(.active) svg { color: #525866; }
+.sb-item.active svg { color: #3d64d7; }
+.sb-footer { padding: 16px 14px; flex-shrink: 0; }
+.payg-card { background: #fff; border: 1px solid #E1E4EA; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1),0 1px 2px -1px rgba(0,0,0,0.1); height: 58px; padding: 16px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.payg-badge { background: #ecf3ff; color: #3d64d7; font-size: 12px; font-weight: 500; padding: 4px 8px 4px 4px; border-radius: 4px; white-space: nowrap; }
+.user-card { background: #fff; border: 1px solid #E1E4EA; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1),0 1px 2px -1px rgba(0,0,0,0.1); height: 40px; padding: 10px 10px 10px 12px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.user-av { width: 20px; height: 20px; border-radius: 50%; background: linear-gradient(135deg,#667eea,#764ba2); display: flex; align-items: center; justify-content: center; font-size: 9px; color: #fff; font-weight: 600; flex-shrink: 0; }
+.user-email { font-size: 14px; color: #525866; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sb-links { display: flex; align-items: center; gap: 4px; }
+.sb-link { display: flex; align-items: center; gap: 5px; padding: 8px 12px; font-size: 14px; color: #525866; cursor: pointer; height: 36px; border-radius: 6px; }
+.sb-link:hover { background: rgba(0,0,0,0.03); }
+.sb-divider-v { width: 1px; height: 12px; background: #D1D5DB; }
+
+/* ── Home wrapper ── */
+.home-wrap { flex: 1; display: flex; overflow: hidden; }
+
+/* ── Left sub-rail ── */
+.home-rail { width: 240px; min-width: 240px; background: #FAFAFA; border-right: 1px solid #E1E4EA; display: flex; flex-direction: column; overflow: hidden; flex-shrink: 0; }
+.rail-top { padding: 12px 10px 4px; flex-shrink: 0; }
+.rail-new-btn { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; padding: 7px 12px; background: #0E121B; color: #fff; border: none; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: inherit; }
+.rail-new-btn:hover { background: #1c2333; }
+.rail-hist-section { padding: 10px 10px 4px; font-size: 11px; font-weight: 500; color: #99A0AE; text-transform: uppercase; letter-spacing: 0.06em; flex-shrink: 0; }
+.rail-history { flex: 1; overflow-y: auto; padding: 0 6px 16px; }
+.rail-hist-item { padding: 7px 8px; border-radius: 6px; cursor: pointer; margin-top: 1px; }
+.rail-hist-item:hover { background: rgba(0,0,0,0.04); }
+.rail-hist-item.active-hist { background: #EEF3FF; }
+.rail-hist-title { font-size: 13px; color: #0A0A0A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rail-hist-time { font-size: 11px; color: #99A0AE; margin-top: 2px; }
+
+/* ── Main content ── */
+.home-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: #fff; }
+
+/* Page header */
+.home-hdr { display: flex; align-items: center; padding: 0 24px; height: 53px; border-bottom: 1px solid #E1E4EA; flex-shrink: 0; gap: 12px; }
+.home-title-group { display: flex; align-items: center; gap: 8px; flex: 1; }
+.blue-dot { width: 8px; height: 8px; background: #3d64d7; border-radius: 50%; flex-shrink: 0; }
+.home-title { font-size: 16px; font-weight: 600; color: #0A0A0A; }
+.hdr-right { display: flex; align-items: center; gap: 10px; }
+.team-avatars { display: flex; align-items: center; }
+.team-av { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #fff; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: #fff; margin-left: -7px; flex-shrink: 0; cursor: pointer; }
+.team-av:first-child { margin-left: 0; }
+.team-av:hover { z-index: 2; transform: scale(1.08); transition: transform 0.1s; }
+.team-av-overflow { background: #F3F4F6; border: 2px solid #fff; color: #525866; font-size: 10px; font-weight: 600; }
+.invite-btn { display: flex; align-items: center; gap: 5px; padding: 6px 12px; background: #fff; border: 1px solid #E1E4EA; border-radius: 6px; font-size: 13px; font-weight: 500; color: #0A0A0A; cursor: pointer; font-family: inherit; white-space: nowrap; }
+.invite-btn:hover { background: #F9FAFB; border-color: #D1D5DB; }
+
+/* Checklist strip */
+.checklist-wrap { padding: 12px 24px 0; flex-shrink: 0; position: relative; }
+.checklist-strip { background: #fff; border: 1px solid #E1E4EA; border-radius: 8px; overflow: visible; }
+.checklist-hdr { display: flex; align-items: center; gap: 10px; padding: 9px 12px; cursor: pointer; user-select: none; border-radius: 8px; }
+.checklist-hdr:hover { background: #FAFAFA; }
+.cl-label { font-size: 13px; font-weight: 600; color: #0A0A0A; white-space: nowrap; }
+.cl-progress-track { flex: 1; height: 4px; background: #E1E4EA; border-radius: 2px; max-width: 180px; }
+.cl-progress-fill { height: 100%; background: #1FC16B; border-radius: 2px; width: 33.33%; transition: width 0.3s ease; }
+.cl-count { font-size: 12px; color: #525866; white-space: nowrap; }
+.cl-video { width: 24px; height: 24px; border: 1px solid #E1E4EA; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; color: #525866; }
+.cl-video:hover { background: #F3F4F6; }
+.cl-chevron { color: #99A0AE; flex-shrink: 0; transition: transform 0.2s; }
+.checklist-body { display: none; border-top: 1px solid #F0F2F5; }
+.checklist-strip.open .cl-chevron { transform: rotate(180deg); }
+.checklist-strip.open .checklist-hdr { border-radius: 8px 8px 0 0; }
+.checklist-strip.open .checklist-body { display: block; }
+.cl-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; font-size: 13px; color: #0A0A0A; }
+.cl-item + .cl-item { border-top: 1px solid #F8F9FA; }
+.cl-icon { width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.cl-icon.done { background: #ECFDF5; border: 1.5px solid #A7F3D0; }
+.cl-icon.todo { background: #fff; border: 1.5px solid #D1D5DB; }
+.cl-item-label { flex: 1; }
+.cl-item.is-done .cl-item-label { color: #99A0AE; text-decoration: line-through; }
+.cl-go { font-size: 12px; color: #3d64d7; font-weight: 500; cursor: pointer; white-space: nowrap; }
+.cl-go:hover { text-decoration: underline; }
+.cl-optional { font-size: 11px; color: #CACFD8; margin-left: 3px; }
+
+/* Copilot area */
+.copilot-area { flex: 1; overflow-y: auto; display: flex; flex-direction: column; align-items: center; padding: 0 24px 40px; }
+.copilot-inner { width: 100%; max-width: 600px; display: flex; flex-direction: column; align-items: center; padding-top: 40px; }
+.copilot-orb { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(145deg, #4f76e8 0%, #7c5ce8 45%, #0f172a 100%); box-shadow: 0 4px 18px rgba(61,100,215,0.3); margin-bottom: 14px; flex-shrink: 0; position: relative; overflow: hidden; }
+.copilot-orb::before { content: ''; position: absolute; top: 7px; left: 8px; width: 14px; height: 14px; background: rgba(255,255,255,0.18); border-radius: 50%; }
+.copilot-orb::after { content: ''; position: absolute; bottom: 6px; right: 8px; width: 8px; height: 8px; background: rgba(255,255,255,0.1); border-radius: 50%; }
+.copilot-greeting { font-size: 19px; font-weight: 600; color: #0A0A0A; text-align: center; margin-bottom: 20px; line-height: 1.3; }
+.copilot-input-wrap { width: 100%; background: #fff; border: 1px solid #D1D5DB; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); display: flex; align-items: flex-end; gap: 8px; padding: 10px 10px 10px 14px; margin-bottom: 20px; transition: border-color 0.15s, box-shadow 0.15s; }
+.copilot-input-wrap:focus-within { border-color: #3d64d7; box-shadow: 0 0 0 3px rgba(61,100,215,0.1); }
+.copilot-input { flex: 1; border: none; outline: none; font-family: inherit; font-size: 14px; color: #0A0A0A; resize: none; background: transparent; line-height: 1.5; min-height: 22px; max-height: 100px; overflow-y: auto; }
+.copilot-input::placeholder { color: #CACFD8; }
+.copilot-send { width: 30px; height: 30px; background: #0E121B; border: none; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
+.copilot-send:hover { background: #1c2333; }
+.copilot-tabs-wrap { width: 100%; }
+.copilot-tabs { display: flex; border-bottom: 1px solid #E1E4EA; margin-bottom: 12px; }
+.copilot-tab { padding: 7px 14px; font-size: 13px; color: #525866; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap; transition: color 0.1s; }
+.copilot-tab:hover { color: #0A0A0A; }
+.copilot-tab.active { color: #0A0A0A; font-weight: 500; border-bottom-color: #0A0A0A; }
+.prompt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.prompt-tile { padding: 10px 12px; background: #fff; border: 1px solid #E1E4EA; border-radius: 8px; font-size: 13px; color: #0A0A0A; cursor: pointer; line-height: 1.4; transition: border-color 0.15s, box-shadow 0.15s; }
+.prompt-tile:hover { border-color: #3d64d7; box-shadow: 0 0 0 3px rgba(61,100,215,0.08); color: #0A0A0A; }
+.pt-icon { font-size: 15px; margin-bottom: 5px; display: block; }
+.pt-text { display: block; color: #0A0A0A; }
+.pt-sub { display: block; font-size: 11.5px; color: #99A0AE; margin-top: 2px; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+</style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside>
+  <div class="sb-logo">
+    <svg width="73" height="20" viewBox="0 0 414 114" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#rl)"><path d="M40.3722 92.687C34.6862 92.687 30.1372 96.996 30.1372 102.922C30.1372 108.848 34.6862 113.156 40.3722 113.156C46.0582 113.156 50.6072 108.847 50.6072 102.922C50.6072 96.997 46.0582 92.687 40.3722 92.687Z" fill="#0A0A0A"/><path d="M69.9401 92.687C64.2541 92.687 59.7051 96.996 59.7051 102.922C59.7051 108.848 64.2541 113.156 69.9401 113.156C75.6261 113.156 80.1751 108.847 80.1751 102.922C80.1751 96.997 75.6261 92.687 69.9401 92.687Z" fill="#0A0A0A"/><path d="M40.3722 0C34.6862 0 30.1372 4.309 30.1372 10.235C30.1372 16.161 34.6862 20.47 40.3722 20.47C46.0582 20.47 50.6072 16.161 50.6072 10.235C50.6072 4.309 46.0582 0 40.3722 0Z" fill="#0A0A0A"/><path d="M69.9401 0C64.2541 0 59.7051 4.309 59.7051 10.235C59.7051 16.161 64.2541 20.47 69.9401 20.47C75.6261 20.47 80.1751 16.161 80.1751 10.235C80.1751 4.309 75.6261 0 69.9401 0Z" fill="#0A0A0A"/><path d="M10.235 31.2751C4.549 31.2751 0 35.5842 0 41.5102C0 47.4362 4.549 51.7451 10.235 51.7451C15.921 51.7451 20.47 47.4362 20.47 41.5102C20.47 35.5842 15.921 31.2751 10.235 31.2751Z" fill="#0A0A0A"/><path d="M10.235 61.4121C4.549 61.4121 0 65.7211 0 71.6471C0 77.5731 4.549 81.8821 10.235 81.8821C15.921 81.8821 20.47 77.5731 20.47 71.6471C20.47 65.7211 15.921 61.4121 10.235 61.4121Z" fill="#0A0A0A"/><path d="M100.078 31.2751C94.3923 31.2751 89.8433 35.5842 89.8433 41.5102C89.8433 47.4362 94.3923 51.7451 100.078 51.7451C105.764 51.7451 110.313 47.4362 110.313 41.5102C110.313 35.5842 105.764 31.2751 100.078 31.2751Z" fill="#0A0A0A"/><path d="M100.078 61.4121C94.3923 61.4121 89.8433 65.7211 89.8433 71.6471C89.8433 77.5731 94.3923 81.8821 100.078 81.8821C105.764 81.8821 110.313 77.5731 110.313 71.6471C110.313 65.7211 105.764 61.4121 100.078 61.4121Z" fill="#0A0A0A"/><path d="M221.997 75.7282C221.418 63.5772 216.211 58.9472 209.267 57.2112C217.368 54.8962 224.312 50.2672 224.312 36.9592C224.312 23.6512 215.054 14.9712 196.537 14.9712H162.976V95.9812H176.289V62.9992H190.75C205.216 62.9992 208.688 68.2072 208.688 83.2512C208.688 89.5652 209.845 93.0882 211.003 95.9812H224.89C222.575 93.0882 221.997 84.5772 221.997 78.6222V75.7292V75.7282Z" fill="#0A0A0A"/><path d="M255.558 34.645C238.199 34.645 226.626 47.954 226.626 66.47C226.626 84.986 242.249 98.295 256.137 98.295C270.025 98.295 279.861 90.194 283.333 78.621H269.446C267.71 82.671 264.817 87.301 256.137 87.301C247.457 87.301 239.935 81.515 239.935 69.942H283.912C283.912 49.69 272.917 34.645 255.558 34.645ZM240.513 60.105C241.092 51.425 246.878 45.06 255.558 45.06C264.238 45.06 270.024 51.425 270.024 60.105H240.513Z" fill="#0A0A0A"/><path d="M344.09 34.645C326.731 34.645 315.158 47.954 315.158 66.47C315.158 85.152 330.781 98.295 344.669 98.295C358.557 98.295 368.393 90.194 371.865 78.621H357.978C356.242 82.671 353.349 87.301 344.669 87.301C335.989 87.301 328.467 81.515 328.467 69.942H372.444C372.444 49.69 361.45 34.645 344.091 34.645H344.09ZM329.045 60.105C329.624 51.425 335.41 45.06 344.09 45.06C352.77 45.06 358.556 51.425 358.556 60.105H329.045Z" fill="#0A0A0A"/><path d="M390.96 14.9712H377.651V95.9182H390.96V14.9712Z" fill="#0A0A0A"/><path d="M413.527 14.9712H400.218V95.9182H413.527V14.9712Z" fill="#0A0A0A"/><path d="M304.171 17.2821L290.841 17.2751L290.851 34.6471H282.759V45.0001H290.851V82.8191C290.851 87.5761 291.802 90.4311 294.657 93.2851C297.512 96.1391 300.369 97.0941 305.126 97.0941H315.139V85.6731H309.88C308.162 85.6731 306.96 85.3702 306.126 85.1062C305.272 84.8352 304.609 84.1571 304.4 83.2861C304.171 82.3311 304.171 81.0862 304.171 79.9032V45.0001H315.138V34.6471H304.171V17.2821Z" fill="#0A0A0A"/></g><defs><clipPath id="rl"><rect width="413.527" height="113.156" fill="white"/></clipPath></defs></svg>
+  </div>
+  <div class="sb-ws">
+    <div class="ws-av">R</div>
+    <span class="ws-name">Retell AI</span>
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M5 3l3-3 3 3M5 9l3 3 3-3" stroke="#99A0AE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+  <div class="sb-nav">
+    <!-- Home at top, standalone -->
+    <div class="sb-items" style="margin-top: 4px;">
+      <div class="sb-item active" style="margin-top: 0;">
+        <svg viewBox="0 0 20 20" fill="none"><path d="M3 9.5L10 3.5l7 6V17a.5.5 0 01-.5.5h-4.25V13h-4.5v4.5H3.5A.5.5 0 013 17V9.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        Home
+      </div>
+    </div>
+    <div class="sb-section">
+      <span class="sb-label">Build</span>
+      <div class="sb-items">
+        <div class="sb-item"><svg viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 8h6M7 11h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>Agents</div>
+        <div class="sb-item"><svg viewBox="0 0 20 20" fill="none"><path d="M5 4h10v12H5z" stroke="currentColor" stroke-width="1.5"/><path d="M8 8h4M8 11h4M8 14h2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>Knowledge Base</div>
+      </div>
+    </div>
+    <div class="sb-section">
+      <span class="sb-label">Deploy</span>
+      <div class="sb-items">
+        <div class="sb-item"><svg viewBox="0 0 20 20" fill="none"><rect x="4" y="6" width="12" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M7 6V5a3 3 0 016 0v1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Phone Numbers</div>
+        <div class="sb-item"><svg viewBox="0 0 20 20" fill="none"><path d="M3 6h14M3 10h14M3 14h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Batch Call</div>
+      </div>
+    </div>
+    <div class="sb-section">
+      <span class="sb-label">Monitor</span>
+      <div class="sb-items">
+        <div class="sb-item"><svg viewBox="0 0 20 20" fill="none"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Call History</div>
+        <div class="sb-item"><svg viewBox="0 0 20 20" fill="none"><path d="M4 4h12v10H4zM8 14v2M12 14v2M6 16h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Chat History</div>
+        <div class="sb-item"><svg viewBox="0 0 20 20" fill="none"><path d="M3 14l4-4 3 2 4-6 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Analytics</div>
+        <div class="sb-item"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M10 7v3l2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>AI Quality Assurance</div>
+        <div class="sb-item"><svg viewBox="0 0 20 20" fill="none"><path d="M10 3v2M10 15v2M3 10h2M15 10h2M5.636 5.636l1.414 1.414M12.95 12.95l1.414 1.414M5.636 14.364l1.414-1.414M12.95 7.05l1.414-1.414" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Alerting</div>
+      </div>
+    </div>
+    <div class="sb-section">
+      <span class="sb-label">System</span>
+      <div class="sb-items">
+        <div class="sb-item"><svg viewBox="0 0 20 20" fill="none"><rect x="3" y="5" width="14" height="10" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M7 9h.01M10 9h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Billing</div>
+        <div class="sb-item"><svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M10 3v2M10 15v2M3 10h2M15 10h2M4.929 4.929l1.414 1.414M13.657 13.657l1.414 1.414M4.929 15.071l1.414-1.414M13.657 6.343l1.414-1.414" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>Settings</div>
+      </div>
+    </div>
+  </div>
+  <div class="sb-footer">
+    <div class="payg-card">
+      <span class="payg-badge">Pay As You Go</span>
+      <span style="flex:1"></span>
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 5l5 5 5-5M3 9l5 5 5-5" stroke="#9CA3AF" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="user-card">
+      <div class="user-av">B</div>
+      <span class="user-email">brandon@retellai.com</span>
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;color:#9CA3AF"><path d="M3 5l5 5 5-5M3 9l5 5 5-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="sb-links">
+      <div class="sb-link"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#525866" stroke-width="1.4"/><path d="M8 7v5M8 5v.5" stroke="#525866" stroke-width="1.4" stroke-linecap="round"/></svg>Help</div>
+      <div class="sb-divider-v"></div>
+      <div class="sb-link"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 2v2M8 12v2M2 8h2M12 8h2M4.343 4.343l1.414 1.414M10.243 10.243l1.414 1.414" stroke="#525866" stroke-width="1.4" stroke-linecap="round"/></svg>Updates</div>
+    </div>
+  </div>
+</aside>
+
+<!-- Home page -->
+<div class="home-wrap">
+
+  <!-- Left sub-rail: chat history -->
+  <div class="home-rail">
+    <div class="rail-top">
+      <button class="rail-new-btn">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 2v12M2 8h12" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Start a new chat
+      </button>
+    </div>
+    <div class="rail-hist-section">History</div>
+    <div class="rail-history">
+      <div class="rail-hist-item active-hist">
+        <div class="rail-hist-title">Why did my last call drop?</div>
+        <div class="rail-hist-time">2 hours ago</div>
+      </div>
+      <div class="rail-hist-item">
+        <div class="rail-hist-title">Add FAQ topics to knowledge base</div>
+        <div class="rail-hist-time">Yesterday</div>
+      </div>
+      <div class="rail-hist-item">
+        <div class="rail-hist-title">Set up transfer to human agent</div>
+        <div class="rail-hist-time">2 days ago</div>
+      </div>
+      <div class="rail-hist-item">
+        <div class="rail-hist-title">Call analytics — last 7 days</div>
+        <div class="rail-hist-time">3 days ago</div>
+      </div>
+      <div class="rail-hist-item">
+        <div class="rail-hist-title">How does AI Quality Assurance score calls?</div>
+        <div class="rail-hist-time">4 days ago</div>
+      </div>
+      <div class="rail-hist-item">
+        <div class="rail-hist-title">Configure post-call webhook</div>
+        <div class="rail-hist-time">5 days ago</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="home-main">
+
+    <!-- Page header -->
+    <div class="home-hdr">
+      <div class="home-title-group">
+        <div class="blue-dot"></div>
+        <span class="home-title">Home</span>
+      </div>
+      <div class="hdr-right">
+        <div class="team-avatars">
+          <div class="team-av" style="background:#3d64d7;" title="Brandon Khoo">BK</div>
+          <div class="team-av" style="background:#7c3aed;" title="Sarah Chen">SC</div>
+          <div class="team-av" style="background:#059669;" title="Marcus Wu">MW</div>
+          <div class="team-av" style="background:#D97706;" title="Priya Nair">PN</div>
+          <div class="team-av team-av-overflow" title="3 more">+3</div>
+        </div>
+        <button class="invite-btn">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+          Invite teammate
+        </button>
+      </div>
+    </div>
+
+    <!-- Get Started checklist strip -->
+    <div class="checklist-wrap">
+      <div class="checklist-strip open" id="checklist-strip">
+        <div class="checklist-hdr" onclick="toggleChecklist()">
+          <span class="cl-label">Get started</span>
+          <div class="cl-progress-track">
+            <div class="cl-progress-fill" style="width: 33.33%;"></div>
+          </div>
+          <span class="cl-count">2 of 6 done</span>
+          <div class="cl-video" title="Watch walkthrough video">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><polygon points="5,3 13,8 5,13" fill="currentColor"/></svg>
+          </div>
+          <svg class="cl-chevron" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="checklist-body">
+          <div class="cl-item is-done">
+            <div class="cl-icon done">
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#059669" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <span class="cl-item-label">Test your agent</span>
+          </div>
+          <div class="cl-item is-done">
+            <div class="cl-icon done">
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#059669" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <span class="cl-item-label">View call transcript and analysis</span>
+          </div>
+          <div class="cl-item">
+            <div class="cl-icon todo"></div>
+            <span class="cl-item-label">Import or create a phone number</span>
+            <span class="cl-go">Go →</span>
+          </div>
+          <div class="cl-item">
+            <div class="cl-icon todo"></div>
+            <span class="cl-item-label">Make your first real call</span>
+            <span class="cl-go">Go →</span>
+          </div>
+          <div class="cl-item">
+            <div class="cl-icon todo"></div>
+            <span class="cl-item-label">Invite a teammate <span class="cl-optional">optional</span></span>
+            <span class="cl-go">Go →</span>
+          </div>
+          <div class="cl-item">
+            <div class="cl-icon todo"></div>
+            <span class="cl-item-label">Advanced functions <span class="cl-optional">optional</span></span>
+            <span class="cl-go">Go →</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Copilot -->
+    <div class="copilot-area">
+      <div class="copilot-inner">
+        <div class="copilot-orb"></div>
+        <div class="copilot-greeting">Hey Brandon, what are we working on today?</div>
+
+        <div class="copilot-input-wrap">
+          <textarea class="copilot-input" placeholder="Build, test, or ask anything about your agent..." rows="1"
+            oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
+          <button class="copilot-send">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 3l5 5-5 5" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+
+        <!-- Tabbed prompt gallery -->
+        <div class="copilot-tabs-wrap">
+          <div class="copilot-tabs">
+            <div class="copilot-tab active" onclick="switchTab('build', this)">Build</div>
+            <div class="copilot-tab" onclick="switchTab('test', this)">Test</div>
+            <div class="copilot-tab" onclick="switchTab('ask', this)">Ask</div>
+            <div class="copilot-tab" onclick="switchTab('analyze', this)">Analyze</div>
+          </div>
+
+          <div id="tab-build" class="tab-panel active">
+            <div class="prompt-grid">
+              <div class="prompt-tile" onclick="fillPrompt(this)">
+                <span class="pt-icon">🏗️</span>
+                <span class="pt-text">Walk me through building an agent</span>
+                <span class="pt-sub">Guided step-by-step using your company URL</span>
+              </div>
+              <div class="prompt-tile" onclick="fillPrompt(this)">
+                <span class="pt-icon">✏️</span>
+                <span class="pt-text">Help my agent handle a new topic</span>
+                <span class="pt-sub">Add instructions or expand its scope</span>
+              </div>
+              <div class="prompt-tile" onclick="fillPrompt(this)">
+                <span class="pt-icon">📚</span>
+                <span class="pt-text">Add a new topic to the knowledge base</span>
+                <span class="pt-sub">Upload docs or paste content</span>
+              </div>
+              <div class="prompt-tile" onclick="fillPrompt(this)">
+                <span class="pt-icon">🔀</span>
+                <span class="pt-text">Set up call transfers to a human agent</span>
+                <span class="pt-sub">Configure handoff rules and destinations</span>
+              </div>
+            </div>
+          </div>
+
+          <div id="tab-test" class="tab-panel">
+            <div class="prompt-grid">
+              <div class="prompt-tile" onclick="fillPrompt(this)">
+                <span class="pt-icon">📞</span>
+                <span class="pt-text">Run a test call with my latest agent</span>
+                <span class="pt-sub">Start a web call right now</span>
+              </div>
+              <div class="prompt-tile" onclick="fillPrompt(this)">
+                <span class="pt-icon">⚡</span>
+                <span class="pt-text">Simulate an edge case conversation</span>
+                <span class="pt-sub">Probe unusual or difficult scenarios</span>
+              </div>
+              <div class="prompt-tile" onclick="fillPrompt(this)">
+                <span class="pt-icon">🔁</span>
+                <span class="pt-text">Compare two agent versions</span>
+                <span class="pt-sub">Side-by-side performance review</span>
+              </div>
+              <div class="prompt-tile" onclick="fillPrompt(this)">
+                <span class="pt-icon">🧪</span>
+                <span class="pt-text">Run batch simulation testing</span>
+                <span class="pt-sub">Test across 50+ scenarios at once</span>
+              </div>
+            </div>
+          </div>
+
+          <div id="tab-ask" class="tab-panel">
+            <div class="prompt-grid">
+              <div class="prompt-tile" onclick="fillPrompt(this)">
+                <span class="pt-icon">🔍</span>
+                <span class="pt-text">Why did this call fail?</span>
+                <span class="pt-sub">Diagnose a specific call by ID or date</span>
+              </div>
+              <div class="prompt-tile" onclick="fillPrompt(this)">
+                <span class="pt-icon">📊</span>
+                <span class="pt-text">What is my agent's average task completion score?</span>
+                <span class="pt-sub">Across all calls this week</span>
+              </div>
+              <div class="prompt-tile" onclick="fillPrompt(this)">
+                <span class="pt-icon">💡</span>
+                <span class="pt-text">Explain how call scoring works</span>
+                <span class="pt-sub">AI QA criteria and scoring logic</span>
+              </div>
+              <div class="prompt-tile" onclick="fillPrompt(this)">
+                <span class="pt-icon">🗺️</span>
+                <span class="pt-text">How do I set up a post-call webhook?</span>
+                <span class="pt-sub">Step-by-step from the docs</span>
+              </div>
+            </div>
+          </div>
+
+          <div id="tab-analyze" class="tab-panel">
+            <div class="prompt-grid">
+              <div class="prompt-tile" onclick="fillPrompt(this)">
+                <span class="pt-icon">📈</span>
+                <span class="pt-text">Review call analytics for the past 7 days</span>
+                <span class="pt-sub">Volume, duration, and sentiment trends</span>
+              </div>
+              <div class="prompt-tile" onclick="fillPrompt(this)">
+                <span class="pt-icon">😟</span>
+                <span class="pt-text">Show me calls with low sentiment scores</span>
+                <span class="pt-sub">Find calls that need follow-up</span>
+              </div>
+              <div class="prompt-tile" onclick="fillPrompt(this)">
+                <span class="pt-icon">🔄</span>
+                <span class="pt-text">Which calls had transfers?</span>
+                <span class="pt-sub">Transfer rate and destination breakdown</span>
+              </div>
+              <div class="prompt-tile" onclick="fillPrompt(this)">
+                <span class="pt-icon">⏱️</span>
+                <span class="pt-text">What is the average call duration this month?</span>
+                <span class="pt-sub">Compare to last month</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /home-main -->
+</div><!-- /home-wrap -->
+
+<script>
+function toggleChecklist() {
+  document.getElementById('checklist-strip').classList.toggle('open');
+}
+
+function switchTab(name, el) {
+  document.querySelectorAll('.copilot-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+}
+
+function fillPrompt(tile) {
+  const text = tile.querySelector('.pt-text').textContent;
+  const input = document.querySelector('.copilot-input');
+  input.value = text;
+  input.style.height = 'auto';
+  input.style.height = input.scrollHeight + 'px';
+  input.focus();
+}
+</script>
+
+</body>
+</html>
