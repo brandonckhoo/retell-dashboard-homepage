@@ -428,8 +428,8 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
       <div class="cl-strip open" id="cl-strip">
         <div class="cl-hdr" onclick="toggleCl()">
           <span class="cl-title">🚀 Get Your Workspace Ready</span>
-          <div class="cl-track"><div class="cl-fill" id="cl-fill" style="width:42.86%"></div></div>
-          <span class="cl-count" id="cl-count">3 of 7 done</span>
+          <div class="cl-track"><div class="cl-fill" id="cl-fill" style="width:33.33%"></div></div>
+          <span class="cl-count" id="cl-count">2 of 6 done</span>
           <div style="flex:1"></div>
           <div class="cl-vid" title="Watch walkthrough">
             <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polygon points="3,2 10,6 3,10" fill="currentColor"/></svg>
@@ -445,9 +445,13 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
             <div class="cl-ico done" id="cl-ico-1"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#059669" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <div class="cl-item-main"><span class="cl-item-lbl">Build your first agent</span></div>
           </div>
-          <div class="cl-item is-done" id="cli-2">
-            <div class="cl-ico done" id="cl-ico-2"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#059669" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div class="cl-item-main"><span class="cl-item-lbl">Run a test call in Playground</span></div>
+          <div class="cl-item" id="cli-2">
+            <div class="cl-ico todo" id="cl-ico-2"></div>
+            <div class="cl-item-main">
+              <span class="cl-item-lbl">Run a test call in Playground</span>
+              <span class="cl-item-desc">Test your agent in the Playground before going live</span>
+            </div>
+            <span class="cl-go" onclick="goTo('playground')"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
           </div>
           <div class="cl-item" id="cli-3">
             <div class="cl-ico todo" id="cl-ico-3"></div>
@@ -750,8 +754,8 @@ function initOrb(canvas) {
 initOrb(document.getElementById('orb-main'));
 
 /* ── Checklist state ── */
-let doneCount = 3;
-const TOTAL = 7; // optional items (idx >= TOTAL) don't count toward progress
+let doneCount = 2;
+const TOTAL = 6; // optional items (idx >= TOTAL) don't count toward progress
 
 function toggleCl() {
   document.getElementById('cl-strip').classList.toggle('open');
@@ -1007,7 +1011,7 @@ function setPath(path) {
   newChat();
 
   if (path === 'A') {
-    // Path A — new user: workspace + agent built (2/7 done), test call pending
+    // Path A — new user: workspace + agent built (2/6 done), test call pending
     [0,1].forEach(i => {
       const item = document.getElementById('cli-' + i);
       const ico = document.getElementById('cl-ico-' + i);
@@ -1016,7 +1020,7 @@ function setPath(path) {
       ico.innerHTML = CHECK_SVG;
       const go = item.querySelector('.cl-go'); if (go) go.remove();
     });
-    [2,3,4,5,6].forEach(i => resetItem(i, i===4?"goTo('phone')": i===5?"goTo('call')": i===6?"openModal()": null));
+    [2,3,4,5,6,7].forEach(i => resetItem(i, i===4?"goTo('phone')": i===5?"goTo('call')": i===6?"openModal()": i===7?"goTo('agents')": null));
     doneCount = 2;
     document.getElementById('cl-fill').style.width = ((2/TOTAL)*100).toFixed(2) + '%';
     document.getElementById('cl-count').textContent = '2 of ' + TOTAL + ' done';
@@ -1025,7 +1029,7 @@ function setPath(path) {
     greeting.textContent = 'Welcome to Retell! What would you like to build?';
     renderTabContent('templates');
   } else if (path === 'C') {
-    // Path C — returning: 4/7 done (default)
+    // Path C — returning: 4/6 done (default)
     [0,1,2,3].forEach(i => {
       const item = document.getElementById('cli-' + i);
       const ico = document.getElementById('cl-ico-' + i);
@@ -1034,7 +1038,7 @@ function setPath(path) {
       ico.innerHTML = CHECK_SVG;
       const go = item.querySelector('.cl-go'); if (go) go.remove();
     });
-    [4,5,6].forEach(i => resetItem(i, i===4?"goTo('phone')": i===5?"goTo('call')": "openModal()"));
+    [4,5,6,7].forEach(i => resetItem(i, i===4?"goTo('phone')": i===5?"goTo('call')": i===6?"openModal()": "goTo('agents')"));
     doneCount = 4;
     document.getElementById('cl-fill').style.width = ((4/TOTAL)*100).toFixed(2) + '%';
     document.getElementById('cl-count').textContent = '4 of ' + TOTAL + ' done';
