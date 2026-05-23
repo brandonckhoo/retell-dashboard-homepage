@@ -147,7 +147,7 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
 .cp-sel-desc { font-size: 11.5px; color: #99A0AE; margin-top: 1px; }
 .cp-sel-menu-sm { min-width: 164px; }
 /* ── Tabs section ── */
-.tabs-section { width: 100%; margin-top: 20px; }
+.tabs-section { width: 100%; margin-top: 32px; }
 .tabs-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
 .tabs-pills { display: flex; gap: 3px; }
 .tab-pill { padding: 5px 13px; border-radius: 20px; font-size: 13px; font-weight: 500; color: #525866; cursor: pointer; transition: all 0.12s; user-select: none; }
@@ -657,10 +657,10 @@ function initOrb(canvas) {
   let t = 0;
 
   const blobs = [
-    { color: [68,  178, 185], r: size * 0.84, orbit: size * 0.30, speed: 0.26, phase: 0,    oy: 0.68 }, // teal
-    { color: [72,  100, 195], r: size * 0.80, orbit: size * 0.24, speed: 0.17, phase: 2.09, oy: 0.62 }, // blue
-    { color: [152, 100, 208], r: size * 0.82, orbit: size * 0.28, speed: 0.32, phase: 4.18, oy: 0.55 }, // purple
-    { color: [100, 148, 218], r: size * 0.68, orbit: size * 0.18, speed: 0.13, phase: 1.05, oy: 0.78 }, // periwinkle
+    { color: [32,  210, 200], r: size * 0.92, orbit: size * 0.44, speed: 0.38, phase: 0,    oy: 0.72 }, // vivid teal
+    { color: [55,   85, 215], r: size * 0.88, orbit: size * 0.36, speed: 0.24, phase: 2.09, oy: 0.64 }, // deep blue
+    { color: [175,  65, 225], r: size * 0.90, orbit: size * 0.40, speed: 0.48, phase: 4.18, oy: 0.56 }, // vivid purple
+    { color: [70,  165, 245], r: size * 0.76, orbit: size * 0.28, speed: 0.19, phase: 1.05, oy: 0.82 }, // sky blue
   ];
 
   function draw() {
@@ -670,45 +670,44 @@ function initOrb(canvas) {
     ctx.arc(size / 2, size / 2, size / 2 - 0.5, 0, Math.PI * 2);
     ctx.clip();
 
-    // Base — medium cool blue-gray
-    ctx.fillStyle = '#B8C8DE';
+    // Base
+    ctx.fillStyle = '#8AAECB';
     ctx.fillRect(0, 0, size, size);
 
     // Blobs
     for (const b of blobs) {
       const bx = size / 2 + Math.cos(t * b.speed + b.phase) * b.orbit;
-      const by = size / 2 + Math.sin(t * b.speed * b.oy + b.phase) * b.orbit * 0.65;
+      const by = size / 2 + Math.sin(t * b.speed * b.oy + b.phase) * b.orbit * 0.7;
       const g = ctx.createRadialGradient(bx, by, 0, bx, by, b.r);
       const [r, gb, bl] = b.color;
-      g.addColorStop(0,   `rgba(${r},${gb},${bl},0.84)`);
-      g.addColorStop(0.42,`rgba(${r},${gb},${bl},0.48)`);
-      g.addColorStop(1,   `rgba(${r},${gb},${bl},0)`);
+      g.addColorStop(0,    `rgba(${r},${gb},${bl},0.92)`);
+      g.addColorStop(0.38, `rgba(${r},${gb},${bl},0.55)`);
+      g.addColorStop(1,    `rgba(${r},${gb},${bl},0)`);
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, size, size);
     }
 
-    // Subtle depth
-    const depth = ctx.createRadialGradient(size/2, size/2, 0, size/2, size/2, size/2);
+    // Edge depth vignette
+    const depth = ctx.createRadialGradient(size/2, size/2, size*0.3, size/2, size/2, size/2);
     depth.addColorStop(0,   'rgba(0,0,0,0)');
-    depth.addColorStop(0.52,'rgba(0,0,0,0)');
-    depth.addColorStop(0.80,'rgba(8,10,35,0.08)');
-    depth.addColorStop(1,   'rgba(8,10,35,0.32)');
+    depth.addColorStop(0.7, 'rgba(8,10,40,0.10)');
+    depth.addColorStop(1,   'rgba(8,10,40,0.38)');
     ctx.fillStyle = depth;
     ctx.fillRect(0, 0, size, size);
 
-    // White glow that drifts with the animation
-    const glowX = size * 0.5 + Math.cos(t * 0.09) * size * 0.14;
-    const glowY = size * 0.44 + Math.sin(t * 0.07) * size * 0.11;
-    const hi = ctx.createRadialGradient(glowX, glowY, 0, glowX, glowY, size * 0.44);
-    hi.addColorStop(0,    'rgba(255,255,255,0.80)');
-    hi.addColorStop(0.32, 'rgba(255,255,255,0.44)');
-    hi.addColorStop(0.62, 'rgba(255,255,255,0.14)');
+    // Drifting white highlight
+    const glowX = size * 0.5 + Math.cos(t * 0.13) * size * 0.18;
+    const glowY = size * 0.42 + Math.sin(t * 0.10) * size * 0.14;
+    const hi = ctx.createRadialGradient(glowX, glowY, 0, glowX, glowY, size * 0.46);
+    hi.addColorStop(0,    'rgba(255,255,255,0.88)');
+    hi.addColorStop(0.28, 'rgba(255,255,255,0.50)');
+    hi.addColorStop(0.58, 'rgba(255,255,255,0.16)');
     hi.addColorStop(1,    'rgba(255,255,255,0)');
     ctx.fillStyle = hi;
     ctx.fillRect(0, 0, size, size);
 
     ctx.restore();
-    t += 0.018;
+    t += 0.028;
     requestAnimationFrame(draw);
   }
   draw();
