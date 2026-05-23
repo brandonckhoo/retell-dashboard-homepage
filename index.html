@@ -80,8 +80,8 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
 .banner-close:hover { background: rgba(61,100,215,0.12); }
 
 /* ── Checklist ── */
-.cl-wrap { padding: 10px 24px 4px; flex-shrink: 0; }
-.cl-strip { background: #fff; border: 1px solid #E1E4EA; border-radius: 8px; overflow: hidden; }
+.cl-wrap { padding: 10px 24px 4px; flex-shrink: 0; display: flex; justify-content: center; }
+.cl-strip { background: #fff; border: 1px solid #E1E4EA; border-radius: 8px; overflow: hidden; width: 100%; max-width: 680px; }
 .cl-hdr { display: flex; align-items: center; gap: 10px; padding: 10px 12px; cursor: pointer; user-select: none; }
 .cl-hdr:hover { background: #FAFAFA; }
 .cl-title { font-size: 13px; font-weight: 600; color: #0A0A0A; white-space: nowrap; }
@@ -141,13 +141,18 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
 .recents-section { width: 100%; margin-top: 24px; }
 .recents-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
 .recents-label { font-size: 13px; font-weight: 600; color: #0A0A0A; }
+.recents-see-all { font-size: 12px; color: #3d64d7; cursor: pointer; }
+.recents-see-all:hover { text-decoration: underline; }
 .recents-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .recent-card { padding: 12px 13px; background: #fff; border: 1px solid #E1E4EA; border-radius: 8px; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s; }
 .recent-card:hover { border-color: #3d64d7; box-shadow: 0 0 0 3px rgba(61,100,215,0.08); }
-.recent-card-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
-.recent-card-av { width: 28px; height: 28px; border-radius: 6px; background: #EEF3FF; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
-.recent-card-name { font-size: 13px; font-weight: 500; color: #0A0A0A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.recent-card-meta { font-size: 11.5px; color: #99A0AE; display: flex; align-items: center; gap: 6px; white-space: nowrap; overflow: hidden; }
+.recent-card-top { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 7px; }
+.recent-card-av { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; letter-spacing: -0.3px; flex-shrink: 0; }
+.recent-card-info { flex: 1; min-width: 0; }
+.recent-card-name { font-size: 13px; font-weight: 500; color: #0A0A0A; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.recent-card-subtype { font-size: 11px; color: #99A0AE; margin-top: 1px; }
+.recent-kind-badge { font-size: 11px; font-weight: 500; padding: 2px 7px; border-radius: 4px; white-space: nowrap; flex-shrink: 0; margin-top: 1px; }
+.recent-card-meta { font-size: 11.5px; color: #99A0AE; display: flex; align-items: center; gap: 5px; white-space: nowrap; overflow: hidden; }
 .recent-card-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
 .recent-card-dot.green { background: #1FC16B; }
 .recent-card-dot.grey { background: #CACFD8; }
@@ -473,6 +478,7 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
         <div class="recents-section">
           <div class="recents-hdr">
             <span class="recents-label">Recent agents</span>
+            <span class="recents-see-all" onclick="showToast('Opening Agents...')">See all</span>
           </div>
           <div id="recents-content"></div>
         </div>
@@ -978,9 +984,12 @@ renderTemplates();
 
 /* ── Recent agents ── */
 const RECENT_AGENTS = [
-  { icon: '🎧', name: 'Customer Support',     status: 'active', calls: '1,204 calls',  edited: '2 hours ago' },
-  { icon: '📅', name: 'Appointment Booking',  status: 'active', calls: '387 calls',    edited: 'Yesterday' },
-  { icon: '📤', name: 'Outbound Sales',        status: 'draft',  calls: '0 calls',      edited: '2 days ago' },
+  { name:'Customer Support — Tier 1',    kind:'voice', agentType:'Conversational Flow', status:'active', calls:'2,847 calls', edited:'1 hour ago',  color:'#3d64d7' },
+  { name:'Appointment Booking',          kind:'voice', agentType:'Single Prompt',       status:'active', calls:'1,204 calls', edited:'3 hours ago', color:'#059669' },
+  { name:'Lead Qualification',           kind:'voice', agentType:'Conversational Flow', status:'active', calls:'891 calls',   edited:'Yesterday',   color:'#7c3aed' },
+  { name:'Outbound Sales Dialer',        kind:'voice', agentType:'Single Prompt',       status:'active', calls:'3,102 calls', edited:'Yesterday',   color:'#D97706' },
+  { name:'Website Chat Support [Chat]',  kind:'chat',  agentType:'Single Prompt',       status:'draft',  calls:null,          edited:'2 days ago',  color:'#0EA5E9' },
+  { name:'After-Hours Receptionist',     kind:'voice', agentType:'Single Prompt',       status:'draft',  calls:'44 calls',    edited:'5 days ago',  color:'#6366F1' },
 ];
 
 function renderRecents(hasAgents) {
@@ -996,20 +1005,29 @@ function renderRecents(hasAgents) {
     const card = document.createElement('div');
     card.className = 'recent-card';
     const isActive = a.status === 'active';
+    const initials = a.name.replace(/\[.*?\]/g,'').trim().split(/[\s\-—]+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+    const isChat = a.kind === 'chat';
+    const kindBg   = isChat ? '#DCFCE7' : '#EEF3FF';
+    const kindText = isChat ? '#15803D' : '#3d64d7';
+    const kindLabel = isChat ? 'Chat' : 'Voice';
     card.innerHTML = `
       <div class="recent-card-top">
-        <div class="recent-card-av">${a.icon}</div>
-        <div class="recent-card-name">${a.name}</div>
+        <div class="recent-card-av" style="background:${a.color}18;color:${a.color}">${initials}</div>
+        <div class="recent-card-info">
+          <div class="recent-card-name">${a.name}</div>
+          <div class="recent-card-subtype">${a.agentType}</div>
+        </div>
+        <span class="recent-kind-badge" style="background:${kindBg};color:${kindText}">${kindLabel}</span>
       </div>
       <div class="recent-card-meta">
         <div class="recent-card-dot ${isActive ? 'green' : 'grey'}"></div>
         <span>${isActive ? 'Active' : 'Draft'}</span>
         <span>·</span>
-        <span>${a.calls}</span>
+        <span>${a.calls || '—'}</span>
         <span>·</span>
         <span>${a.edited}</span>
       </div>`;
-    card.onclick = () => showToast('Opening ' + a.name + '...');
+    card.onclick = () => showToast('Opening ' + a.name.replace(/\[.*?\]/g,'').trim() + '...');
     grid.appendChild(card);
   });
   el.appendChild(grid);
