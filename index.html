@@ -81,24 +81,24 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
 
 /* ── Checklist ── */
 .cl-wrap { padding: 10px 24px 4px; flex-shrink: 0; }
-.cl-strip { background: #fff; border: 1px solid #E1E4EA; border-radius: 8px; overflow: hidden; width: 100%; }
+.cl-strip { background: #EEF3FF; border: 1px solid #c7d9ff; border-radius: 8px; overflow: hidden; width: 100%; }
 .cl-hdr { display: flex; align-items: center; gap: 10px; padding: 10px 12px; cursor: pointer; user-select: none; }
-.cl-hdr:hover { background: #FAFAFA; }
-.cl-title { font-size: 13px; font-weight: 600; color: #0A0A0A; white-space: nowrap; }
-.cl-track { height: 4px; background: #E1E4EA; border-radius: 2px; width: 160px; flex-shrink: 0; }
-.cl-fill { height: 100%; background: #1FC16B; border-radius: 2px; transition: width 0.4s ease; }
-.cl-count { font-size: 12px; color: #525866; white-space: nowrap; }
-.cl-vid { width: 24px; height: 24px; border: 1px solid #E1E4EA; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; color: #525866; }
-.cl-vid:hover { background: #F3F4F6; }
-.cl-chevron { color: #99A0AE; flex-shrink: 0; transition: transform 0.2s; }
+.cl-hdr:hover { background: rgba(61,100,215,0.06); }
+.cl-title { font-size: 13px; font-weight: 600; color: #1e3a8a; white-space: nowrap; }
+.cl-track { height: 4px; background: #c7d9ff; border-radius: 2px; width: 160px; flex-shrink: 0; }
+.cl-fill { height: 100%; background: #3d64d7; border-radius: 2px; transition: width 0.4s ease; }
+.cl-count { font-size: 12px; color: #3d64d7; white-space: nowrap; font-weight: 500; }
+.cl-vid { width: 24px; height: 24px; border: 1px solid #c7d9ff; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; color: #3d64d7; }
+.cl-vid:hover { background: rgba(61,100,215,0.1); }
+.cl-chevron { color: #3d64d7; flex-shrink: 0; transition: transform 0.2s; opacity: 0.7; }
 .cl-strip.open .cl-chevron { transform: rotate(180deg); }
-.cl-body { display: none; border-top: 1px solid #F0F2F5; }
+.cl-body { display: none; border-top: 1px solid #d6e4ff; background: #f4f8ff; }
 .cl-strip.open .cl-body { display: block; }
 .cl-item { display: flex; align-items: flex-start; gap: 10px; padding: 9px 12px; font-size: 13px; }
-.cl-item + .cl-item { border-top: 1px solid #F8F9FA; }
+.cl-item + .cl-item { border-top: 1px solid #e8f0ff; }
 .cl-ico { width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.3s; margin-top: 1px; }
 .cl-ico.done { background: #ECFDF5; border: 1.5px solid #A7F3D0; }
-.cl-ico.todo { background: #fff; border: 1.5px solid #D1D5DB; }
+.cl-ico.todo { background: #fff; border: 1.5px solid #c7d9ff; }
 .cl-item-main { flex: 1; min-width: 0; }
 .cl-item-lbl { display: block; color: #0A0A0A; }
 .cl-item.is-done .cl-item-lbl { color: #99A0AE; text-decoration: line-through; }
@@ -426,8 +426,8 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
       <div class="cl-strip open" id="cl-strip">
         <div class="cl-hdr" onclick="toggleCl()">
           <span class="cl-title">🚀 Get Your Workspace Ready</span>
-          <div class="cl-track"><div class="cl-fill" id="cl-fill" style="width:57.14%"></div></div>
-          <span class="cl-count" id="cl-count">4 of 7 done</span>
+          <div class="cl-track"><div class="cl-fill" id="cl-fill" style="width:42.86%"></div></div>
+          <span class="cl-count" id="cl-count">3 of 7 done</span>
           <div style="flex:1"></div>
           <div class="cl-vid" title="Watch walkthrough">
             <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polygon points="3,2 10,6 3,10" fill="currentColor"/></svg>
@@ -447,9 +447,13 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
             <div class="cl-ico done" id="cl-ico-2"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#059669" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
             <div class="cl-item-main"><span class="cl-item-lbl">Run a test call in Playground</span></div>
           </div>
-          <div class="cl-item is-done" id="cli-3">
-            <div class="cl-ico done" id="cl-ico-3"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#059669" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div class="cl-item-main"><span class="cl-item-lbl">View call transcript + analysis</span></div>
+          <div class="cl-item" id="cli-3">
+            <div class="cl-ico todo" id="cl-ico-3"></div>
+            <div class="cl-item-main">
+              <span class="cl-item-lbl">View call transcript + analysis</span>
+              <span class="cl-item-desc">Review AI summaries and transcripts after each call</span>
+            </div>
+            <span class="cl-go" onclick="goTo('calls')"><svg viewBox="0 0 16 16" fill="none"><path d="M6 3H3a1 1 0 00-1 1v9a1 1 0 001 1h9a1 1 0 001-1v-3M9 2h5m0 0v5m0-5L7 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
           </div>
           <div class="cl-item" id="cli-4">
             <div class="cl-ico todo" id="cl-ico-4"></div>
@@ -1129,8 +1133,8 @@ function renderTabContent(tab) {
 // Default state
 renderTabContent('recent');
 
-// Default: collapse checklist on load so copilot is visible
-document.getElementById('cl-strip').classList.remove('open');
+// Expand checklist when < 50% complete, collapse when done enough
+{ const pct = parseFloat(document.getElementById('cl-fill').style.width); if (pct < 50) { document.getElementById('cl-strip').classList.add('open'); } else { document.getElementById('cl-strip').classList.remove('open'); } }
 
 /* ── Create Agent modal ── */
 const CA_TABS = ['All', 'Receptionist', 'Outbound Sales & Reactivation', 'Appointment Booking', 'Lead Qualification', 'Customer Support & After-Hours', 'Back-Office Task Automation', 'Debt Collection', 'IVR & DTMF Automation', 'Real-Time Translation'];
