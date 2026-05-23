@@ -129,6 +129,23 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
 .cp-int-icon:hover { opacity: 1; }
 .cp-int-more { font-size: 11.5px; color: #CACFD8; cursor: pointer; padding-left: 2px; }
 .cp-int-more:hover { color: #99A0AE; }
+.cp-bar-right { display: flex; align-items: center; gap: 5px; margin-left: auto; flex-shrink: 0; }
+.cp-bar-sep { width: 1px; height: 12px; background: #E1E4EA; margin: 0 3px; flex-shrink: 0; }
+/* Selectors (mode + model) */
+.cp-sel { position: relative; }
+.cp-sel-btn { display: flex; align-items: center; gap: 4px; padding: 3px 9px 3px 9px; border: 1px solid #E1E4EA; border-radius: 6px; background: #fff; font-size: 12px; font-weight: 500; color: #525866; cursor: pointer; white-space: nowrap; font-family: inherit; transition: all 0.12s; line-height: 1.4; }
+.cp-sel-btn:hover { border-color: #C8CDD7; color: #0A0A0A; background: #FAFAFA; }
+.cp-sel-btn.open { border-color: #3d64d7; background: #EEF3FF; color: #3d64d7; }
+.cp-sel-menu { position: absolute; bottom: calc(100% + 6px); right: 0; background: #fff; border: 1px solid #E1E4EA; border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06); min-width: 228px; z-index: 300; padding: 5px; display: none; animation: menuIn 0.13s ease; }
+.cp-sel-menu.open { display: block; }
+@keyframes menuIn { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
+.cp-sel-item { display: flex; align-items: flex-start; gap: 8px; padding: 8px 10px; border-radius: 7px; cursor: pointer; transition: background 0.1s; }
+.cp-sel-item:hover { background: #F5F7FA; }
+.cp-sel-item.active { background: #EEF3FF; }
+.cp-sel-check { width: 14px; flex-shrink: 0; font-size: 12px; color: #3d64d7; margin-top: 1px; text-align: center; }
+.cp-sel-name { font-size: 13px; font-weight: 500; color: #0A0A0A; line-height: 1.3; }
+.cp-sel-desc { font-size: 11.5px; color: #99A0AE; margin-top: 1px; }
+.cp-sel-menu-sm { min-width: 164px; }
 /* ── Tabs section ── */
 .tabs-section { width: 100%; margin-top: 20px; }
 .tabs-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
@@ -475,6 +492,51 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
               <div class="cp-int-icon" title="Twilio" onclick="showToast('Opening Integrations...')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#F22F46"/><circle cx="7" cy="7" r="1.9" fill="white"/><circle cx="13" cy="7" r="1.9" fill="white"/><circle cx="7" cy="13" r="1.9" fill="white"/><circle cx="13" cy="13" r="1.9" fill="white"/></svg></div>
             </div>
             <span class="cp-int-more" onclick="showToast('Opening Integrations...')">+ more</span>
+            <div class="cp-bar-right">
+              <div class="cp-bar-sep"></div>
+              <!-- Mode selector -->
+              <div class="cp-sel">
+                <button class="cp-sel-btn" id="sel-btn-mode" onclick="toggleSel('mode')">
+                  <span id="sel-mode-val">Build</span>
+                  <svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 3.5l3 3 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <div class="cp-sel-menu" id="sel-menu-mode">
+                  <div class="cp-sel-item active" data-val="Build" onclick="pickMode(this,'Build')">
+                    <span class="cp-sel-check">✓</span>
+                    <div><div class="cp-sel-name">Build</div><div class="cp-sel-desc">Make changes to the agent</div></div>
+                  </div>
+                  <div class="cp-sel-item" data-val="Plan" onclick="pickMode(this,'Plan')">
+                    <span class="cp-sel-check"></span>
+                    <div><div class="cp-sel-name">Plan</div><div class="cp-sel-desc">Create or refine a plan</div></div>
+                  </div>
+                  <div class="cp-sel-item" data-val="Ask" onclick="pickMode(this,'Ask')">
+                    <span class="cp-sel-check"></span>
+                    <div><div class="cp-sel-name">Ask</div><div class="cp-sel-desc">Ask questions without changes</div></div>
+                  </div>
+                </div>
+              </div>
+              <!-- Model selector -->
+              <div class="cp-sel">
+                <button class="cp-sel-btn" id="sel-btn-model" onclick="toggleSel('model')">
+                  <span id="sel-model-val">Opus 4.6</span>
+                  <svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 3.5l3 3 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <div class="cp-sel-menu cp-sel-menu-sm" id="sel-menu-model">
+                  <div class="cp-sel-item active" data-val="claude-opus-4-6" onclick="pickModel(this,'claude-opus-4-6','Opus 4.6')">
+                    <span class="cp-sel-check">✓</span>
+                    <div class="cp-sel-name">claude-opus-4-6</div>
+                  </div>
+                  <div class="cp-sel-item" data-val="claude-sonnet-4-6" onclick="pickModel(this,'claude-sonnet-4-6','Sonnet 4.6')">
+                    <span class="cp-sel-check"></span>
+                    <div class="cp-sel-name">claude-sonnet-4-6</div>
+                  </div>
+                  <div class="cp-sel-item" data-val="gpt-5.4" onclick="pickModel(this,'gpt-5.4','GPT-5.4')">
+                    <span class="cp-sel-check"></span>
+                    <div class="cp-sel-name">gpt-5.4</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="tabs-section" id="tabs-section">
@@ -1190,6 +1252,49 @@ function createAgent() {
   closeCAModal();
   startConvo('Help me build a ' + name.toLowerCase() + ' agent.');
 }
+
+/* ── Mode / Model selectors ── */
+let _openSel = null;
+
+function toggleSel(name) {
+  const menu = document.getElementById('sel-menu-' + name);
+  const btn  = document.getElementById('sel-btn-'  + name);
+  if (_openSel && _openSel !== name) {
+    document.getElementById('sel-menu-' + _openSel).classList.remove('open');
+    document.getElementById('sel-btn-'  + _openSel).classList.remove('open');
+  }
+  const nowOpen = menu.classList.toggle('open');
+  btn.classList.toggle('open', nowOpen);
+  _openSel = nowOpen ? name : null;
+}
+
+function pickMode(el, val) {
+  document.querySelectorAll('#sel-menu-mode .cp-sel-item').forEach(i => {
+    const on = i === el;
+    i.classList.toggle('active', on);
+    i.querySelector('.cp-sel-check').textContent = on ? '✓' : '';
+  });
+  document.getElementById('sel-mode-val').textContent = val;
+  toggleSel('mode');
+}
+
+function pickModel(el, val, short) {
+  document.querySelectorAll('#sel-menu-model .cp-sel-item').forEach(i => {
+    const on = i === el;
+    i.classList.toggle('active', on);
+    i.querySelector('.cp-sel-check').textContent = on ? '✓' : '';
+  });
+  document.getElementById('sel-model-val').textContent = short;
+  toggleSel('model');
+}
+
+document.addEventListener('click', function(e) {
+  if (_openSel && !e.target.closest('.cp-sel')) {
+    document.getElementById('sel-menu-' + _openSel).classList.remove('open');
+    document.getElementById('sel-btn-'  + _openSel).classList.remove('open');
+    _openSel = null;
+  }
+});
 
 /* ── Animated placeholder ── */
 (function() {
