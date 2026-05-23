@@ -212,35 +212,42 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
 /* ── Create Agent modal ── */
 #ca-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.35); backdrop-filter: blur(4px); z-index: 500; display: none; align-items: center; justify-content: center; }
 #ca-overlay.visible { display: flex; }
-.ca-modal { background: #fff; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.18), 0 4px 16px rgba(0,0,0,0.1); width: 100%; max-width: 680px; padding: 24px; position: relative; animation: modalIn 0.18s ease; max-height: 86vh; display: flex; flex-direction: column; }
-.ca-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-shrink: 0; }
+.ca-modal { background: #fff; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.18), 0 4px 16px rgba(0,0,0,0.1); width: 100%; max-width: 700px; padding: 24px; position: relative; animation: modalIn 0.18s ease; max-height: 90vh; display: flex; flex-direction: column; }
+.ca-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; flex-shrink: 0; }
 .ca-title { font-size: 16px; font-weight: 600; color: #0A0A0A; }
 .ca-close { width: 26px; height: 26px; border: none; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #99A0AE; border-radius: 5px; font-size: 16px; }
 .ca-close:hover { background: #F3F4F6; color: #525866; }
-.ca-type-row { display: flex; gap: 8px; margin-bottom: 18px; flex-shrink: 0; }
+.ca-type-label-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; flex-shrink: 0; }
+.ca-other-opts { font-size: 12px; color: #3d64d7; cursor: pointer; background: none; border: none; font-family: inherit; padding: 0; }
+.ca-other-opts:hover { text-decoration: underline; }
+.ca-type-row { display: flex; gap: 8px; margin-bottom: 16px; flex-shrink: 0; }
 .ca-type-btn { flex: 1; padding: 10px 14px; border: 1.5px solid #E1E4EA; border-radius: 8px; cursor: pointer; background: #fff; text-align: left; transition: all 0.12s; }
 .ca-type-btn.active { border-color: #3d64d7; background: #EEF3FF; }
 .ca-type-btn:hover:not(.active) { border-color: #D1D5DB; background: #FAFAFA; }
-.ca-type-name { font-size: 13px; font-weight: 600; color: #0A0A0A; margin-bottom: 2px; display: flex; align-items: center; gap: 6px; }
+.ca-type-name { font-size: 13px; font-weight: 600; color: #0A0A0A; margin-bottom: 2px; display: flex; align-items: center; gap: 7px; }
 .ca-type-desc { font-size: 12px; color: #99A0AE; }
-.ca-type-dot { width: 8px; height: 8px; border-radius: 50%; background: #3d64d7; }
-.ca-type-dot.purple { background: #7c3aed; }
-.ca-section-label { font-size: 12px; font-weight: 500; color: #99A0AE; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; flex-shrink: 0; }
-.ca-tabs { display: flex; gap: 0; border-bottom: 1px solid #E1E4EA; margin-bottom: 14px; flex-shrink: 0; overflow-x: auto; scrollbar-width: none; }
+.ca-type-icon { width: 22px; height: 22px; border-radius: 5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.ca-type-icon.green { background: #16A34A; }
+.ca-type-icon.purple { background: #7C3AED; }
+.ca-section-label { font-size: 11px; font-weight: 500; color: #99A0AE; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; flex-shrink: 0; }
+.ca-tabs-wrap { display: flex; align-items: stretch; border-bottom: 1px solid #E1E4EA; margin-bottom: 12px; flex-shrink: 0; }
+.ca-tab-arrow { width: 22px; border: none; background: transparent; color: #C8CDD7; cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 0; line-height: 1; }
+.ca-tab-arrow:hover { color: #525866; }
+.ca-tabs { display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; flex: 1; }
 .ca-tabs::-webkit-scrollbar { display: none; }
 .ca-tab { padding: 7px 12px; font-size: 13px; font-weight: 500; color: #99A0AE; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; margin-bottom: -1px; transition: all 0.12s; }
 .ca-tab:hover { color: #525866; }
 .ca-tab.active { color: #0A0A0A; border-bottom-color: #3d64d7; }
-.ca-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; overflow-y: auto; }
-.ca-tpl-card { padding: 13px; border: 1px solid #E1E4EA; border-radius: 8px; cursor: pointer; transition: all 0.15s; background: #fff; }
+.ca-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; overflow-y: auto; max-height: 320px; }
+.ca-tpl-card { padding: 12px; border: 1px solid #E1E4EA; border-radius: 8px; cursor: pointer; transition: all 0.15s; background: #fff; }
 .ca-tpl-card:hover { border-color: #3d64d7; box-shadow: 0 0 0 3px rgba(61,100,215,0.08); }
 .ca-tpl-card.selected { border-color: #3d64d7; background: #EEF3FF; }
-.ca-tpl-card-top { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
-.ca-tpl-icon { width: 28px; height: 28px; border-radius: 6px; background: #F5F7FA; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
-.ca-tpl-name { font-size: 13px; font-weight: 600; color: #0A0A0A; }
+.ca-tpl-card-top { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 5px; }
+.ca-tpl-icon-cluster { flex-shrink: 0; display: flex; align-items: center; margin-top: 2px; }
+.ca-tpl-icon { width: 32px; height: 32px; border-radius: 6px; background: #F5F7FA; border: 1.5px dashed #D1D5DB; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.ca-tpl-name { font-size: 13px; font-weight: 600; color: #0A0A0A; line-height: 1.35; }
 .ca-tpl-desc { font-size: 11.5px; color: #99A0AE; line-height: 1.4; }
-.ca-tpl-card.blank .ca-tpl-icon { background: #F5F7FA; border: 1.5px dashed #D1D5DB; }
-.ca-footer { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; padding-top: 14px; border-top: 1px solid #F0F2F5; flex-shrink: 0; }
+.ca-footer { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; padding-top: 12px; border-top: 1px solid #F0F2F5; flex-shrink: 0; }
 .ca-btn-cancel { padding: 8px 16px; background: #fff; border: 1px solid #E1E4EA; border-radius: 7px; font-size: 14px; font-weight: 500; color: #525866; cursor: pointer; font-family: inherit; }
 .ca-btn-cancel:hover { background: #F9FAFB; }
 .ca-btn-create { padding: 8px 20px; background: #0E121B; border: none; border-radius: 7px; font-size: 14px; font-weight: 500; color: #fff; cursor: pointer; font-family: inherit; }
@@ -456,8 +463,8 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
             <div class="tpl-filters">
               <span class="tpl-chip active" onclick="openCAModal('all')">All</span>
               <span class="tpl-chip" onclick="openCAModal('receptionist')">Inbound</span>
-              <span class="tpl-chip" onclick="openCAModal('outbound sales')">Outbound</span>
-              <span class="tpl-chip" onclick="openCAModal('healthcare')">Healthcare</span>
+              <span class="tpl-chip" onclick="openCAModal('outbound sales & reactivation')">Outbound</span>
+              <span class="tpl-chip" onclick="openCAModal('appointment booking')">Booking</span>
             </div>
           </div>
           <div class="tpl-icon-row" id="tpl-grid"></div>
@@ -530,18 +537,36 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
       <span class="ca-title">Create agent</span>
       <button class="ca-close" onclick="closeCAModal()">✕</button>
     </div>
+    <div class="ca-type-label-row">
+      <span class="ca-section-label" style="margin-bottom:0">Type</span>
+      <button class="ca-other-opts">Other options</button>
+    </div>
     <div class="ca-type-row">
       <div class="ca-type-btn active" onclick="selectType(this)">
-        <div class="ca-type-name"><span class="ca-type-dot"></span>Single prompt</div>
+        <div class="ca-type-name">
+          <span class="ca-type-icon green">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><rect x="1" y="1" width="5" height="5" rx="1.2" fill="white"/><rect x="7" y="1" width="5" height="5" rx="1.2" fill="white" opacity="0.55"/><rect x="1" y="7" width="5" height="5" rx="1.2" fill="white" opacity="0.55"/><rect x="7" y="7" width="5" height="5" rx="1.2" fill="white" opacity="0.3"/></svg>
+          </span>
+          Single prompt
+        </div>
         <div class="ca-type-desc">Easy to start. Simple, free-form conversations.</div>
       </div>
       <div class="ca-type-btn" onclick="selectType(this)">
-        <div class="ca-type-name"><span class="ca-type-dot purple"></span>Conversational flow</div>
+        <div class="ca-type-name">
+          <span class="ca-type-icon purple">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="2.5" cy="6.5" r="2" fill="white"/><circle cx="10.5" cy="3" r="2" fill="white" opacity="0.7"/><circle cx="10.5" cy="10" r="2" fill="white" opacity="0.7"/><path d="M4.2 5.8L8.8 3.3M4.2 7.2L8.8 9.7" stroke="white" stroke-width="0.9" stroke-linecap="round"/></svg>
+          </span>
+          Conversational flow
+        </div>
         <div class="ca-type-desc">Production-ready, deterministic conversations.</div>
       </div>
     </div>
     <div class="ca-section-label">Templates</div>
-    <div class="ca-tabs" id="ca-tabs"></div>
+    <div class="ca-tabs-wrap">
+      <button class="ca-tab-arrow" onclick="scrollCATabs(-1)">&#8249;</button>
+      <div class="ca-tabs" id="ca-tabs"></div>
+      <button class="ca-tab-arrow" onclick="scrollCATabs(1)">&#8250;</button>
+    </div>
     <div class="ca-grid" id="ca-grid"></div>
     <div class="ca-footer">
       <button class="ca-btn-cancel" onclick="closeCAModal()">Cancel</button>
@@ -551,17 +576,17 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
 </div>
 
 <script>
-/* ── Animated orb ── */
+/* ── Animated orb (retellai.com style — soft periwinkle/lavender) ── */
 function initOrb(canvas) {
   const size = canvas.width;
   const ctx = canvas.getContext('2d');
   let t = 0;
 
   const blobs = [
-    { color: [28, 72, 220], r: size * 0.62, orbit: size * 0.22, speed: 0.22, phase: 0,    oy: 0.6 },
-    { color: [148, 60, 255], r: size * 0.7,  orbit: size * 0.17, speed: 0.15, phase: 2.09, oy: 0.75 },
-    { color: [235, 140, 38], r: size * 0.48, orbit: size * 0.28, speed: 0.3,  phase: 4.18, oy: 0.5 },
-    { color: [90, 30, 200],  r: size * 0.52, orbit: size * 0.12, speed: 0.12, phase: 1.05, oy: 0.8 },
+    { color: [120, 148, 210], r: size * 0.74, orbit: size * 0.20, speed: 0.16, phase: 0,    oy: 0.65 },
+    { color: [168, 152, 220], r: size * 0.70, orbit: size * 0.16, speed: 0.11, phase: 2.09, oy: 0.72 },
+    { color: [185, 200, 235], r: size * 0.80, orbit: size * 0.14, speed: 0.22, phase: 4.18, oy: 0.50 },
+    { color: [98,  128, 198], r: size * 0.56, orbit: size * 0.09, speed: 0.09, phase: 1.05, oy: 0.80 },
   ];
 
   function draw() {
@@ -571,8 +596,8 @@ function initOrb(canvas) {
     ctx.arc(size / 2, size / 2, size / 2 - 0.5, 0, Math.PI * 2);
     ctx.clip();
 
-    // Base
-    ctx.fillStyle = '#d8d0f2';
+    // Base — very light lavender-white
+    ctx.fillStyle = '#E8E5F5';
     ctx.fillRect(0, 0, size, size);
 
     // Blobs
@@ -581,27 +606,28 @@ function initOrb(canvas) {
       const by = size / 2 + Math.sin(t * b.speed * b.oy + b.phase) * b.orbit * 0.65;
       const g = ctx.createRadialGradient(bx, by, 0, bx, by, b.r);
       const [r, gb, bl] = b.color;
-      g.addColorStop(0,   `rgba(${r},${gb},${bl},0.88)`);
-      g.addColorStop(0.45,`rgba(${r},${gb},${bl},0.5)`);
+      g.addColorStop(0,   `rgba(${r},${gb},${bl},0.72)`);
+      g.addColorStop(0.45,`rgba(${r},${gb},${bl},0.38)`);
       g.addColorStop(1,   `rgba(${r},${gb},${bl},0)`);
       ctx.fillStyle = g;
       ctx.fillRect(0, 0, size, size);
     }
 
-    // Sphere depth shading
+    // Subtle depth
     const depth = ctx.createRadialGradient(size/2, size/2, 0, size/2, size/2, size/2);
     depth.addColorStop(0,   'rgba(0,0,0,0)');
-    depth.addColorStop(0.45,'rgba(0,0,0,0)');
-    depth.addColorStop(0.72,'rgba(3,2,18,0.12)');
-    depth.addColorStop(1,   'rgba(2,2,20,0.72)');
+    depth.addColorStop(0.55,'rgba(0,0,0,0)');
+    depth.addColorStop(0.82,'rgba(10,12,40,0.06)');
+    depth.addColorStop(1,   'rgba(10,12,40,0.28)');
     ctx.fillStyle = depth;
     ctx.fillRect(0, 0, size, size);
 
-    // Highlight
-    const hi = ctx.createRadialGradient(size*0.34, size*0.3, 0, size*0.34, size*0.3, size*0.32);
-    hi.addColorStop(0, 'rgba(255,255,255,0.28)');
-    hi.addColorStop(0.5,'rgba(255,255,255,0.07)');
-    hi.addColorStop(1, 'rgba(255,255,255,0)');
+    // White inner glow — centered, prominent (retellai.com style)
+    const hi = ctx.createRadialGradient(size*0.52, size*0.46, 0, size*0.52, size*0.46, size*0.48);
+    hi.addColorStop(0,    'rgba(255,255,255,0.82)');
+    hi.addColorStop(0.30, 'rgba(255,255,255,0.52)');
+    hi.addColorStop(0.60, 'rgba(255,255,255,0.18)');
+    hi.addColorStop(1,    'rgba(255,255,255,0)');
     ctx.fillStyle = hi;
     ctx.fillRect(0, 0, size, size);
 
@@ -921,42 +947,32 @@ function dismissBanner() {
   document.getElementById('path-a-banner').classList.remove('visible');
 }
 
-/* ── Template gallery ── */
+/* ── Template gallery (home icon row) ── */
 const TEMPLATES = [
-  { name:'Customer Support',    icon:'🎧', cat:'inbound',    tag:'Inbound',    desc:'Handle inbound support calls, answer FAQs, and route complex issues.', prompt:'Help me build a customer support agent that handles inbound calls, resolves common FAQs, and routes complex issues to a human.' },
-  { name:'Appointment Booking', icon:'📅', cat:'inbound',    tag:'Inbound',    desc:'Book and confirm appointments with smart calendar integration.',       prompt:'Walk me through setting up an appointment booking agent with calendar integration and confirmation messages.' },
-  { name:'Lead Qualification',  icon:'🎯', cat:'inbound',    tag:'Inbound',    desc:'Qualify inbound leads with BANT criteria before routing to sales.',    prompt:'Build an agent that qualifies inbound leads by asking BANT questions and routes qualified leads to the sales team.' },
-  { name:'Outbound Sales',      icon:'📤', cat:'outbound',   tag:'Outbound',   desc:'Engage prospects with personalized outreach at scale.',                 prompt:'Help me set up an outbound sales agent that calls prospects, introduces our product, and books demos.' },
-  { name:'After-Hours Response',icon:'🌙', cat:'inbound',    tag:'Inbound',    desc:'Ensure callers get a helpful response outside business hours.',         prompt:'Create an after-hours agent that takes messages and handles urgent requests when the team is offline.' },
-  { name:'Cold Outreach',       icon:'📞', cat:'outbound',   tag:'Outbound',   desc:'Run personalized cold call campaigns at scale.',                        prompt:'Build a cold outreach agent that introduces our company, qualifies interest, and books follow-up calls.' },
-  { name:'Medical Intake',      icon:'🏥', cat:'healthcare', tag:'Healthcare', desc:'Collect patient info, triage urgency, and route to the right provider.',prompt:'Help me create a medical intake agent that collects patient information and triages call urgency before routing.' },
-  { name:'Debt Collection',     icon:'💳', cat:'outbound',   tag:'Outbound',   desc:'Professional and compliant outreach for overdue accounts.',             prompt:'Build a compliant debt collection agent that contacts customers with overdue balances and arranges payment plans.' },
-  { name:'Real Estate Inquiry', icon:'🏠', cat:'inbound',    tag:'Inbound',    desc:'Answer property questions and schedule showings for buyers.',           prompt:'Create a real estate agent that answers property inquiries and schedules showings with interested buyers.' },
-  { name:'IT Helpdesk',         icon:'💻', cat:'inbound',    tag:'Inbound',    desc:'First-line support for common IT issues with smart escalation.',        prompt:'Build an IT helpdesk agent that handles common technical support requests and escalates complex issues to a human.' },
-  { name:'Sales Follow-up',     icon:'🔄', cat:'outbound',   tag:'Outbound',   desc:'Re-engage warm leads and move them through the pipeline.',              prompt:'Create a sales follow-up agent that re-engages leads who showed interest but haven\'t converted yet.' },
-  { name:'Patient Reminders',   icon:'💊', cat:'healthcare', tag:'Healthcare', desc:'Send proactive appointment reminders and handle rescheduling.',         prompt:'Build a patient reminder agent that calls patients before appointments and handles rescheduling requests.' },
+  { name:'Receptionist',      icon:'📞', cat:'receptionist' },
+  { name:'Outbound Sales',    icon:'📤', cat:'outbound sales & reactivation' },
+  { name:'Appointment',       icon:'📅', cat:'appointment booking' },
+  { name:'Lead Qual.',        icon:'🎯', cat:'lead qualification' },
+  { name:'Support',           icon:'💬', cat:'customer support & after-hours' },
+  { name:'Back-Office',       icon:'⚙️', cat:'back-office task automation' },
+  { name:'Debt Collection',   icon:'💳', cat:'debt collection' },
+  { name:'IVR & DTMF',       icon:'🔢', cat:'ivr & dtmf automation' },
+  { name:'Translation',       icon:'🌐', cat:'real-time translation' },
 ];
 
-function renderTemplates(filter) {
+function renderTemplates() {
   const row = document.getElementById('tpl-grid');
   row.innerHTML = '';
   TEMPLATES.forEach(t => {
-    const show = filter === 'all' || t.cat === filter;
     const item = document.createElement('div');
-    item.className = 'tpl-icon-item' + (show ? '' : ' hidden');
+    item.className = 'tpl-icon-item';
     item.innerHTML = `<div class="tpl-icon-circle">${t.icon}</div><div class="tpl-icon-name">${t.name}</div>`;
     item.onclick = () => openCAModal(t.cat);
     row.appendChild(item);
   });
 }
 
-function filterTpl(cat, el) {
-  document.querySelectorAll('.tpl-chip').forEach(c => c.classList.remove('active'));
-  el.classList.add('active');
-  renderTemplates(cat);
-}
-
-renderTemplates('all');
+renderTemplates();
 
 /* ── Recent agents ── */
 const RECENT_AGENTS = [
@@ -1004,23 +1020,55 @@ renderRecents(true);
 document.getElementById('cl-strip').classList.remove('open');
 
 /* ── Create Agent modal ── */
-const CA_TABS = ['All', 'Receptionist', 'Outbound Sales', 'Appointment Booking', 'Lead Qualification', 'Healthcare', 'Custom'];
+const CA_TABS = ['All', 'Receptionist', 'Outbound Sales & Reactivation', 'Appointment Booking', 'Lead Qualification', 'Customer Support & After-Hours', 'Back-Office Task Automation', 'Debt Collection', 'IVR & DTMF Automation', 'Real-Time Translation'];
 
 const CA_TEMPLATES = [
-  { icon:'➕', name:'Blank agent',            cat:'all',              desc:'Start from scratch with a clean slate.' },
-  { icon:'🎧', name:'Customer Support',        cat:'receptionist',     desc:'Handle inbound calls and resolve common issues.' },
-  { icon:'🌙', name:'After-Hours Response',    cat:'receptionist',     desc:'Ensure callers get help outside business hours.' },
-  { icon:'🏠', name:'Real Estate Inquiry',     cat:'receptionist',     desc:'Answer property questions and schedule showings.' },
-  { icon:'💻', name:'IT Helpdesk',             cat:'receptionist',     desc:'First-line support with smart escalation.' },
-  { icon:'📤', name:'Outbound Sales',          cat:'outbound sales',   desc:'Engage prospects with personalized outreach at scale.' },
-  { icon:'📞', name:'Cold Outreach',           cat:'outbound sales',   desc:'Run personalized cold call campaigns at scale.' },
-  { icon:'💳', name:'Debt Collection',         cat:'outbound sales',   desc:'Professional and compliant outreach for overdue accounts.' },
-  { icon:'🔄', name:'Sales Follow-up',         cat:'outbound sales',   desc:'Re-engage warm leads through the pipeline.' },
-  { icon:'📅', name:'Appointment Booking',     cat:'appointment booking', desc:'Book appointments with smart calendar integration.' },
-  { icon:'🎯', name:'Lead Qualification',      cat:'lead qualification',  desc:'Qualify inbound leads with BANT criteria.' },
-  { icon:'🏥', name:'Medical Intake',          cat:'healthcare',       desc:'Collect patient info and triage urgency.' },
-  { icon:'💊', name:'Patient Reminders',       cat:'healthcare',       desc:'Send proactive reminders and handle rescheduling.' },
+  // Blank agent appears in every tab
+  { blank:true, name:'Blank agent', cats:['all','receptionist','outbound sales & reactivation','appointment booking','lead qualification','customer support & after-hours','back-office task automation','debt collection','ivr & dtmf automation','real-time translation'], desc:'', colors:[] },
+  // All tab (curated set)
+  { name:'Insurance Verification Caller',    cats:['all','back-office task automation'],            desc:'Call insurance companies to verify patient coverage and benefits.', colors:['#3B82F6','#6366F1','#8B5CF6'] },
+  { name:'IVR Navigation Payment Bot',       cats:['all','ivr & dtmf automation'],                 desc:'Navigate automated phone systems to process payments seamlessly.', colors:['#F59E0B','#FBBF24','#D97706'] },
+  { name:'Document Request Caller',          cats:['all','back-office task automation'],            desc:'Proactively call to collect missing documents from customers.', colors:['#6366F1','#8B5CF6','#A855F7'] },
+  { name:'Outreach Dialer',                  cats:['all','outbound sales & reactivation'],          desc:'High-volume outbound dialing for sales and reactivation campaigns.', colors:['#F97316','#EF4444','#FB7185'] },
+  { name:'Basic Lead Qualification',         cats:['all','lead qualification'],                     desc:'Screen inbound leads with qualifying questions before routing.', colors:['#7C3AED','#A855F7','#6366F1'] },
+  // Receptionist
+  { name:'Multi-Department Router',          cats:['receptionist'],                                 desc:'Route callers to the right department using speech recognition.', colors:['#3B82F6','#60A5FA','#93C5FD'] },
+  { name:'Medical Receptionist',             cats:['receptionist'],                                 desc:'Handle appointment scheduling and patient inquiries for clinics.', colors:['#0EA5E9','#38BDF8','#7DD3FC'] },
+  { name:'After-Hours Law Firm Receptionist',cats:['receptionist'],                                 desc:'Capture leads and take messages outside of office hours.', colors:['#6366F1','#818CF8','#A5B4FC'] },
+  // Outbound Sales & Reactivation
+  { name:'Lead Reactivation Campaign',       cats:['outbound sales & reactivation'],                desc:'Re-engage cold leads with personalized outreach sequences.', colors:['#EF4444','#F97316','#FBBF24'] },
+  { name:'Event/Webinar Reminder',           cats:['outbound sales & reactivation'],                desc:'Remind registered attendees about upcoming events automatically.', colors:['#F59E0B','#FBBF24','#FCD34D'] },
+  { name:'Payment Reminder Caller',          cats:['outbound sales & reactivation'],                desc:'Remind customers of upcoming or overdue payments professionally.', colors:['#EF4444','#FB923C','#FDBA74'] },
+  { name:'Reminder & No-Show Reducer',       cats:['outbound sales & reactivation'],                desc:'Reduce no-shows with automated pre-appointment reminders.', colors:['#F97316','#FB923C','#FED7AA'] },
+  // Appointment Booking
+  { name:'Rider Appointment Booking',        cats:['appointment booking'],                          desc:'Book rides and appointments for mobility-impaired clients.', colors:['#14B8A6','#10B981','#34D399'] },
+  { name:'IVR Appointment Scheduling Agent', cats:['appointment booking'],                          desc:'Schedule appointments via automated phone booking flows.', colors:['#06B6D4','#22D3EE','#67E8F9'] },
+  // Lead Qualification
+  { name:'Mortgage Inbound Form Follow-Up',  cats:['lead qualification'],                           desc:'Follow up on mortgage inquiry forms and qualify applicants.', colors:['#7C3AED','#6D28D9','#8B5CF6'] },
+  { name:'B2B Demo Qualification',           cats:['lead qualification'],                           desc:'Qualify inbound B2B leads and book product demos efficiently.', colors:['#4F46E5','#6366F1','#818CF8'] },
+  { name:'High-Intent Lead Screener',        cats:['lead qualification'],                           desc:'Identify and fast-track high-value prospects to your sales team.', colors:['#7C3AED','#A855F7','#C084FC'] },
+  { name:'Legal Intake Screener',            cats:['lead qualification'],                           desc:'Screen potential clients for personal injury and legal matters.', colors:['#6366F1','#4F46E5','#3730A3'] },
+  // Customer Support & After-Hours
+  { name:'FAQ Voice Agent',                  cats:['customer support & after-hours'],               desc:'Handle common customer questions with instant voice responses.', colors:['#0EA5E9','#3B82F6','#60A5FA'] },
+  { name:'Support Triage Bot',               cats:['customer support & after-hours'],               desc:'Triage support calls, gather context, and route to the right team.', colors:['#06B6D4','#0EA5E9','#38BDF8'] },
+  { name:'After-Hours Support Guard',        cats:['customer support & after-hours'],               desc:'Handle urgent requests and take messages outside business hours.', colors:['#1D4ED8','#2563EB','#3B82F6'] },
+  // Back-Office Task Automation
+  { name:'Delivery Status Caller',           cats:['back-office task automation'],                  desc:'Proactively update customers on shipment status and delays.', colors:['#64748B','#475569','#94A3B8'] },
+  { name:'Provider Office Follow-Up',        cats:['back-office task automation'],                  desc:'Follow up with provider offices on referrals and authorizations.', colors:['#475569','#64748B','#94A3B8'] },
+  { name:'Pharmacy Refill Caller',           cats:['back-office task automation'],                  desc:'Call patients and pharmacies to coordinate prescription refills.', colors:['#6366F1','#4F46E5','#818CF8'] },
+  // Debt Collection
+  { name:'Payment Collection Agent',         cats:['debt collection'],                              desc:'Professionally contact customers with overdue balances.', colors:['#EF4444','#DC2626','#F87171'] },
+  // IVR & DTMF Automation
+  { name:'IVR Navigation Bot',               cats:['ivr & dtmf automation'],                       desc:'Automate navigation through complex IVR phone systems.', colors:['#D97706','#F59E0B','#FBBF24'] },
+  // Real-Time Translation
+  { name:'Live Call Translator',             cats:['real-time translation'],                        desc:'Translate spoken conversations in real time across languages.', colors:['#10B981','#34D399','#6EE7B7'] },
 ];
+
+function tplCluster(colors) {
+  if (!colors || colors.length < 3) return '';
+  const [c1, c2, c3] = colors;
+  return `<svg width="38" height="24" viewBox="0 0 38 24" fill="none"><rect x="0" y="7" width="16" height="11" rx="2.5" fill="${c1}"/><rect x="11" y="1" width="16" height="11" rx="2.5" fill="${c2}"/><rect x="22" y="10" width="16" height="11" rx="2.5" fill="${c3}"/></svg>`;
+}
 
 let caSelectedTpl = null;
 
@@ -1034,28 +1082,46 @@ function closeCAModal() {
   caSelectedTpl = null;
 }
 
+function scrollCATabs(dir) {
+  document.getElementById('ca-tabs').scrollBy({ left: dir * 140, behavior: 'smooth' });
+}
+
 function renderCATabs(active) {
   const tabsEl = document.getElementById('ca-tabs');
   tabsEl.innerHTML = '';
+  const activeKey = active.toLowerCase();
   CA_TABS.forEach(tab => {
+    const tabKey = tab.toLowerCase();
     const el = document.createElement('div');
-    el.className = 'ca-tab' + (tab.toLowerCase() === active ? ' active' : '');
+    el.className = 'ca-tab' + (tabKey === activeKey ? ' active' : '');
     el.textContent = tab;
-    el.onclick = () => renderCATabs(tab.toLowerCase());
+    el.onclick = () => {
+      document.querySelectorAll('.ca-tab').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      renderCAGrid(tabKey);
+    };
     tabsEl.appendChild(el);
   });
-  renderCAGrid(active);
+  renderCAGrid(activeKey);
+  setTimeout(() => {
+    const activeEl = tabsEl.querySelector('.ca-tab.active');
+    if (activeEl) activeEl.scrollIntoView({ block:'nearest', inline:'center' });
+  }, 0);
 }
 
 function renderCAGrid(cat) {
   const grid = document.getElementById('ca-grid');
   grid.innerHTML = '';
+  const catKey = cat.toLowerCase();
   CA_TEMPLATES.forEach(t => {
-    if (cat !== 'all' && t.cat !== cat) return;
+    if (!t.cats.includes(catKey)) return;
     const card = document.createElement('div');
-    const isBlank = t.name === 'Blank agent';
-    card.className = 'ca-tpl-card' + (isBlank ? ' blank' : '');
-    card.innerHTML = `<div class="ca-tpl-card-top"><div class="ca-tpl-icon">${t.icon}</div><div class="ca-tpl-name">${t.name}</div></div><div class="ca-tpl-desc">${t.desc}</div>`;
+    card.className = 'ca-tpl-card' + (t.blank ? ' blank' : '');
+    if (t.blank) {
+      card.innerHTML = `<div class="ca-tpl-card-top"><div class="ca-tpl-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 2v12M2 8h12" stroke="#CACFD8" stroke-width="1.8" stroke-linecap="round"/></svg></div><div class="ca-tpl-name">Blank agent</div></div>`;
+    } else {
+      card.innerHTML = `<div class="ca-tpl-card-top"><div class="ca-tpl-icon-cluster">${tplCluster(t.colors)}</div><div class="ca-tpl-name">${t.name}</div></div><div class="ca-tpl-desc">${t.desc}</div>`;
+    }
     card.onclick = () => {
       document.querySelectorAll('.ca-tpl-card').forEach(c => c.classList.remove('selected'));
       card.classList.add('selected');
