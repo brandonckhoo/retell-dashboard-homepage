@@ -166,7 +166,11 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
 .agent-card-av { width: 36px; height: 36px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; letter-spacing: -0.3px; flex-shrink: 0; }
 .agent-card-info { display: flex; flex-direction: column; gap: 2px; overflow: hidden; }
 .agent-card-name { font-size: 13px; font-weight: 500; color: #0A0A0A; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.agent-card-edited { font-size: 11.5px; color: #99A0AE; white-space: nowrap; }
+.agent-card-meta { display: flex; align-items: center; gap: 6px; margin-top: 3px; flex-wrap: wrap; }
+.agent-card-edited { font-size: 11px; color: #CACFD8; white-space: nowrap; }
+.agent-type-badge { font-size: 10.5px; font-weight: 500; padding: 2px 7px; border-radius: 4px; white-space: nowrap; flex-shrink: 0; }
+.agent-type-badge.cf { background: #EEF2FF; color: #4F46E5; }
+.agent-type-badge.sp { background: #F3F4F6; color: #525866; }
 /* Template cards */
 .tpl-home-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .tpl-home-card { background: #fff; border: 1px solid #E1E4EA; border-radius: 10px; overflow: hidden; cursor: pointer; transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s; }
@@ -1050,18 +1054,18 @@ const RECENT_AGENTS = [
 ];
 
 const RECENTLY_VIEWED = [
-  { name:'Insurance Verification Caller',   edited:'Viewed 2 hours ago',   color:'#3B82F6' },
-  { name:'Legal Intake Screener',           edited:'Viewed 4 hours ago',   color:'#4F46E5' },
-  { name:'B2B Demo Qualification',          edited:'Viewed yesterday',     color:'#6366F1' },
-  { name:'FAQ Voice Agent',                 edited:'Viewed 2 days ago',    color:'#0EA5E9' },
-  { name:'Payment Collection Agent',        edited:'Viewed 2 days ago',    color:'#EF4444' },
-  { name:'Live Call Translator',            edited:'Viewed 3 days ago',    color:'#10B981' },
-  { name:'Multi-Department Router',         edited:'Viewed 4 days ago',    color:'#3d64d7' },
-  { name:'Support Triage Bot',              edited:'Viewed 5 days ago',    color:'#0891B2' },
-  { name:'Lead Reactivation Campaign',      edited:'Viewed 1 week ago',    color:'#F97316' },
-  { name:'Dental Office Receptionist',      edited:'Viewed 2 weeks ago',   color:'#06B6D4' },
-  { name:'HR Benefits Enrollment',          edited:'Viewed 2 weeks ago',   color:'#059669' },
-  { name:'NPS Survey Collector',            edited:'Viewed 1 month ago',   color:'#A855F7' },
+  { name:'ZG – Bay Area',                          edited:'2 hours ago',   color:'#3B82F6', type:'sp' },
+  { name:'BF Biscuit Prod – Avondale',             edited:'4 hours ago',   color:'#4F46E5', type:'cf' },
+  { name:'Hamtown Hounds (Salon Grooming)',         edited:'yesterday',     color:'#6366F1', type:'sp' },
+  { name:'Spanish Springs Pet Resort (Demo)',       edited:'2 days ago',    color:'#0EA5E9', type:'cf' },
+  { name:'Wagwash (Mobile Grooming)',               edited:'2 days ago',    color:'#EF4444', type:'sp' },
+  { name:'Maddies',                                edited:'3 days ago',    color:'#10B981', type:'cf' },
+  { name:'🔴 Red Dog Boston (Demo)',               edited:'4 days ago',    color:'#3d64d7', type:'cf' },
+  { name:'BF Biscuit Test Env – Gilbert',          edited:'5 days ago',    color:'#0891B2', type:'cf' },
+  { name:'Transfer Screening Agent',               edited:'1 week ago',    color:'#F97316', type:'sp' },
+  { name:'Grooming template agent (copy)',          edited:'2 weeks ago',   color:'#06B6D4', type:'cf' },
+  { name:'ZG – Galveston',                         edited:'2 weeks ago',   color:'#059669', type:'sp' },
+  { name:'Mobile Grooming [Chat]',                 edited:'1 month ago',   color:'#A855F7', type:'sp' },
 ];
 
 const CAT_LABELS = {
@@ -1094,9 +1098,10 @@ function renderTabContent(tab) {
     data.forEach(a => {
       const card = document.createElement('div');
       card.className = 'agent-card';
-      const initials = a.name.replace(/\[.*?\]/g,'').trim().split(/[\s\-—]+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+      const initials = a.name.replace(/\[.*?\]/g,'').replace(/[^\w\s\-—]/g,'').trim().split(/[\s\-—]+/).filter(Boolean).slice(0,2).map(w=>w[0]).join('').toUpperCase();
       const displayName = a.name.replace(/\s*\[Chat\]/i,'');
-      card.innerHTML = `<div class="agent-card-av" style="background:${a.color}18;color:${a.color}">${initials}</div><div class="agent-card-info"><div class="agent-card-name">${displayName}</div><div class="agent-card-edited">${a.edited}</div></div>`;
+      const typeLabel = a.type === 'cf' ? 'Conversation Flow' : 'Single Prompt';
+      card.innerHTML = `<div class="agent-card-av" style="background:${a.color}18;color:${a.color}">${initials}</div><div class="agent-card-info"><div class="agent-card-name">${displayName}</div><div class="agent-card-meta"><span class="agent-type-badge ${a.type}">${typeLabel}</span><span class="agent-card-edited">${a.edited}</span></div></div>`;
       card.onclick = () => showToast('Opening ' + displayName + '...');
       grid.appendChild(card);
     });
