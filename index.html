@@ -49,11 +49,18 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
 .rail-new-btn:hover { background: #1c2333; }
 .rail-hist-label { padding: 10px 10px 4px; font-size: 11px; font-weight: 500; color: #99A0AE; text-transform: uppercase; letter-spacing: 0.06em; flex-shrink: 0; }
 .rail-history { flex: 1; overflow-y: auto; padding: 0 6px 16px; }
-.hist-item { padding: 7px 8px; border-radius: 6px; cursor: pointer; margin-top: 1px; }
+.hist-item { padding: 7px 8px; border-radius: 8px; cursor: pointer; margin-top: 2px; display: flex; gap: 8px; align-items: flex-start; }
 .hist-item:hover { background: rgba(0,0,0,0.04); }
 .hist-item.active { background: #EEF3FF; }
-.hist-title { font-size: 13px; color: #0A0A0A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.hist-time { font-size: 11px; color: #99A0AE; margin-top: 2px; }
+.hist-av { width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; letter-spacing: -0.3px; }
+.hist-body { flex: 1; min-width: 0; }
+.hist-title { font-size: 12.5px; font-weight: 500; color: #0A0A0A; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.35; }
+.hist-meta { display: flex; align-items: center; gap: 5px; margin-top: 3px; }
+.hist-mode { font-size: 10px; font-weight: 600; padding: 1.5px 5px; border-radius: 3px; flex-shrink: 0; }
+.hist-mode.build { background: #0E121B; color: #fff; }
+.hist-mode.plan  { background: #EEF3FF; color: #3d64d7; }
+.hist-mode.ask   { background: #F3F4F6; color: #525866; }
+.hist-time { font-size: 11px; color: #CACFD8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* ── Main content ── */
 .home-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: #fff; }
@@ -113,16 +120,19 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
 .cp-inner { width: 100%; max-width: 680px; display: flex; flex-direction: column; align-items: center; }
 .cp-orb-wrap { margin-bottom: 18px; }
 .cp-greeting { font-size: 19px; font-weight: 600; color: #0A0A0A; text-align: center; margin-bottom: 18px; line-height: 1.3; }
-.cp-input-wrap { position: relative; width: 100%; background: #fff; border: 1px solid #D1D5DB; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); display: flex; flex-direction: column; margin-bottom: 20px; transition: border-color 0.15s, box-shadow 0.15s; overflow: hidden; }
+.cp-input-wrap { position: relative; width: 100%; background: #fff; border: 1px solid #D1D5DB; border-radius: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); display: flex; flex-direction: column; margin-bottom: 8px; transition: border-color 0.15s, box-shadow 0.15s; overflow: hidden; }
 .cp-input-wrap:focus-within { border-color: #3d64d7; box-shadow: 0 0 0 3px rgba(61,100,215,0.1); }
-.cp-input-row { display: flex; align-items: flex-end; gap: 8px; padding: 10px 10px 10px 14px; position: relative; }
+.cp-input-row { display: flex; align-items: flex-start; padding: 12px 14px 6px; position: relative; }
 .cp-input { flex: 1; border: none; outline: none; font-family: inherit; font-size: 14px; color: #0A0A0A; resize: none; background: transparent; line-height: 1.5; min-height: 22px; max-height: 100px; overflow-y: auto; }
 .cp-input::placeholder { color: #CACFD8; }
-.cp-ph-anim { position: absolute; top: 10px; left: 14px; font-size: 14px; color: #CACFD8; pointer-events: none; white-space: nowrap; overflow: hidden; }
-.cp-send { width: 30px; height: 30px; background: #0E121B; border: none; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
+.cp-ph-anim { position: absolute; top: 12px; left: 14px; font-size: 14px; color: #CACFD8; pointer-events: none; white-space: nowrap; overflow: hidden; }
+.cp-input-actions { display: flex; align-items: center; padding: 2px 10px 10px; gap: 5px; }
+.cp-add-ctx { width: 28px; height: 28px; border: none; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #B0B7C3; border-radius: 6px; flex-shrink: 0; transition: background 0.1s, color 0.1s; }
+.cp-add-ctx:hover { background: rgba(0,0,0,0.04); color: #525866; }
+.cp-send { width: 32px; height: 32px; background: #0E121B; border: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; transition: background 0.12s; }
 .cp-send:hover { background: #1c2333; }
 .cp-send:disabled { background: #E1E4EA; cursor: not-allowed; }
-.cp-int-bar { display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-top: 1px solid #F0F2F5; }
+.cp-int-bar { display: flex; align-items: center; gap: 8px; padding: 9px 14px; background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 10px; margin-bottom: 20px; }
 .cp-int-label { font-size: 11.5px; color: #99A0AE; white-space: nowrap; flex-shrink: 0; }
 .cp-int-icons { display: flex; align-items: center; gap: 5px; }
 .cp-int-icon { width: 20px; height: 20px; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; opacity: 0.88; transition: opacity 0.12s; overflow: hidden; }
@@ -347,24 +357,53 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
     <div class="rail-hist-label">History</div>
     <div class="rail-history" id="hist-list">
       <div class="hist-item active" onclick="loadConvo('droprate')">
-        <div class="hist-title">Why is my call drop rate 12%?</div>
-        <div class="hist-time">2 hours ago</div>
+        <div class="hist-av" style="background:#3d64d718;color:#3d64d7">CS</div>
+        <div class="hist-body">
+          <div class="hist-title">Diagnosed 12% call drop rate</div>
+          <div class="hist-meta"><span class="hist-mode ask">Ask</span><span class="hist-time">2 hours ago</span></div>
+        </div>
       </div>
       <div class="hist-item" onclick="loadConvo('support')">
-        <div class="hist-title">Customer support agent setup</div>
-        <div class="hist-time">Yesterday</div>
+        <div class="hist-av" style="background:#05966918;color:#059669">CS</div>
+        <div class="hist-body">
+          <div class="hist-title">Built Customer Support Tier 1 agent</div>
+          <div class="hist-meta"><span class="hist-mode build">Build</span><span class="hist-time">Yesterday</span></div>
+        </div>
       </div>
       <div class="hist-item" onclick="loadConvo('booking')">
-        <div class="hist-title">Appointment booking with calendar sync</div>
-        <div class="hist-time">2 days ago</div>
+        <div class="hist-av" style="background:#7c3aed18;color:#7c3aed">AB</div>
+        <div class="hist-body">
+          <div class="hist-title">Calendar sync for booking agent</div>
+          <div class="hist-meta"><span class="hist-mode build">Build</span><span class="hist-time">2 days ago</span></div>
+        </div>
       </div>
       <div class="hist-item" onclick="loadConvo('batchsales')">
-        <div class="hist-title">Outbound sales batch call — 500 leads</div>
-        <div class="hist-time">3 days ago</div>
+        <div class="hist-av" style="background:#D9770618;color:#D97706">OS</div>
+        <div class="hist-body">
+          <div class="hist-title">Launched outbound batch — 500 leads</div>
+          <div class="hist-meta"><span class="hist-mode build">Build</span><span class="hist-time">3 days ago</span></div>
+        </div>
       </div>
       <div class="hist-item" onclick="loadConvo('rubric')">
-        <div class="hist-title">AI QA rubric — add tone scoring</div>
-        <div class="hist-time">4 days ago</div>
+        <div class="hist-av" style="background:#6366F118;color:#6366F1">QA</div>
+        <div class="hist-body">
+          <div class="hist-title">Added tone scoring to AI QA rubric</div>
+          <div class="hist-meta"><span class="hist-mode plan">Plan</span><span class="hist-time">4 days ago</span></div>
+        </div>
+      </div>
+      <div class="hist-item" onclick="loadConvo('droprate')">
+        <div class="hist-av" style="background:#0EA5E918;color:#0EA5E9">WC</div>
+        <div class="hist-body">
+          <div class="hist-title">Planned Website Chat Support flows</div>
+          <div class="hist-meta"><span class="hist-mode plan">Plan</span><span class="hist-time">5 days ago</span></div>
+        </div>
+      </div>
+      <div class="hist-item" onclick="loadConvo('support')">
+        <div class="hist-av" style="background:#EF444418;color:#EF4444">DC</div>
+        <div class="hist-body">
+          <div class="hist-title">Debt collection compliance prompts</div>
+          <div class="hist-meta"><span class="hist-mode build">Build</span><span class="hist-time">1 week ago</span></div>
+        </div>
       </div>
     </div>
   </div>
@@ -473,71 +512,70 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
               oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px';updatePhAnim()"
               onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg()}"
               onfocus="updatePhAnim()" onblur="updatePhAnim()"></textarea>
+          </div>
+          <div class="cp-input-actions">
+            <button class="cp-add-ctx" title="Add context" onclick="showToast('Add context...')">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            </button>
+            <div style="flex:1"></div>
+            <!-- Mode selector -->
+            <div class="cp-sel">
+              <button class="cp-sel-btn" id="sel-btn-mode" onclick="toggleSel('mode')">
+                <span id="sel-mode-val">Build</span>
+                <svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 3.5l3 3 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="cp-sel-menu" id="sel-menu-mode">
+                <div class="cp-sel-item active" data-val="Build" onclick="pickMode(this,'Build')">
+                  <span class="cp-sel-check">✓</span>
+                  <div><div class="cp-sel-name">Build</div><div class="cp-sel-desc">Make changes to the agent</div></div>
+                </div>
+                <div class="cp-sel-item" data-val="Plan" onclick="pickMode(this,'Plan')">
+                  <span class="cp-sel-check"></span>
+                  <div><div class="cp-sel-name">Plan</div><div class="cp-sel-desc">Create or refine a plan</div></div>
+                </div>
+                <div class="cp-sel-item" data-val="Ask" onclick="pickMode(this,'Ask')">
+                  <span class="cp-sel-check"></span>
+                  <div><div class="cp-sel-name">Ask</div><div class="cp-sel-desc">Ask questions without changes</div></div>
+                </div>
+              </div>
+            </div>
+            <!-- Model selector -->
+            <div class="cp-sel">
+              <button class="cp-sel-btn" id="sel-btn-model" onclick="toggleSel('model')">
+                <span id="sel-model-val">Opus 4.6</span>
+                <svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 3.5l3 3 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="cp-sel-menu cp-sel-menu-sm" id="sel-menu-model">
+                <div class="cp-sel-item active" data-val="claude-opus-4-6" onclick="pickModel(this,'claude-opus-4-6','Opus 4.6')">
+                  <span class="cp-sel-check">✓</span>
+                  <div class="cp-sel-name">claude-opus-4-6</div>
+                </div>
+                <div class="cp-sel-item" data-val="claude-sonnet-4-6" onclick="pickModel(this,'claude-sonnet-4-6','Sonnet 4.6')">
+                  <span class="cp-sel-check"></span>
+                  <div class="cp-sel-name">claude-sonnet-4-6</div>
+                </div>
+                <div class="cp-sel-item" data-val="gpt-5.4" onclick="pickModel(this,'gpt-5.4','GPT-5.4')">
+                  <span class="cp-sel-check"></span>
+                  <div class="cp-sel-name">gpt-5.4</div>
+                </div>
+              </div>
+            </div>
             <button class="cp-send" onclick="sendMsg()">
-              <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M9 3l5 5-5 5" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 2v12M3 7l5-5 5 5" stroke="white" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </button>
           </div>
-          <div class="cp-int-bar">
-            <span class="cp-int-label">Connect your tools</span>
-            <div class="cp-int-icons">
-              <!-- HubSpot -->
-              <div class="cp-int-icon" title="HubSpot" onclick="showToast('Opening Integrations...')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#FF7A59"/><circle cx="10" cy="10" r="3.1" fill="white"/><circle cx="10" cy="3.9" r="1.85" fill="white"/><circle cx="16.1" cy="10" r="1.85" fill="white"/><circle cx="10" cy="16.1" r="1.85" fill="white"/><circle cx="3.9" cy="10" r="1.85" fill="white"/></svg></div>
-              <!-- Salesforce -->
-              <div class="cp-int-icon" title="Salesforce" onclick="showToast('Opening Integrations...')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect width="20" height="20" fill="white"/><path d="M8.4 5.3a3.6 3.6 0 013.3-1.6 4.7 4.7 0 014.3 2.8c.5-.1 1-.2 1.5-.1a3 3 0 01.1 5.9l-.1.1H4.8a3.4 3.4 0 01-.6-6.7 4 4 0 014.2-.4z" fill="#00A1E0"/></svg></div>
-              <!-- Google Calendar -->
-              <div class="cp-int-icon" title="Google Calendar" onclick="showToast('Opening Integrations...')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="4" width="16" height="14" rx="1.8" fill="white"/><rect x="2" y="4" width="16" height="14" rx="1.8" stroke="#DADCE0" stroke-width="1"/><rect x="2" y="4" width="16" height="5.5" fill="#1A73E8"/><rect x="2" y="7.5" width="16" height="2" fill="#1A73E8"/><rect x="6" y="2.5" width="2" height="4" rx="1" fill="#1557B0"/><rect x="12" y="2.5" width="2" height="4" rx="1" fill="#1557B0"/><rect x="5" y="12" width="3" height="2.5" rx="0.5" fill="#EA4335" opacity="0.9"/><rect x="9" y="12" width="3" height="2.5" rx="0.5" fill="#1A73E8" opacity="0.7"/></svg></div>
-              <!-- Slack -->
-              <div class="cp-int-icon" title="Slack" onclick="showToast('Opening Integrations...')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect width="20" height="20" fill="white"/><rect x="1.5" y="8" width="7.5" height="3.5" rx="1.75" fill="#2EB67D"/><rect x="11" y="8" width="7.5" height="3.5" rx="1.75" fill="#ECB22E"/><rect x="8" y="1.5" width="3.5" height="7.5" rx="1.75" fill="#36C5F0"/><rect x="8" y="11" width="3.5" height="7.5" rx="1.75" fill="#E01E5A"/></svg></div>
-              <!-- Twilio -->
-              <div class="cp-int-icon" title="Twilio" onclick="showToast('Opening Integrations...')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#F22F46"/><circle cx="7" cy="7" r="1.9" fill="white"/><circle cx="13" cy="7" r="1.9" fill="white"/><circle cx="7" cy="13" r="1.9" fill="white"/><circle cx="13" cy="13" r="1.9" fill="white"/></svg></div>
-            </div>
-            <span class="cp-int-more" onclick="showToast('Opening Integrations...')">+ more</span>
-            <div class="cp-bar-right">
-              <div class="cp-bar-sep"></div>
-              <!-- Mode selector -->
-              <div class="cp-sel">
-                <button class="cp-sel-btn" id="sel-btn-mode" onclick="toggleSel('mode')">
-                  <span id="sel-mode-val">Build</span>
-                  <svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 3.5l3 3 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </button>
-                <div class="cp-sel-menu" id="sel-menu-mode">
-                  <div class="cp-sel-item active" data-val="Build" onclick="pickMode(this,'Build')">
-                    <span class="cp-sel-check">✓</span>
-                    <div><div class="cp-sel-name">Build</div><div class="cp-sel-desc">Make changes to the agent</div></div>
-                  </div>
-                  <div class="cp-sel-item" data-val="Plan" onclick="pickMode(this,'Plan')">
-                    <span class="cp-sel-check"></span>
-                    <div><div class="cp-sel-name">Plan</div><div class="cp-sel-desc">Create or refine a plan</div></div>
-                  </div>
-                  <div class="cp-sel-item" data-val="Ask" onclick="pickMode(this,'Ask')">
-                    <span class="cp-sel-check"></span>
-                    <div><div class="cp-sel-name">Ask</div><div class="cp-sel-desc">Ask questions without changes</div></div>
-                  </div>
-                </div>
-              </div>
-              <!-- Model selector -->
-              <div class="cp-sel">
-                <button class="cp-sel-btn" id="sel-btn-model" onclick="toggleSel('model')">
-                  <span id="sel-model-val">Opus 4.6</span>
-                  <svg width="9" height="9" viewBox="0 0 10 10" fill="none"><path d="M2 3.5l3 3 3-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </button>
-                <div class="cp-sel-menu cp-sel-menu-sm" id="sel-menu-model">
-                  <div class="cp-sel-item active" data-val="claude-opus-4-6" onclick="pickModel(this,'claude-opus-4-6','Opus 4.6')">
-                    <span class="cp-sel-check">✓</span>
-                    <div class="cp-sel-name">claude-opus-4-6</div>
-                  </div>
-                  <div class="cp-sel-item" data-val="claude-sonnet-4-6" onclick="pickModel(this,'claude-sonnet-4-6','Sonnet 4.6')">
-                    <span class="cp-sel-check"></span>
-                    <div class="cp-sel-name">claude-sonnet-4-6</div>
-                  </div>
-                  <div class="cp-sel-item" data-val="gpt-5.4" onclick="pickModel(this,'gpt-5.4','GPT-5.4')">
-                    <span class="cp-sel-check"></span>
-                    <div class="cp-sel-name">gpt-5.4</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+        </div>
+        <!-- Connect your tools bar (Clarify-style, below input) -->
+        <div class="cp-int-bar">
+          <span class="cp-int-label">Connect your tools</span>
+          <div class="cp-int-icons">
+            <div class="cp-int-icon" title="HubSpot" onclick="showToast('Opening Integrations...')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="10" r="10" fill="#FF7A59"/><circle cx="10" cy="10" r="3.1" fill="white"/><circle cx="10" cy="3.9" r="1.85" fill="white"/><circle cx="16.1" cy="10" r="1.85" fill="white"/><circle cx="10" cy="16.1" r="1.85" fill="white"/><circle cx="3.9" cy="10" r="1.85" fill="white"/></svg></div>
+            <div class="cp-int-icon" title="Salesforce" onclick="showToast('Opening Integrations...')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect width="20" height="20" fill="white"/><path d="M8.4 5.3a3.6 3.6 0 013.3-1.6 4.7 4.7 0 014.3 2.8c.5-.1 1-.2 1.5-.1a3 3 0 01.1 5.9l-.1.1H4.8a3.4 3.4 0 01-.6-6.7 4 4 0 014.2-.4z" fill="#00A1E0"/></svg></div>
+            <div class="cp-int-icon" title="Google Calendar" onclick="showToast('Opening Integrations...')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="4" width="16" height="14" rx="1.8" fill="white"/><rect x="2" y="4" width="16" height="14" rx="1.8" stroke="#DADCE0" stroke-width="1"/><rect x="2" y="4" width="16" height="5.5" fill="#1A73E8"/><rect x="2" y="7.5" width="16" height="2" fill="#1A73E8"/><rect x="6" y="2.5" width="2" height="4" rx="1" fill="#1557B0"/><rect x="12" y="2.5" width="2" height="4" rx="1" fill="#1557B0"/><rect x="5" y="12" width="3" height="2.5" rx="0.5" fill="#EA4335" opacity="0.9"/><rect x="9" y="12" width="3" height="2.5" rx="0.5" fill="#1A73E8" opacity="0.7"/></svg></div>
+            <div class="cp-int-icon" title="Slack" onclick="showToast('Opening Integrations...')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect width="20" height="20" fill="white"/><rect x="1.5" y="8" width="7.5" height="3.5" rx="1.75" fill="#2EB67D"/><rect x="11" y="8" width="7.5" height="3.5" rx="1.75" fill="#ECB22E"/><rect x="8" y="1.5" width="3.5" height="7.5" rx="1.75" fill="#36C5F0"/><rect x="8" y="11" width="3.5" height="7.5" rx="1.75" fill="#E01E5A"/></svg></div>
+            <div class="cp-int-icon" title="Twilio" onclick="showToast('Opening Integrations...')"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#F22F46"/><circle cx="7" cy="7" r="1.9" fill="white"/><circle cx="13" cy="7" r="1.9" fill="white"/><circle cx="7" cy="13" r="1.9" fill="white"/><circle cx="13" cy="13" r="1.9" fill="white"/></svg></div>
           </div>
+          <span class="cp-int-more" onclick="showToast('Opening Integrations...')">+ more</span>
         </div>
         <div class="tabs-section" id="tabs-section">
           <div class="tabs-row">
@@ -894,7 +932,8 @@ function startConvo(text) {
   items.forEach(i => i.classList.remove('active'));
   const newItem = document.createElement('div');
   newItem.className = 'hist-item active';
-  newItem.innerHTML = `<div class="hist-title">${text.substring(0, 36)}${text.length > 36 ? '…' : ''}</div><div class="hist-time">Just now</div>`;
+  const initials2 = text.trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase();
+  newItem.innerHTML = `<div class="hist-av" style="background:#3d64d718;color:#3d64d7">${initials2}</div><div class="hist-body"><div class="hist-title">${text.substring(0,34)}${text.length>34?'…':''}</div><div class="hist-meta"><span class="hist-mode build">Build</span><span class="hist-time">Just now</span></div></div>`;
   histList.insertBefore(newItem, histList.firstChild);
 
   const typing = showTyping(msgs);
@@ -1033,12 +1072,18 @@ const RECENT_AGENTS = [
 ];
 
 const RECENTLY_VIEWED = [
-  { name:'Insurance Verification Caller', edited:'Viewed 2 hours ago',  color:'#3B82F6' },
-  { name:'Legal Intake Screener',         edited:'Viewed yesterday',    color:'#4F46E5' },
-  { name:'B2B Demo Qualification',        edited:'Viewed 2 days ago',   color:'#6366F1' },
-  { name:'FAQ Voice Agent',               edited:'Viewed 3 days ago',   color:'#0EA5E9' },
-  { name:'Payment Collection Agent',      edited:'Viewed 4 days ago',   color:'#EF4444' },
-  { name:'Live Call Translator',          edited:'Viewed 1 week ago',   color:'#10B981' },
+  { name:'Insurance Verification Caller',   edited:'Viewed 2 hours ago',   color:'#3B82F6' },
+  { name:'Legal Intake Screener',           edited:'Viewed 4 hours ago',   color:'#4F46E5' },
+  { name:'B2B Demo Qualification',          edited:'Viewed yesterday',     color:'#6366F1' },
+  { name:'FAQ Voice Agent',                 edited:'Viewed 2 days ago',    color:'#0EA5E9' },
+  { name:'Payment Collection Agent',        edited:'Viewed 2 days ago',    color:'#EF4444' },
+  { name:'Live Call Translator',            edited:'Viewed 3 days ago',    color:'#10B981' },
+  { name:'Multi-Department Router',         edited:'Viewed 4 days ago',    color:'#3d64d7' },
+  { name:'Support Triage Bot',              edited:'Viewed 5 days ago',    color:'#0891B2' },
+  { name:'Lead Reactivation Campaign',      edited:'Viewed 1 week ago',    color:'#F97316' },
+  { name:'Dental Office Receptionist',      edited:'Viewed 2 weeks ago',   color:'#06B6D4' },
+  { name:'HR Benefits Enrollment',          edited:'Viewed 2 weeks ago',   color:'#059669' },
+  { name:'NPS Survey Collector',            edited:'Viewed 1 month ago',   color:'#A855F7' },
 ];
 
 const CAT_LABELS = {
