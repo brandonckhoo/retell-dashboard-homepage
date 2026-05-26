@@ -80,22 +80,28 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
 .banner-close:hover { background: rgba(61,100,215,0.12); }
 
 /* ── Checklist ── */
-.cl-wrap { flex-shrink: 0; }
-.cl-strip { background: #EEF3FF; border: 1px solid #c7d9ff; border-radius: 8px; overflow: hidden; width: 100%; }
-.cl-hdr { display: flex; align-items: center; gap: 10px; padding: 10px 12px; cursor: pointer; user-select: none; }
-.cl-hdr:hover { background: rgba(61,100,215,0.06); }
-.cl-title { font-size: 13px; font-weight: 600; color: #1e3a8a; white-space: nowrap; }
-.cl-track { height: 4px; background: #c7d9ff; border-radius: 2px; width: 160px; flex-shrink: 0; }
+/* ── Checklist trigger (header chip) ── */
+.cl-trigger-wrap { position: relative; }
+.cl-trigger { display: flex; align-items: center; gap: 7px; padding: 5px 10px; border: 1px solid #c7d9ff; border-radius: 6px; background: #EEF3FF; cursor: pointer; font-family: inherit; transition: background 0.12s, border-color 0.12s; }
+.cl-trigger:hover { background: #dce8ff; }
+.cl-trigger.open { border-color: #3d64d7; background: #dce8ff; }
+.cl-t-label { font-size: 12.5px; font-weight: 600; color: #3d64d7; white-space: nowrap; }
+.cl-t-count { font-size: 12px; color: #5579d9; white-space: nowrap; }
+.cl-t-bar { width: 44px; height: 4px; background: #c7d9ff; border-radius: 2px; flex-shrink: 0; }
+.cl-t-fill { height: 100%; background: #3d64d7; border-radius: 2px; width: 33.33%; transition: width 0.4s ease; }
+/* ── Checklist dropdown panel ── */
+.cl-wrap { display: none; position: absolute; top: calc(100% + 8px); right: 0; width: 300px; background: #fff; border: 1px solid #E1E4EA; border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06); z-index: 500; overflow: hidden; animation: menuIn 0.13s ease; }
+.cl-strip { background: #fff; width: 100%; }
+.cl-hdr { display: flex; align-items: center; gap: 8px; padding: 10px 12px; background: #EEF3FF; border-bottom: 1px solid #d6e4ff; }
+.cl-title { font-size: 12.5px; font-weight: 600; color: #1e3a8a; white-space: nowrap; }
+.cl-track { height: 4px; background: #c7d9ff; border-radius: 2px; width: 80px; flex-shrink: 0; }
 .cl-fill { height: 100%; background: #3d64d7; border-radius: 2px; transition: width 0.4s ease; }
-.cl-count { font-size: 12px; color: #3d64d7; white-space: nowrap; font-weight: 500; }
-.cl-vid { width: 24px; height: 24px; border: 1px solid #c7d9ff; border-radius: 4px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; color: #3d64d7; }
-.cl-vid:hover { background: rgba(61,100,215,0.1); }
-.cl-chevron { color: #3d64d7; flex-shrink: 0; transition: transform 0.2s; opacity: 0.7; }
-.cl-strip.open .cl-chevron { transform: rotate(90deg); }
-.cl-body { display: none; border-top: 1px solid #d6e4ff; background: #f4f8ff; }
-.cl-strip.open .cl-body { display: block; }
+.cl-count { font-size: 11.5px; color: #3d64d7; white-space: nowrap; font-weight: 500; }
+.cl-close { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; border: none; background: transparent; cursor: pointer; color: #99A0AE; border-radius: 4px; flex-shrink: 0; font-size: 13px; line-height: 1; }
+.cl-close:hover { background: rgba(0,0,0,0.06); color: #525866; }
+.cl-body { display: block; }
 .cl-item { display: flex; align-items: flex-start; gap: 10px; padding: 9px 12px; font-size: 13px; }
-.cl-item + .cl-item { border-top: 1px solid #e8f0ff; }
+.cl-item + .cl-item { border-top: 1px solid #F0F2F5; }
 .cl-ico { width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.3s; margin-top: 1px; }
 .cl-ico.done { background: #ECFDF5; border: 1.5px solid #A7F3D0; }
 .cl-ico.todo { background: #fff; border: 1.5px solid #c7d9ff; }
@@ -111,9 +117,7 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
 .cl-optional { font-size: 10px; font-weight: 500; color: #7C9FE8; background: #dce8ff; border-radius: 3px; padding: 1px 5px; flex-shrink: 0; line-height: 14px; }
 
 /* ── Copilot blank state ── */
-#cp-blank { flex: 1; overflow-y: auto; display: flex; flex-direction: row; align-items: flex-start; }
-.cp-main-col { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; padding: 48px 24px 40px; }
-.cp-checklist-col { width: 280px; flex-shrink: 0; padding: 48px 20px 40px 0; position: sticky; top: 0; align-self: flex-start; }
+#cp-blank { flex: 1; overflow-y: auto; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 48px 24px 40px; }
 .cp-inner { width: 100%; max-width: 680px; display: flex; flex-direction: column; align-items: center; }
 .cp-orb-wrap { margin-bottom: 18px; }
 .cp-greeting { font-size: 19px; font-weight: 600; color: #0A0A0A; text-align: center; margin-bottom: 18px; line-height: 1.3; }
@@ -481,6 +485,65 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
           <div class="tav" style="background:#D97706" title="Priya Nair">PN</div>
           <div class="tav tav-overflow" title="3 more">+3</div>
         </div>
+        <!-- Checklist trigger -->
+        <div class="cl-trigger-wrap">
+          <button class="cl-trigger" id="cl-trigger-btn" onclick="toggleCl()">
+            <span class="cl-t-label">Get started</span>
+            <span class="cl-t-count" id="cl-t-count">2 of 6</span>
+            <div class="cl-t-bar"><div class="cl-t-fill" id="cl-t-fill" style="width:33.33%"></div></div>
+          </button>
+          <div class="cl-wrap" id="cl-wrap">
+            <div class="cl-strip" id="cl-strip">
+              <div class="cl-hdr">
+                <span class="cl-title">🚀 Get Your Workspace Ready</span>
+                <div class="cl-track"><div class="cl-fill" id="cl-fill" style="width:33.33%"></div></div>
+                <span class="cl-count" id="cl-count">2 of 6 done</span>
+                <div style="flex:1"></div>
+                <button class="cl-close" onclick="toggleCl()">✕</button>
+              </div>
+              <div class="cl-body" id="cl-body">
+                <div class="cl-item is-done" id="cli-0">
+                  <div class="cl-ico done" id="cl-ico-0"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#059669" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                  <div class="cl-item-main"><span class="cl-item-lbl">Create your workspace</span></div>
+                </div>
+                <div class="cl-item is-done" id="cli-1">
+                  <div class="cl-ico done" id="cl-ico-1"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#059669" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                  <div class="cl-item-main"><span class="cl-item-lbl">Build your first agent</span></div>
+                </div>
+                <div class="cl-item" id="cli-2">
+                  <div class="cl-ico todo" id="cl-ico-2"></div>
+                  <div class="cl-item-main"><span class="cl-item-lbl">Run a test call in Playground</span><span class="cl-item-desc">Test your agent in the Playground before going live</span></div>
+                  <span class="cl-go" onclick="goTo('playground')"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </div>
+                <div class="cl-item" id="cli-3">
+                  <div class="cl-ico todo" id="cl-ico-3"></div>
+                  <div class="cl-item-main"><span class="cl-item-lbl">View call transcript + analysis</span><span class="cl-item-desc">Review AI summaries and transcripts after each call</span></div>
+                  <span class="cl-go" onclick="goTo('calls')"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </div>
+                <div class="cl-item" id="cli-4">
+                  <div class="cl-ico todo" id="cl-ico-4"></div>
+                  <div class="cl-item-main"><span class="cl-item-lbl">Import or create a phone number</span><span class="cl-item-desc">Bring your own number or get one from Retell</span></div>
+                  <span class="cl-go" onclick="goTo('phone')"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </div>
+                <div class="cl-item" id="cli-5">
+                  <div class="cl-ico todo" id="cl-ico-5"></div>
+                  <div class="cl-item-main"><span class="cl-item-lbl">Make your first real call</span><span class="cl-item-desc">Requires a phone number</span></div>
+                  <span class="cl-go" onclick="goTo('call')"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </div>
+                <div class="cl-item" id="cli-6">
+                  <div class="cl-ico todo" id="cl-ico-6"></div>
+                  <div class="cl-item-main"><div class="cl-item-lbl-row"><span class="cl-item-lbl">Invite a teammate</span><span class="cl-optional">optional</span></div><span class="cl-item-desc">Teams using Retell together retain 2× longer</span></div>
+                  <span class="cl-go" onclick="openModal()"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </div>
+                <div class="cl-item" id="cli-7">
+                  <div class="cl-ico todo" id="cl-ico-7"></div>
+                  <div class="cl-item-main"><div class="cl-item-lbl-row"><span class="cl-item-lbl">Explore advanced functions</span><span class="cl-optional">optional</span></div><span class="cl-item-desc">Add tools, webhooks, and data extraction to your agent</span></div>
+                  <span class="cl-go" onclick="goTo('agents')"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <button class="invite-btn" onclick="openModal()">
           <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 2v12M2 8h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
           Invite teammate
@@ -499,7 +562,6 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
 
     <!-- Copilot blank state -->
     <div id="cp-blank">
-      <div class="cp-main-col">
       <div class="cp-inner">
         <div class="cp-orb-wrap">
           <canvas id="orb-main" width="56" height="56" style="border-radius:50%;display:block"></canvas>
@@ -651,64 +713,6 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
           </div>
         </div>
       </div>
-
-      </div><!-- /cp-main-col -->
-      <div class="cp-checklist-col" id="cp-checklist-col">
-        <div class="cl-wrap" id="cl-wrap">
-          <div class="cl-strip" id="cl-strip">
-            <div class="cl-hdr" onclick="toggleCl()">
-              <span class="cl-title">🚀 Get Your Workspace Ready</span>
-              <div class="cl-track"><div class="cl-fill" id="cl-fill" style="width:33.33%"></div></div>
-              <span class="cl-count" id="cl-count">2 of 6 done</span>
-              <div style="flex:1"></div>
-              <div class="cl-vid" title="Watch walkthrough">
-                <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><polygon points="3,2 10,6 3,10" fill="currentColor"/></svg>
-              </div>
-              <svg class="cl-chevron" width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M5 3l6 5-6 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-            <div class="cl-body" id="cl-body">
-              <div class="cl-item is-done" id="cli-0">
-                <div class="cl-ico done" id="cl-ico-0"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#059669" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                <div class="cl-item-main"><span class="cl-item-lbl">Create your workspace</span></div>
-              </div>
-              <div class="cl-item is-done" id="cli-1">
-                <div class="cl-ico done" id="cl-ico-1"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#059669" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                <div class="cl-item-main"><span class="cl-item-lbl">Build your first agent</span></div>
-              </div>
-              <div class="cl-item" id="cli-2">
-                <div class="cl-ico todo" id="cl-ico-2"></div>
-                <div class="cl-item-main"><span class="cl-item-lbl">Run a test call in Playground</span><span class="cl-item-desc">Test your agent in the Playground before going live</span></div>
-                <span class="cl-go" onclick="goTo('playground')"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-              </div>
-              <div class="cl-item" id="cli-3">
-                <div class="cl-ico todo" id="cl-ico-3"></div>
-                <div class="cl-item-main"><span class="cl-item-lbl">View call transcript + analysis</span><span class="cl-item-desc">Review AI summaries and transcripts after each call</span></div>
-                <span class="cl-go" onclick="goTo('calls')"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-              </div>
-              <div class="cl-item" id="cli-4">
-                <div class="cl-ico todo" id="cl-ico-4"></div>
-                <div class="cl-item-main"><span class="cl-item-lbl">Import or create a phone number</span><span class="cl-item-desc">Bring your own number or get one from Retell</span></div>
-                <span class="cl-go" onclick="goTo('phone')"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-              </div>
-              <div class="cl-item" id="cli-5">
-                <div class="cl-ico todo" id="cl-ico-5"></div>
-                <div class="cl-item-main"><span class="cl-item-lbl">Make your first real call</span><span class="cl-item-desc">Requires a phone number</span></div>
-                <span class="cl-go" onclick="goTo('call')"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-              </div>
-              <div class="cl-item" id="cli-6">
-                <div class="cl-ico todo" id="cl-ico-6"></div>
-                <div class="cl-item-main"><div class="cl-item-lbl-row"><span class="cl-item-lbl">Invite a teammate</span><span class="cl-optional">optional</span></div><span class="cl-item-desc">Teams using Retell together retain 2× longer</span></div>
-                <span class="cl-go" onclick="openModal()"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-              </div>
-              <div class="cl-item" id="cli-7">
-                <div class="cl-ico todo" id="cl-ico-7"></div>
-                <div class="cl-item-main"><div class="cl-item-lbl-row"><span class="cl-item-lbl">Explore advanced functions</span><span class="cl-optional">optional</span></div><span class="cl-item-desc">Add tools, webhooks, and data extraction to your agent</span></div>
-                <span class="cl-go" onclick="goTo('agents')"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div><!-- /cp-checklist-col -->
 
     </div>
 
@@ -880,16 +884,27 @@ let doneCount = 2;
 const TOTAL = 6; // optional items (idx >= TOTAL) don't count toward progress
 
 function toggleCl() {
-  document.getElementById('cl-strip').classList.toggle('open');
+  const wrap = document.getElementById('cl-wrap');
+  const btn = document.getElementById('cl-trigger-btn');
+  const isOpen = wrap.style.display === 'block';
+  wrap.style.display = isOpen ? 'none' : 'block';
+  if (btn) btn.classList.toggle('open', !isOpen);
 }
 
 function updateChecklistUI() {
   const pct = (doneCount / TOTAL) * 100;
   document.getElementById('cl-fill').style.width = pct + '%';
   document.getElementById('cl-count').textContent = doneCount + ' of ' + TOTAL + ' done';
+  const tFill = document.getElementById('cl-t-fill');
+  const tCount = document.getElementById('cl-t-count');
+  if (tFill) tFill.style.width = pct + '%';
+  if (tCount) tCount.textContent = doneCount + ' of ' + TOTAL;
   if (doneCount >= TOTAL) {
     setTimeout(() => {
-      document.getElementById('cl-wrap').style.display = 'none';
+      const wrap = document.getElementById('cl-wrap');
+      const btn = document.getElementById('cl-trigger-btn');
+      if (wrap) wrap.style.display = 'none';
+      if (btn) btn.style.display = 'none';
     }, 800);
   }
 }
@@ -1039,8 +1054,11 @@ function showTyping(container) {
 function showConvoState() {
   document.getElementById('cp-blank').style.display = 'none';
   document.getElementById('cp-convo').classList.add('visible');
-  // Collapse checklist when entering conversation
-  document.getElementById('cl-strip').classList.remove('open');
+  // Close checklist dropdown when entering conversation
+  const clWrapConvo = document.getElementById('cl-wrap');
+  const clBtnConvo = document.getElementById('cl-trigger-btn');
+  if (clWrapConvo) clWrapConvo.style.display = 'none';
+  if (clBtnConvo) clBtnConvo.classList.remove('open');
 }
 
 function sendMsg() {
@@ -1141,7 +1159,8 @@ function setPath(path) {
 
   // Reset
   banner.classList.remove('visible');
-  clWrap.style.display = '';
+  clWrap.style.display = 'none';
+  if (document.getElementById('cl-trigger-btn')) { document.getElementById('cl-trigger-btn').style.display = ''; document.getElementById('cl-trigger-btn').classList.remove('open'); }
   cpBlank.style.display = '';
   cpConvo.classList.remove('visible');
   newChat();
@@ -1178,15 +1197,18 @@ function setPath(path) {
     doneCount = 4;
     document.getElementById('cl-fill').style.width = ((4/TOTAL)*100).toFixed(2) + '%';
     document.getElementById('cl-count').textContent = '4 of ' + TOTAL + ' done';
-    clStrip.classList.add('open');
+    clWrap.style.display = 'block';
+    document.getElementById('cl-trigger-btn').classList.add('open');
     greeting.textContent = 'Hey Brandon, what are we working on today?';
     renderTabContent('recent');
   } else if (path === 'convo') {
-    clStrip.classList.remove('open');
+    clWrap.style.display = 'none';
+    document.getElementById('cl-trigger-btn').classList.remove('open');
     loadConvo('drop');
     document.querySelectorAll('.hist-item')[0].classList.add('active');
   } else if (path === 'done') {
     clWrap.style.display = 'none';
+    document.getElementById('cl-trigger-btn').style.display = 'none';
     greeting.textContent = 'Hey Brandon, what are we working on today?';
   }
 }
@@ -1396,7 +1418,17 @@ document.addEventListener('click', function(e) {
   }
 });
 
-// Default state — checklist collapsed, recents rendered
+// Close checklist dropdown on outside click
+document.addEventListener('click', function(e) {
+  const wrap = document.getElementById('cl-wrap');
+  const btn = document.getElementById('cl-trigger-btn');
+  if (wrap && wrap.style.display === 'block' && !e.target.closest('.cl-trigger-wrap')) {
+    wrap.style.display = 'none';
+    if (btn) btn.classList.remove('open');
+  }
+});
+
+// Default state — recents rendered
 renderRecents();
 
 /* ── Create Agent modal ── */
