@@ -169,6 +169,10 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
 .cp-sugg-icon { width: 26px; height: 26px; border-radius: 7px; display: flex; align-items: center; justify-content: center; margin-bottom: 6px; flex-shrink: 0; }
 .cp-sugg-title { font-size: 13px; font-weight: 600; color: #0A0A0A; line-height: 1.3; }
 .cp-sugg-desc { font-size: 11.5px; color: #99A0AE; line-height: 1.35; }
+/* ── Copilot suggestion chips ── */
+.cp-chips-row { width: 100%; display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.cp-chip { display: inline-flex; align-items: center; padding: 5px 12px; border-radius: 20px; border: 1px solid #E1E4EA; background: #fff; font-size: 12.5px; color: #525866; cursor: pointer; font-family: inherit; transition: border-color 0.12s, color 0.12s, background 0.12s; white-space: nowrap; user-select: none; }
+.cp-chip:hover { border-color: #3d64d7; color: #3d64d7; background: #F4F7FF; }
 /* ── Tabs section ── */
 .tabs-section { width: 100%; margin-top: 32px; padding: 0 24px; }
 .tabs-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
@@ -634,6 +638,7 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
             </button>
           </div>
         </div>
+        <div id="cp-chips" class="cp-chips-row"></div>
       </div>
 
       <!-- Analytics widget -->
@@ -1011,6 +1016,21 @@ initOrb(document.getElementById('orb-main'));
 /* ── Checklist state ── */
 let doneCount = 2;
 const TOTAL = 6; // optional items (idx >= TOTAL) don't count toward progress
+
+const CP_CHIPS = {
+  Build: ['Build a voice agent', 'Add a knowledge base', 'Set up call transfers'],
+  Plan:  ['Plan my first agent', 'Draft a call flow', 'Map out escalation paths'],
+  Ask:   ['What can Copilot help with?', 'How do I improve success rate?', 'Show me call analytics'],
+};
+
+function renderChips(mode) {
+  const row = document.getElementById('cp-chips');
+  if (!row) return;
+  const chips = CP_CHIPS[mode] || CP_CHIPS['Build'];
+  row.innerHTML = chips.map(c =>
+    `<button class="cp-chip" onclick="setCpSugg(${JSON.stringify(c)})">${c}</button>`
+  ).join('');
+}
 
 const CP_SUGGESTIONS = {
   build: [
@@ -1612,6 +1632,7 @@ document.addEventListener('click', function(e) {
 
 // Default state — recents rendered
 renderRecents();
+renderChips('Build');
 
 /* ── Create Agent modal ── */
 const CA_TABS = ['All', 'Receptionist', 'Outbound Sales & Reactivation', 'Appointment Booking', 'Lead Qualification', 'Customer Support & After-Hours', 'Back-Office Task Automation', 'Debt Collection', 'IVR & DTMF Automation', 'Real-Time Translation'];
@@ -1794,6 +1815,7 @@ function pickMode(el, val) {
   });
   document.getElementById('sel-mode-val').textContent = val;
   toggleSel('mode');
+  renderChips(val);
 }
 
 function pickModel(el, val, short) {
