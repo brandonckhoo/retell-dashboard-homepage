@@ -642,7 +642,7 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
           </div>
         </div>
         <div class="cp-preset-wrap">
-          <div class="cp-preset-label" id="cp-preset-label">Start with a preset</div>
+          <div class="cp-preset-label" id="cp-preset-label" style="display:none"></div>
           <div id="cp-chips" class="cp-chips-row"></div>
           <div class="cp-back" id="cp-back" style="display:none" onclick="resetPresets()">← Back</div>
         </div>
@@ -1048,7 +1048,7 @@ function renderPresets() {
   const label = document.getElementById('cp-preset-label');
   const back = document.getElementById('cp-back');
   if (!row) return;
-  label.textContent = 'Start with a preset';
+  label.style.display = 'none';
   back.style.display = 'none';
   row.innerHTML = CP_PRESETS.map(p =>
     `<button class="cp-chip" onclick="drillPreset('${p.id}')"><span class="cp-chip-icon">${p.icon}</span>${p.label}</button>`
@@ -1062,6 +1062,7 @@ function drillPreset(id) {
   const label = document.getElementById('cp-preset-label');
   const back = document.getElementById('cp-back');
   label.textContent = preset.label;
+  label.style.display = 'block';
   back.style.display = 'block';
   row.innerHTML = preset.tasks.map(t =>
     `<button class="cp-chip" onclick="setCpSugg(${JSON.stringify(t)})">${t}<span class="cp-chip-arrow">${arrowSvg}</span></button>`
