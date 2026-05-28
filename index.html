@@ -1010,27 +1010,27 @@ const TOTAL = 6; // optional items (idx >= TOTAL) don't count toward progress
 
 const CP_PRESETS = [
   {
-    id: 'build',
-    label: 'Build agents',
+    id: 'agents',
+    label: 'Agents',
     icon: '<svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="2" stroke="currentColor" stroke-width="1.4" fill="none"/><circle cx="5.5" cy="8" r="1.2" fill="currentColor"/><circle cx="10.5" cy="8" r="1.2" fill="currentColor"/><path d="M8 1.5V3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>',
     tasks: ['Build a customer service agent', 'Build an appointment booking bot', 'Build a lead qualification agent', 'Build an outbound sales caller']
   },
   {
-    id: 'test',
-    label: 'Run tests',
+    id: 'simulations',
+    label: 'Simulations',
     icon: '<svg width="13" height="13" viewBox="0 0 16 16" fill="none"><polygon points="4,3 13,8 4,13" fill="currentColor"/></svg>',
     tasks: ['Run a test call', 'Simulate edge cases', 'Compare two agents', 'Run an LLM eval']
   },
   {
-    id: 'analyze',
-    label: 'Analyze calls',
+    id: 'analytics',
+    label: 'Analytics',
     icon: '<svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 12l3-4 3 2 3-5 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>',
     tasks: ['Review this week\'s calls', 'Find failed calls', 'Check QA scores', 'Show top intents']
   },
   {
-    id: 'deploy',
-    label: 'Deploy',
-    icon: '<svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 1l-3 5h2v4h2V6h2L8 1z" fill="currentColor"/><path d="M3 13h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>',
+    id: 'phone',
+    label: 'Phone numbers',
+    icon: '<svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M14 11.5l-2-2a1.4 1.4 0 0 0-2 0l-.7.7a8 8 0 0 1-3.5-3.5l.7-.7a1.4 1.4 0 0 0 0-2L4.5 2a1.4 1.4 0 0 0-2 0C1.2 3.3 1 6.5 5.2 10.8S12.7 14.8 14 13.5a1.4 1.4 0 0 0 0-2z" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linejoin="round"/></svg>',
     tasks: ['Connect a phone number', 'Set up batch calling', 'Configure a webhook', 'Add a web call widget']
   },
   {
