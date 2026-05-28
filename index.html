@@ -1320,13 +1320,13 @@ When a customer asks about pricing, services, hours, or locations,
 look up the relevant info in the knowledge base and respond in
 1-2 sentences. If they ask about dog allergies, ear infections,
 or other pet-health concerns, say: "Let me get a team member to
-help with that" and trigger the transfer node.</div>The plan panel on the right has the full agent spec. Pick a next step below, or keep typing to refine.`,
+help with that" and trigger the transfer node.</div>The plan panel on the right has the full agent spec. The agent isn't built yet — pick a next step below to approve, refine, or build now.`,
     checkpoint: {
-      q: 'The draft is ready. What would you like to do next?',
+      q: 'The plan is ready. What would you like to do next?',
       options: [
-        { label: 'Open in Conversational Flow', toast: 'Opening in Conversational Flow editor...' },
-        { label: 'Run a test simulation', toast: 'Starting test simulation...' },
         { label: 'Refine the plan in chat', action: 'refine' },
+        { label: 'Approve the plan', toast: 'Plan approved. Copilot is now building the agent...' },
+        { label: 'Build it now', toast: 'Building the agent now...' },
       ],
     },
     plan: {
