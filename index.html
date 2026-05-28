@@ -1318,7 +1318,7 @@ const nextStages = {
     checkpoint: {
       q: 'The agent is built. What would you like to do next?',
       options: [
-        { label: 'Open and edit in Conversational Flow', action: 'open-agent' },
+        { label: 'Open and edit the agent in the Conversational Flow canvas', action: 'open-agent' },
         { label: 'Run a test simulation', action: 'next-stage', nextStage: 'testRun' },
         { label: 'Refine the agent in chat', action: 'refine' },
       ],
@@ -1330,7 +1330,7 @@ const nextStages = {
       q: 'The test simulation is done. What would you like to do next?',
       options: [
         { label: 'Apply both Copilot fixes', toast: 'Applying both fixes to the agent...' },
-        { label: 'Open in Conversational Flow', action: 'open-agent' },
+        { label: 'Open and edit the agent in the Conversational Flow canvas', action: 'open-agent' },
         { label: 'Re-run with more scenarios', toast: 'Re-running with a wider test set...' },
       ],
     },
