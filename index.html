@@ -1311,6 +1311,21 @@ function sendInvite() {
 }
 
 /* ── Copilot conversations ── */
+// Chained checkpoint stages — surface after the user picks an option that advances the flow
+const nextStages = {
+  agentBuilt: {
+    resp: `<span class="tool-call">build-agent</span><br><br>Done. The agent is live in your workspace.<br><br><strong>What I created:</strong><ul><li>New Conversational Flow agent named <em>Wagwash Mobile Grooming</em></li><li>4 nodes wired: Greeting → FAQ + Booking + Transfer</li><li>Knowledge base placeholder linked (you'll fill in pricing and service docs)</li><li>Transfer destination set to your existing human agent line</li></ul>The plan panel on the right is now the live agent spec. You can edit it in the Agents canvas, or run a test simulation here.`,
+    checkpoint: {
+      q: 'The agent is built. What would you like to do next?',
+      options: [
+        { label: 'Open in Conversational Flow', action: 'open-agent' },
+        { label: 'Run a test simulation', toast: 'Starting test simulation...' },
+        { label: 'Refine the agent in chat', action: 'refine' },
+      ],
+    },
+  },
+};
+
 const convos = {
   wagwash: {
     user: 'Build me a chat agent for Wagwash Mobile Grooming. It should answer questions about pricing, services, and book appointments. Customers might also ask about dog allergies or pet-health questions, which should transfer to a human.',
@@ -1325,8 +1340,8 @@ help with that" and trigger the transfer node.</div>The plan panel on the right 
       q: 'The plan is ready. What would you like to do next?',
       options: [
         { label: 'Refine the plan in chat', action: 'refine' },
-        { label: 'Approve the plan', toast: 'Plan approved. Copilot is now building the agent...' },
-        { label: 'Build it now', toast: 'Building the agent now...' },
+        { label: 'Approve the plan', action: 'next-stage', nextStage: 'agentBuilt' },
+        { label: 'Build it now', action: 'next-stage', nextStage: 'agentBuilt' },
       ],
     },
     plan: {
@@ -1483,8 +1498,27 @@ function handleCheckpointOption(i) {
     const input = document.getElementById('convo-input');
     if (input) {
       input.focus();
-      showToast("Card dismissed. Keep typing to refine the plan.");
+      showToast("Card dismissed. Keep typing to refine.");
     }
+    return;
+  }
+  if (opt.action === 'next-stage') {
+    const stage = nextStages[opt.nextStage];
+    if (!stage) return;
+    // Hide current checkpoint, append the next assistant message, then surface new checkpoint
+    wrap.style.display = 'none';
+    const msgs = document.getElementById('convo-msgs');
+    const typing = showTyping(msgs);
+    setTimeout(() => {
+      typing.remove();
+      appendMsg(msgs, 'assistant', stage.resp);
+      renderCheckpoint(stage.checkpoint);
+    }, 900);
+    return;
+  }
+  if (opt.action === 'open-agent') {
+    showToast('Opening agent in Conversational Flow editor...');
+    setTimeout(() => goTo('agents'), 600);
     return;
   }
   showToast(opt.toast || 'Action triggered');
