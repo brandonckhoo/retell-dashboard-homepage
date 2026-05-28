@@ -521,7 +521,7 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
         <div class="hist-time">2 hours ago</div>
       </div>
       <div class="hist-item" onclick="loadConvo('hamtown')">
-        <div class="hist-title">Booking flow for Hamtown Hounds salon</div>
+        <div class="hist-title">Add transfer node to Hamtown Hounds booking agent</div>
         <div class="hist-time">Yesterday</div>
       </div>
       <div class="hist-item" onclick="loadConvo('bfbiscuit')">
@@ -1319,6 +1319,17 @@ const nextStages = {
       ],
     },
   },
+  changeApplied: {
+    resp: `<span class="tool-call">apply-agent-edit</span><br><br>Done. The transfer node is wired in.<br><br><strong>What I changed:</strong><ul><li>Added a new <em>Human transfer</em> node connected to the Booking node</li><li>Trigger phrase set to "speak to a human" (also matches "talk to someone", "transfer me")</li><li>Transfer destination set to your existing salon line on file<br>+1 (415) 555-0918</li><li>Fallback message added: "Let me transfer you to one of our team members"</li></ul>The plan panel on the right now reflects the updated agent. You can review the change in the canvas, run a test simulation, or keep iterating from here.`,
+    checkpoint: {
+      q: 'The change is applied. What would you like to do next?',
+      options: [
+        { label: 'Open and edit the agent in the Conversational Flow canvas', action: 'open-agent' },
+        { label: 'Run a test simulation', action: 'next-stage', nextStage: 'testRun' },
+        { label: 'Make another change in chat', action: 'refine' },
+      ],
+    },
+  },
   testRun: {
     resp: `<span class="tool-call">create-test-cases</span><br><span class="tool-call">run-test-cases</span><br><br>Ran 5 test scenarios against the agent. Here's what happened:<br><br><table style="width:100%;border-collapse:collapse;font-size:13px;margin:8px 0"><thead><tr><th style="text-align:left;padding:6px 8px;border-bottom:1px solid #E1E4EA;font-weight:600">Scenario</th><th style="text-align:left;padding:6px 8px;border-bottom:1px solid #E1E4EA;font-weight:600">Result</th></tr></thead><tbody><tr><td style="padding:6px 8px;border-bottom:1px solid #F0F1F3">New patient booking (happy path)</td><td style="padding:6px 8px;border-bottom:1px solid #F0F1F3;color:#059669">Pass</td></tr><tr><td style="padding:6px 8px;border-bottom:1px solid #F0F1F3">Existing patient reschedule</td><td style="padding:6px 8px;border-bottom:1px solid #F0F1F3;color:#059669">Pass</td></tr><tr><td style="padding:6px 8px;border-bottom:1px solid #F0F1F3">Allergy transfer to human</td><td style="padding:6px 8px;border-bottom:1px solid #F0F1F3;color:#059669">Pass</td></tr><tr><td style="padding:6px 8px;border-bottom:1px solid #F0F1F3">Out of service area</td><td style="padding:6px 8px;border-bottom:1px solid #F0F1F3;color:#DC2626">Fail</td></tr><tr><td style="padding:6px 8px">Late-night booking attempt</td><td style="padding:6px 8px;color:#DC2626">Fail</td></tr></tbody></table><br><strong>The 2 failures:</strong><ul><li><strong>Out of service area:</strong> Agent kept trying to book instead of explaining the service zone limit. Suggested fix: add a service-zone check in the Booking node before collecting time slots</li><li><strong>Late-night booking:</strong> Agent didn't acknowledge that bookings are only between 7am and 7pm. Suggested fix: gate the time selector to operating hours</li></ul>Want me to apply both fixes, or do you want to review them in the canvas first?`,
     checkpoint: {
@@ -1358,6 +1369,27 @@ help with that" and trigger the transfer node.</div>The plan panel on the right 
         { title: 'Knowledge Base', items: ['Pricing list (small, medium, large dog cuts)', 'Service catalogue (full groom, bath only, nail trim, de-shed)', 'Operating hours and service zones in greater Brisbane', 'Pre-appointment instructions'] },
         { title: 'Exit Conditions', items: ['Booking confirmed and SMS sent', 'Transferred to human agent', 'Customer ends the chat'] },
         { title: 'Compliance', items: ['No medical advice', 'Confirm address before booking', 'Use polite Australian-English phrasing'] },
+      ],
+    },
+  },
+  hamtown: {
+    user: 'Add a transfer node to my Hamtown Hounds booking agent. If someone says "speak to a human" or asks something we can\'t book, route them to our salon line.',
+    resp: `<div class="thinking">The user wants to add a human transfer escape hatch to their existing Hamtown Hounds booking agent. Let me read the current setup so I can place the transfer node in the right spot and pick sensible trigger phrases.</div><span class="tool-call">read-agent</span><br><br>I've reviewed the current Hamtown Hounds booking agent:<br><br><strong>Current setup:</strong><ul><li>Conversational Flow agent with 3 nodes: Greeting, FAQ, Booking</li><li>No human transfer path today, so out-of-scope questions hit a generic fallback</li><li>Salon line is already in your workspace (Phone Numbers → "Hamtown Salon Line")</li></ul><strong>Proposed change:</strong><ul><li>Add a new <em>Human transfer</em> node between Booking and the agent's exit</li><li>Trigger on the phrase "speak to a human" plus close variants like "talk to someone" and "transfer me"</li><li>Also route to the new node when the user asks anything the agent can't book (e.g. grooming health, refund policy)</li><li>Use the existing salon line as the transfer destination</li></ul>Want me to apply this, or refine first?`,
+    checkpoint: {
+      q: 'Apply this change to the Hamtown Hounds booking agent?',
+      options: [
+        { label: 'Apply the change', action: 'next-stage', nextStage: 'changeApplied' },
+        { label: 'Refine in chat', action: 'refine' },
+        { label: 'Show me the current agent', action: 'open-agent' },
+      ],
+    },
+    plan: {
+      title: 'Hamtown Hounds Booking Agent (with transfer node)',
+      sections: [
+        { title: 'Agent Context', items: ['<strong>Type:</strong> Conversational Flow', '<strong>Channel:</strong> Voice (phone)', '<strong>Business:</strong> Hamtown Hounds, a dog grooming salon in Hamilton, Brisbane', '<strong>Status:</strong> Live in production'] },
+        { title: 'Nodes (after change)', items: ['<strong>Greeting:</strong> "Thanks for calling Hamtown Hounds, this is Sophie. How can I help?"', '<strong>FAQ:</strong> Pulls from knowledge base for pricing, services, hours', '<strong>Booking:</strong> Collects date, time, dog name, breed. Confirms via SMS', '<strong>Human transfer</strong> (new): triggered on "speak to a human" or out-of-scope asks. Routes to salon line +1 (415) 555-0918'] },
+        { title: 'Transfer Trigger Phrases', items: ['"Speak to a human"', '"Talk to someone"', '"Transfer me"', 'Any question outside booking scope (grooming health, refunds, etc.)'] },
+        { title: 'Exit Conditions', items: ['Booking confirmed and SMS sent', 'Transferred to salon line', 'Customer hangs up'] },
       ],
     },
   },
