@@ -334,18 +334,25 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
 .plan-section ul { padding-left: 18px; margin: 0; }
 .plan-section li { font-size: 13px; color: #0A0A0A; line-height: 1.55; margin-bottom: 5px; }
 .plan-section li strong { font-weight: 600; }
-/* ── Next-step options block (matches production checkpoint pattern) ── */
-#convo-checkpoint { padding: 0 24px 12px; }
-.cta-block { background: #FAFAFA; border: 1px solid #E1E4EA; border-radius: 12px; padding: 14px 4px 4px; margin-top: 14px; }
+/* ── Claude-style checkpoint card (docked above chat input) ── */
+#convo-checkpoint { padding: 0 24px 14px; }
+.cta-block { background: #fff; border: 1px solid #E1E4EA; border-radius: 14px; padding: 14px 4px 4px; margin-top: 14px; box-shadow: 0 1px 3px rgba(0,0,0,0.03); }
 #convo-checkpoint .cta-block { margin-top: 0; }
-.cta-block-q { font-size: 14px; font-weight: 500; color: #0A0A0A; padding: 0 14px; margin-bottom: 12px; line-height: 1.45; }
+.cta-head { display: flex; align-items: center; justify-content: space-between; padding: 0 16px; margin-bottom: 14px; gap: 12px; }
+.cta-block-q { font-size: 14.5px; font-weight: 500; color: #0A0A0A; line-height: 1.45; flex: 1; }
+.cta-head-right { display: flex; align-items: center; gap: 4px; color: #99A0AE; font-size: 12.5px; flex-shrink: 0; }
+.cta-counter { display: inline-flex; align-items: center; gap: 8px; }
+.cta-counter-arrow { width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; color: #99A0AE; border-radius: 4px; }
+.cta-counter-arrow:hover { background: #F5F7FA; color: #0A0A0A; }
+.cta-close { width: 22px; height: 22px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 4px; color: #99A0AE; margin-left: 4px; }
+.cta-close:hover { background: #F5F7FA; color: #0A0A0A; }
 .cta-options { display: flex; flex-direction: column; }
 .cta-option { display: flex; align-items: center; gap: 14px; padding: 11px 14px; border-radius: 8px; cursor: pointer; font-size: 13.5px; color: #0A0A0A; transition: background 0.12s; position: relative; margin: 0 4px; }
-.cta-option:hover { background: #fff; }
-.cta-num { width: 24px; height: 24px; border-radius: 6px; background: #EFEFEF; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; color: #525866; flex-shrink: 0; }
-.cta-option:hover .cta-num { background: #fff; color: #0A0A0A; }
+.cta-option:hover, .cta-option.active { background: #F5F7FA; }
+.cta-num { width: 24px; height: 24px; border-radius: 6px; background: #F0F1F3; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; color: #525866; flex-shrink: 0; }
+.cta-option.active .cta-num { background: #E5E7EB; color: #0A0A0A; }
 .cta-option-arrow { margin-left: auto; opacity: 0; transition: opacity 0.12s; color: #525866; }
-.cta-option:hover .cta-option-arrow { opacity: 1; }
+.cta-option:hover .cta-option-arrow, .cta-option.active .cta-option-arrow { opacity: 1; }
 .cta-else { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 11px 14px; margin: 6px 4px 4px; border-top: 1px solid #EDEEF0; padding-top: 12px; }
 .cta-else-left { display: flex; align-items: center; gap: 14px; font-size: 13.5px; color: #99A0AE; cursor: pointer; }
 .cta-else-icon { width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; color: #99A0AE; flex-shrink: 0; }
@@ -882,10 +889,20 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
     <div id="cp-convo">
       <div class="convo-main">
         <div class="convo-msgs" id="convo-msgs"></div>
-        <!-- Docked checkpoint action bar (shown above input when a checkpoint is active) -->
+        <!-- Docked checkpoint action bar (Claude-style, shown above input when a checkpoint is active) -->
         <div id="convo-checkpoint" style="display:none">
           <div class="cta-block">
-            <div class="cta-block-q" id="ckpt-q">The draft is ready. What would you like to do next?</div>
+            <div class="cta-head">
+              <div class="cta-block-q" id="ckpt-q">The draft is ready. What would you like to do next?</div>
+              <div class="cta-head-right">
+                <span class="cta-counter">
+                  <span class="cta-counter-arrow"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M7.5 9L4 6l3.5-3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <span id="ckpt-counter">1 of 3</span>
+                  <span class="cta-counter-arrow"><svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M4.5 3L8 6l-3.5 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </span>
+                <span class="cta-close" onclick="dismissCheckpoint()"><svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M3 3l6 6M9 3l-6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+              </div>
+            </div>
             <div class="cta-options" id="ckpt-options"></div>
             <div class="cta-else">
               <div class="cta-else-left" onclick="showToast('Type your answer in the input below')"><span class="cta-else-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M11.5 2.5l2 2-7 7-2.5.5.5-2.5 7-7z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" fill="none"/></svg></span>Something else</div>
@@ -1447,9 +1464,10 @@ function renderCheckpoint(checkpoint) {
   const wrap = document.getElementById('convo-checkpoint');
   if (!checkpoint) { wrap.style.display = 'none'; return; }
   document.getElementById('ckpt-q').textContent = checkpoint.q;
+  document.getElementById('ckpt-counter').textContent = `1 of ${checkpoint.options.length}`;
   const arrowSvg = '<span class="cta-option-arrow"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
   document.getElementById('ckpt-options').innerHTML = checkpoint.options.map((o, i) =>
-    `<div class="cta-option" onclick="showToast(${JSON.stringify(o.toast)})"><span class="cta-num">${i+1}</span>${o.label}${arrowSvg}</div>`
+    `<div class="cta-option${i === 0 ? ' active' : ''}" onclick="showToast(${JSON.stringify(o.toast)})"><span class="cta-num">${i+1}</span>${o.label}${arrowSvg}</div>`
   ).join('');
   wrap.style.display = 'block';
 }
