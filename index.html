@@ -1326,7 +1326,7 @@ help with that" and trigger the transfer node.</div>The plan panel on the right 
       options: [
         { label: 'Open in Conversational Flow', toast: 'Opening in Conversational Flow editor...' },
         { label: 'Run a test simulation', toast: 'Starting test simulation...' },
-        { label: 'Refine the plan in chat', toast: 'Continuing in chat...' },
+        { label: 'Refine the plan in chat', action: 'refine' },
       ],
     },
     plan: {
@@ -1467,9 +1467,27 @@ function renderCheckpoint(checkpoint) {
   document.getElementById('ckpt-counter').textContent = `1 of ${checkpoint.options.length}`;
   const arrowSvg = '<span class="cta-option-arrow"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
   document.getElementById('ckpt-options').innerHTML = checkpoint.options.map((o, i) =>
-    `<div class="cta-option${i === 0 ? ' active' : ''}" onclick="showToast(${JSON.stringify(o.toast)})"><span class="cta-num">${i+1}</span>${o.label}${arrowSvg}</div>`
+    `<div class="cta-option${i === 0 ? ' active' : ''}" onclick="handleCheckpointOption(${i})"><span class="cta-num">${i+1}</span>${o.label}${arrowSvg}</div>`
   ).join('');
   wrap.style.display = 'block';
+  // stash for the click handler
+  wrap._options = checkpoint.options;
+}
+
+function handleCheckpointOption(i) {
+  const wrap = document.getElementById('convo-checkpoint');
+  const opt = wrap._options && wrap._options[i];
+  if (!opt) return;
+  if (opt.action === 'refine') {
+    wrap.style.display = 'none';
+    const input = document.getElementById('convo-input');
+    if (input) {
+      input.focus();
+      showToast("Card dismissed. Keep typing to refine the plan.");
+    }
+    return;
+  }
+  showToast(opt.toast || 'Action triggered');
 }
 
 function dismissCheckpoint() {
