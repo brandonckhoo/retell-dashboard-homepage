@@ -314,6 +314,17 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
 .msg-bubble li { margin-bottom: 4px; }
 .msg-bubble strong { font-weight: 600; }
 .msg-bubble code { background: rgba(0,0,0,0.08); padding: 1px 5px; border-radius: 3px; font-family: 'SF Mono','Menlo',monospace; font-size: 12.5px; }
+/* ── Jump CTA card (inline in chat) ── */
+.cta-card { background: #F4F7FF; border: 1px solid #C8D5F7; border-radius: 10px; padding: 14px 16px; margin-top: 14px; }
+.cta-card-head { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.cta-icon { width: 22px; height: 22px; border-radius: 6px; background: #3d64d7; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.cta-title { font-size: 13.5px; font-weight: 600; color: #0A0A0A; }
+.cta-sub { font-size: 12.5px; color: #525866; margin-bottom: 12px; line-height: 1.45; }
+.cta-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.cta-btn { padding: 7px 14px; border-radius: 8px; font-size: 12.5px; font-weight: 500; font-family: inherit; cursor: pointer; border: 1px solid #E1E4EA; background: #fff; color: #0A0A0A; transition: all 0.12s; display: inline-flex; align-items: center; gap: 5px; }
+.cta-btn.primary { background: #3d64d7; color: #fff; border-color: #3d64d7; }
+.cta-btn:hover { border-color: #3d64d7; }
+.cta-btn.primary:hover { background: #2f4ca8; }
 .typing-indicator { display: flex; align-items: center; gap: 4px; padding: 12px 16px; }
 .typing-dot { width: 7px; height: 7px; background: #99A0AE; border-radius: 50%; animation: bounce 1.2s ease-in-out infinite; }
 .typing-dot:nth-child(2) { animation-delay: 0.2s; }
@@ -1239,6 +1250,10 @@ function sendInvite() {
 
 /* ── Copilot conversations ── */
 const convos = {
+  wagwash: {
+    user: 'Build me a chat agent for Wagwash Mobile Grooming. It should answer questions about pricing, services, and book appointments. Customers might also ask about dog allergies or pet-health questions, which should transfer to a human.',
+    resp: `Got it. Here's the plan for the Wagwash Mobile Grooming chat agent:<br><br><strong>Agent type:</strong> Conversational Flow (you have branching logic between FAQ, booking, and human transfer)<br><br><strong>Structure:</strong><ul><li><strong>Greeting node:</strong> "Hi, this is Wag from Wagwash Mobile Grooming. How can I help today?"</li><li><strong>FAQ node:</strong> Pulls from your knowledge base for pricing, services, hours, locations</li><li><strong>Booking node:</strong> Asks for date, time, pet name, breed, and address. Confirms via SMS</li><li><strong>Transfer node:</strong> Triggered on allergy or pet-health questions. Routes to your human agent line</li></ul>I've built the draft. You can keep refining with me here, or open the canvas to review:<div class="cta-card"><div class="cta-card-head"><span class="cta-icon"><svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M4 8h8M9 5l3 3-3 3" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cta-title">Your draft agent is ready</span></div><div class="cta-sub">Built as a Conversational Flow agent based on your branching needs (FAQ vs booking vs transfer)</div><div class="cta-actions"><button class="cta-btn primary" onclick="showToast('Opening in Conversational Flow editor...')">Open in Conversational Flow</button><button class="cta-btn" onclick="showToast('Starting test simulation...')">Run test simulation</button></div></div>`
+  },
   droprate: {
     user: 'Why is my call drop rate 12%?',
     resp: `Your 12% drop rate over the past 7 days is above the workspace average of 8.4%. Here's the breakdown:<br><br><strong>Top causes:</strong><ul><li><strong>Long agent pauses (4.1s avg)</strong> — accounts for 38% of early drops. Users hang up during knowledge base lookups.</li><li><strong>Late-night calls</strong> — 61% of drops happen between 10 PM and 6 AM. Your after-hours prompt may need tuning.</li><li><strong>Transfer wait time</strong> — 23% of transfers to human agents exceed 40 seconds before the user hangs up.</li></ul><strong>Recommended fixes:</strong><ul><li>Add a filler phrase like "Let me look that up for you..." to cover long KB lookups</li><li>Update the after-hours prompt to set clearer expectations</li><li>Reduce transfer timeout in <strong>Agent Settings → Call Related Settings</strong></li></ul>Want me to draft the filler phrase and after-hours copy?`
