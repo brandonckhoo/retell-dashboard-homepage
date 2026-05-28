@@ -1314,13 +1314,24 @@ function sendInvite() {
 // Chained checkpoint stages — surface after the user picks an option that advances the flow
 const nextStages = {
   agentBuilt: {
-    resp: `<span class="tool-call">build-agent</span><br><br>Done. The agent is live in your workspace.<br><br><strong>What I created:</strong><ul><li>New Conversational Flow agent named <em>Wagwash Mobile Grooming</em></li><li>4 nodes wired: Greeting → FAQ + Booking + Transfer</li><li>Knowledge base placeholder linked (you'll fill in pricing and service docs)</li><li>Transfer destination set to your existing human agent line</li></ul>The plan panel on the right is now the live agent spec. You can edit it in the Agents canvas, or run a test simulation here.`,
+    resp: `<span class="tool-call">build-agent</span><br><br>Done. The agent is live in your workspace.<br><br><strong>What I created:</strong><ul><li>New Conversational Flow agent named <em>Wagwash Mobile Grooming</em></li><li>4 nodes wired: Greeting → FAQ + Booking + Transfer</li><li>Knowledge base placeholder linked (you'll fill in pricing and service docs)</li><li>Transfer destination set to your existing human agent line</li></ul>The plan panel on the right is now the live agent spec. Open and edit your agent in the Conversational Flow canvas, run a test simulation here, or keep refining in chat.`,
     checkpoint: {
       q: 'The agent is built. What would you like to do next?',
       options: [
-        { label: 'Open in Conversational Flow', action: 'open-agent' },
-        { label: 'Run a test simulation', toast: 'Starting test simulation...' },
+        { label: 'Open and edit in Conversational Flow', action: 'open-agent' },
+        { label: 'Run a test simulation', action: 'next-stage', nextStage: 'testRun' },
         { label: 'Refine the agent in chat', action: 'refine' },
+      ],
+    },
+  },
+  testRun: {
+    resp: `<span class="tool-call">create-test-cases</span><br><span class="tool-call">run-test-cases</span><br><br>Ran 5 test scenarios against the agent. Here's what happened:<br><br><table style="width:100%;border-collapse:collapse;font-size:13px;margin:8px 0"><thead><tr><th style="text-align:left;padding:6px 8px;border-bottom:1px solid #E1E4EA;font-weight:600">Scenario</th><th style="text-align:left;padding:6px 8px;border-bottom:1px solid #E1E4EA;font-weight:600">Result</th></tr></thead><tbody><tr><td style="padding:6px 8px;border-bottom:1px solid #F0F1F3">New patient booking (happy path)</td><td style="padding:6px 8px;border-bottom:1px solid #F0F1F3;color:#059669">Pass</td></tr><tr><td style="padding:6px 8px;border-bottom:1px solid #F0F1F3">Existing patient reschedule</td><td style="padding:6px 8px;border-bottom:1px solid #F0F1F3;color:#059669">Pass</td></tr><tr><td style="padding:6px 8px;border-bottom:1px solid #F0F1F3">Allergy transfer to human</td><td style="padding:6px 8px;border-bottom:1px solid #F0F1F3;color:#059669">Pass</td></tr><tr><td style="padding:6px 8px;border-bottom:1px solid #F0F1F3">Out of service area</td><td style="padding:6px 8px;border-bottom:1px solid #F0F1F3;color:#DC2626">Fail</td></tr><tr><td style="padding:6px 8px">Late-night booking attempt</td><td style="padding:6px 8px;color:#DC2626">Fail</td></tr></tbody></table><br><strong>The 2 failures:</strong><ul><li><strong>Out of service area:</strong> Agent kept trying to book instead of explaining the service zone limit. Suggested fix: add a service-zone check in the Booking node before collecting time slots</li><li><strong>Late-night booking:</strong> Agent didn't acknowledge that bookings are only between 7am and 7pm. Suggested fix: gate the time selector to operating hours</li></ul>Want me to apply both fixes, or do you want to review them in the canvas first?`,
+    checkpoint: {
+      q: 'The test simulation is done. What would you like to do next?',
+      options: [
+        { label: 'Apply both Copilot fixes', toast: 'Applying both fixes to the agent...' },
+        { label: 'Open in Conversational Flow', action: 'open-agent' },
+        { label: 'Re-run with more scenarios', toast: 'Re-running with a wider test set...' },
       ],
     },
   },
