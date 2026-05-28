@@ -315,7 +315,9 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
 .msg-bubble strong { font-weight: 600; }
 .msg-bubble code { background: rgba(0,0,0,0.08); padding: 1px 5px; border-radius: 3px; font-family: 'SF Mono','Menlo',monospace; font-size: 12.5px; }
 /* ── Next-step options block (matches production checkpoint pattern) ── */
+#convo-checkpoint { padding: 0 24px 12px; }
 .cta-block { background: #FAFAFA; border: 1px solid #E1E4EA; border-radius: 12px; padding: 14px 4px 4px; margin-top: 14px; }
+#convo-checkpoint .cta-block { margin-top: 0; }
 .cta-block-q { font-size: 14px; font-weight: 500; color: #0A0A0A; padding: 0 14px; margin-bottom: 12px; line-height: 1.45; }
 .cta-options { display: flex; flex-direction: column; }
 .cta-option { display: flex; align-items: center; gap: 14px; padding: 11px 14px; border-radius: 8px; cursor: pointer; font-size: 13.5px; color: #0A0A0A; transition: background 0.12s; position: relative; margin: 0 4px; }
@@ -859,6 +861,17 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
     <!-- Copilot conversation state -->
     <div id="cp-convo">
       <div class="convo-msgs" id="convo-msgs"></div>
+      <!-- Docked checkpoint action bar (shown above input when a checkpoint is active) -->
+      <div id="convo-checkpoint" style="display:none">
+        <div class="cta-block">
+          <div class="cta-block-q" id="ckpt-q">The draft is ready. What would you like to do next?</div>
+          <div class="cta-options" id="ckpt-options"></div>
+          <div class="cta-else">
+            <div class="cta-else-left" onclick="showToast('Type your answer in the input below')"><span class="cta-else-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M11.5 2.5l2 2-7 7-2.5.5.5-2.5 7-7z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" fill="none"/></svg></span>Something else</div>
+            <button class="cta-skip" onclick="dismissCheckpoint()">Skip</button>
+          </div>
+        </div>
+      </div>
       <div class="convo-input-bar">
         <textarea class="convo-input" id="convo-input" placeholder="Reply to Copilot..." rows="1"
           oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"
@@ -1256,7 +1269,15 @@ function sendInvite() {
 const convos = {
   wagwash: {
     user: 'Build me a chat agent for Wagwash Mobile Grooming. It should answer questions about pricing, services, and book appointments. Customers might also ask about dog allergies or pet-health questions, which should transfer to a human.',
-    resp: `Got it. Here's the plan for the Wagwash Mobile Grooming chat agent:<br><br><strong>Agent type:</strong> Conversational Flow (you have branching logic between FAQ, booking, and human transfer)<br><br><strong>Structure:</strong><ul><li><strong>Greeting node:</strong> "Hi, this is Wag from Wagwash Mobile Grooming. How can I help today?"</li><li><strong>FAQ node:</strong> Pulls from your knowledge base for pricing, services, hours, locations</li><li><strong>Booking node:</strong> Asks for date, time, pet name, breed, and address. Confirms via SMS</li><li><strong>Transfer node:</strong> Triggered on allergy or pet-health questions. Routes to your human agent line</li></ul><div class="cta-block"><div class="cta-block-q">The draft is ready. What would you like to do next?</div><div class="cta-options"><div class="cta-option" onclick="showToast('Opening in Conversational Flow editor...')"><span class="cta-num">1</span>Open in Conversational Flow<span class="cta-option-arrow"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><div class="cta-option" onclick="showToast('Starting test simulation...')"><span class="cta-num">2</span>Run a test simulation<span class="cta-option-arrow"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><div class="cta-option" onclick="showToast('Continuing in chat...')"><span class="cta-num">3</span>Refine the plan in chat<span class="cta-option-arrow"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div><div class="cta-else"><div class="cta-else-left"><span class="cta-else-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M11.5 2.5l2 2-7 7-2.5.5.5-2.5 7-7z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" fill="none"/></svg></span>Something else</div><button class="cta-skip" onclick="showToast('Skipped — keep typing to refine')">Skip</button></div></div>`
+    resp: `Got it. Here's the plan for the Wagwash Mobile Grooming chat agent:<br><br><strong>Agent type:</strong> Conversational Flow (you have branching logic between FAQ, booking, and human transfer)<br><br><strong>Structure:</strong><ul><li><strong>Greeting node:</strong> "Hi, this is Wag from Wagwash Mobile Grooming. How can I help today?"</li><li><strong>FAQ node:</strong> Pulls from your knowledge base for pricing, services, hours, locations</li><li><strong>Booking node:</strong> Asks for date, time, pet name, breed, and address. Confirms via SMS</li><li><strong>Transfer node:</strong> Triggered on allergy or pet-health questions. Routes to your human agent line</li></ul>The draft is ready. Pick a next step below, or keep typing to refine.`,
+    checkpoint: {
+      q: 'The draft is ready. What would you like to do next?',
+      options: [
+        { label: 'Open in Conversational Flow', toast: 'Opening in Conversational Flow editor...' },
+        { label: 'Run a test simulation', toast: 'Starting test simulation...' },
+        { label: 'Refine the plan in chat', toast: 'Continuing in chat...' },
+      ],
+    },
   },
   droprate: {
     user: 'Why is my call drop rate 12%?',
@@ -1374,9 +1395,26 @@ function loadConvo(key, srcEl) {
   msgs.innerHTML = '';
   appendMsg(msgs, 'user', c.user);
   appendMsg(msgs, 'assistant', c.resp);
+  renderCheckpoint(c.checkpoint);
   document.querySelectorAll('.hist-item').forEach(i => i.classList.remove('active'));
   const el = srcEl || (typeof event !== 'undefined' && event.currentTarget);
   if (el) el.classList.add('active');
+}
+
+function renderCheckpoint(checkpoint) {
+  const wrap = document.getElementById('convo-checkpoint');
+  if (!checkpoint) { wrap.style.display = 'none'; return; }
+  document.getElementById('ckpt-q').textContent = checkpoint.q;
+  const arrowSvg = '<span class="cta-option-arrow"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
+  document.getElementById('ckpt-options').innerHTML = checkpoint.options.map((o, i) =>
+    `<div class="cta-option" onclick="showToast(${JSON.stringify(o.toast)})"><span class="cta-num">${i+1}</span>${o.label}${arrowSvg}</div>`
+  ).join('');
+  wrap.style.display = 'block';
+}
+
+function dismissCheckpoint() {
+  document.getElementById('convo-checkpoint').style.display = 'none';
+  showToast('Skipped — keep typing to refine');
 }
 
 function sendConvoMsg() {
