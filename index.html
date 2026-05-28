@@ -169,10 +169,16 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
 .cp-sugg-icon { width: 26px; height: 26px; border-radius: 7px; display: flex; align-items: center; justify-content: center; margin-bottom: 6px; flex-shrink: 0; }
 .cp-sugg-title { font-size: 13px; font-weight: 600; color: #0A0A0A; line-height: 1.3; }
 .cp-sugg-desc { font-size: 11.5px; color: #99A0AE; line-height: 1.35; }
-/* ── Copilot suggestion chips ── */
-.cp-chips-row { width: 100%; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 12px; margin-bottom: 48px; }
-.cp-chip { display: inline-flex; align-items: center; padding: 5px 12px; border-radius: 20px; border: 1px solid #E1E4EA; background: #fff; font-size: 12.5px; color: #525866; cursor: pointer; font-family: inherit; transition: border-color 0.12s, color 0.12s, background 0.12s; white-space: nowrap; user-select: none; }
+/* ── Copilot suggestion chips & presets ── */
+.cp-chips-row { width: 100%; display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 12px; }
+.cp-chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 20px; border: 1px solid #E1E4EA; background: #fff; font-size: 12.5px; color: #525866; cursor: pointer; font-family: inherit; transition: border-color 0.12s, color 0.12s, background 0.12s; white-space: nowrap; user-select: none; }
 .cp-chip:hover { border-color: #3d64d7; color: #3d64d7; background: #F4F7FF; }
+.cp-chip-icon { display: inline-flex; align-items: center; justify-content: center; }
+.cp-chip-arrow { display: inline-flex; margin-left: 2px; }
+.cp-preset-label { font-size: 12px; color: #99A0AE; text-align: center; margin-top: 18px; margin-bottom: 8px; }
+.cp-preset-wrap { margin-bottom: 48px; width: 100%; }
+.cp-back { font-size: 12px; color: #525866; cursor: pointer; text-align: center; margin-top: 10px; user-select: none; }
+.cp-back:hover { color: #3d64d7; }
 /* ── Tabs section ── */
 .tabs-section { width: 100%; margin-top: 32px; padding: 0 24px; }
 .tabs-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
@@ -635,7 +641,11 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
             </button>
           </div>
         </div>
-        <div id="cp-chips" class="cp-chips-row"></div>
+        <div class="cp-preset-wrap">
+          <div class="cp-preset-label" id="cp-preset-label">Start with a preset</div>
+          <div id="cp-chips" class="cp-chips-row"></div>
+          <div class="cp-back" id="cp-back" style="display:none" onclick="resetPresets()">← Back</div>
+        </div>
       </div>
 
       <!-- Analytics widget (matches Analytics page card style) -->
@@ -998,20 +1008,72 @@ initOrb(document.getElementById('orb-main'));
 let doneCount = 2;
 const TOTAL = 6; // optional items (idx >= TOTAL) don't count toward progress
 
-const CP_CHIPS = {
-  Build: ['Customer service agent', 'Appointment booking bot', 'Lead qualification agent'],
-  Plan:  ['Customer service agent', 'Outbound sales caller', 'Appointment booking bot'],
-  Ask:   ['Add a knowledge base', 'Set up call transfers', 'Improve call quality'],
-};
+const CP_PRESETS = [
+  {
+    id: 'build',
+    label: 'Build agents',
+    icon: '<svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="11" rx="2" stroke="currentColor" stroke-width="1.4" fill="none"/><circle cx="5.5" cy="8" r="1.2" fill="currentColor"/><circle cx="10.5" cy="8" r="1.2" fill="currentColor"/><path d="M8 1.5V3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>',
+    tasks: ['Build a customer service agent', 'Build an appointment booking bot', 'Build a lead qualification agent', 'Build an outbound sales caller']
+  },
+  {
+    id: 'test',
+    label: 'Run tests',
+    icon: '<svg width="13" height="13" viewBox="0 0 16 16" fill="none"><polygon points="4,3 13,8 4,13" fill="currentColor"/></svg>',
+    tasks: ['Run a test call', 'Simulate edge cases', 'Compare two agents', 'Run an LLM eval']
+  },
+  {
+    id: 'analyze',
+    label: 'Analyze calls',
+    icon: '<svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 12l3-4 3 2 3-5 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>',
+    tasks: ['Review this week\'s calls', 'Find failed calls', 'Check QA scores', 'Show top intents']
+  },
+  {
+    id: 'deploy',
+    label: 'Deploy',
+    icon: '<svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 1l-3 5h2v4h2V6h2L8 1z" fill="currentColor"/><path d="M3 13h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>',
+    tasks: ['Connect a phone number', 'Set up batch calling', 'Configure a webhook', 'Add a web call widget']
+  },
+  {
+    id: 'more',
+    label: 'More',
+    icon: '<svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="4" cy="8" r="1.2" fill="currentColor"/><circle cx="8" cy="8" r="1.2" fill="currentColor"/><circle cx="12" cy="8" r="1.2" fill="currentColor"/></svg>',
+    tasks: ['Add a knowledge base', 'Set up call transfers', 'Improve call quality', 'Manage agent versions', 'Invite a teammate', 'Open billing settings']
+  },
+];
 
-function renderChips(mode) {
+const arrowSvg = '<svg width="11" height="11" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+function renderPresets() {
   const row = document.getElementById('cp-chips');
+  const label = document.getElementById('cp-preset-label');
+  const back = document.getElementById('cp-back');
   if (!row) return;
-  const chips = CP_CHIPS[mode] || CP_CHIPS['Build'];
-  row.innerHTML = chips.map(c =>
-    `<button class="cp-chip" onclick="setCpSugg(${JSON.stringify(c)})">${c}</button>`
+  label.textContent = 'Start with a preset';
+  back.style.display = 'none';
+  row.innerHTML = CP_PRESETS.map(p =>
+    `<button class="cp-chip" onclick="drillPreset('${p.id}')"><span class="cp-chip-icon">${p.icon}</span>${p.label}</button>`
   ).join('');
 }
+
+function drillPreset(id) {
+  const preset = CP_PRESETS.find(p => p.id === id);
+  if (!preset) return;
+  const row = document.getElementById('cp-chips');
+  const label = document.getElementById('cp-preset-label');
+  const back = document.getElementById('cp-back');
+  label.textContent = preset.label;
+  back.style.display = 'block';
+  row.innerHTML = preset.tasks.map(t =>
+    `<button class="cp-chip" onclick="setCpSugg(${JSON.stringify(t)})">${t}<span class="cp-chip-arrow">${arrowSvg}</span></button>`
+  ).join('');
+}
+
+function resetPresets() {
+  renderPresets();
+}
+
+// Back-compat alias for any callers expecting renderChips
+function renderChips() { renderPresets(); }
 
 const CP_SUGGESTIONS = {
   build: [
@@ -1614,7 +1676,7 @@ document.addEventListener('click', function(e) {
 
 // Default state — recents rendered
 renderRecents();
-renderChips('Build');
+renderPresets();
 
 /* ── Create Agent modal ── */
 const CA_TABS = ['All', 'Receptionist', 'Outbound Sales & Reactivation', 'Appointment Booking', 'Lead Qualification', 'Customer Support & After-Hours', 'Back-Office Task Automation', 'Debt Collection', 'IVR & DTMF Automation', 'Real-Time Translation'];
@@ -1797,7 +1859,6 @@ function pickMode(el, val) {
   });
   document.getElementById('sel-mode-val').textContent = val;
   toggleSel('mode');
-  renderChips(val);
 }
 
 function pickModel(el, val, short) {
