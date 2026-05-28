@@ -315,16 +315,19 @@ aside { width: 280px; min-width: 280px; background: #F5F7FA; display: flex; flex
 .msg-bubble strong { font-weight: 600; }
 .msg-bubble code { background: rgba(0,0,0,0.08); padding: 1px 5px; border-radius: 3px; font-family: 'SF Mono','Menlo',monospace; font-size: 12.5px; }
 /* ── Next-step options block (matches production checkpoint pattern) ── */
-.cta-block { background: #fff; border: 1px solid #E1E4EA; border-radius: 12px; padding: 12px 14px 14px; margin-top: 14px; }
-.cta-block-q { font-size: 13.5px; font-weight: 600; color: #0A0A0A; margin-bottom: 10px; line-height: 1.4; }
-.cta-options { display: flex; flex-direction: column; gap: 2px; }
-.cta-option { display: flex; align-items: center; gap: 12px; padding: 8px 10px; border-radius: 8px; cursor: pointer; font-size: 13px; color: #0A0A0A; transition: background 0.12s; }
-.cta-option:hover { background: #F4F7FF; }
-.cta-num { width: 22px; height: 22px; border-radius: 50%; border: 1px solid #D1D5DB; display: inline-flex; align-items: center; justify-content: center; font-size: 11.5px; font-weight: 500; color: #525866; flex-shrink: 0; }
-.cta-option:hover .cta-num { border-color: #3d64d7; color: #3d64d7; }
-.cta-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; padding-top: 8px; border-top: 1px solid #F1F2F4; }
-.cta-hint { font-size: 11.5px; color: #99A0AE; }
-.cta-skip { padding: 5px 12px; border-radius: 18px; border: 1px solid #E1E4EA; background: #fff; font-size: 12px; color: #525866; cursor: pointer; font-family: inherit; }
+.cta-block { background: #FAFAFA; border: 1px solid #E1E4EA; border-radius: 12px; padding: 14px 4px 4px; margin-top: 14px; }
+.cta-block-q { font-size: 14px; font-weight: 500; color: #0A0A0A; padding: 0 14px; margin-bottom: 12px; line-height: 1.45; }
+.cta-options { display: flex; flex-direction: column; }
+.cta-option { display: flex; align-items: center; gap: 14px; padding: 11px 14px; border-radius: 8px; cursor: pointer; font-size: 13.5px; color: #0A0A0A; transition: background 0.12s; position: relative; margin: 0 4px; }
+.cta-option:hover { background: #fff; }
+.cta-num { width: 24px; height: 24px; border-radius: 6px; background: #EFEFEF; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; color: #525866; flex-shrink: 0; }
+.cta-option:hover .cta-num { background: #fff; color: #0A0A0A; }
+.cta-option-arrow { margin-left: auto; opacity: 0; transition: opacity 0.12s; color: #525866; }
+.cta-option:hover .cta-option-arrow { opacity: 1; }
+.cta-else { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 11px 14px; margin: 6px 4px 4px; border-top: 1px solid #EDEEF0; padding-top: 12px; }
+.cta-else-left { display: flex; align-items: center; gap: 14px; font-size: 13.5px; color: #99A0AE; cursor: pointer; }
+.cta-else-icon { width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; color: #99A0AE; flex-shrink: 0; }
+.cta-skip { padding: 6px 14px; border-radius: 18px; border: 1px solid #E1E4EA; background: #fff; font-size: 12.5px; color: #525866; cursor: pointer; font-family: inherit; flex-shrink: 0; }
 .cta-skip:hover { border-color: #3d64d7; color: #3d64d7; }
 .typing-indicator { display: flex; align-items: center; gap: 4px; padding: 12px 16px; }
 .typing-dot { width: 7px; height: 7px; background: #99A0AE; border-radius: 50%; animation: bounce 1.2s ease-in-out infinite; }
@@ -1253,7 +1256,7 @@ function sendInvite() {
 const convos = {
   wagwash: {
     user: 'Build me a chat agent for Wagwash Mobile Grooming. It should answer questions about pricing, services, and book appointments. Customers might also ask about dog allergies or pet-health questions, which should transfer to a human.',
-    resp: `Got it. Here's the plan for the Wagwash Mobile Grooming chat agent:<br><br><strong>Agent type:</strong> Conversational Flow (you have branching logic between FAQ, booking, and human transfer)<br><br><strong>Structure:</strong><ul><li><strong>Greeting node:</strong> "Hi, this is Wag from Wagwash Mobile Grooming. How can I help today?"</li><li><strong>FAQ node:</strong> Pulls from your knowledge base for pricing, services, hours, locations</li><li><strong>Booking node:</strong> Asks for date, time, pet name, breed, and address. Confirms via SMS</li><li><strong>Transfer node:</strong> Triggered on allergy or pet-health questions. Routes to your human agent line</li></ul><div class="cta-block"><div class="cta-block-q">The draft is ready. What would you like to do next?</div><div class="cta-options"><div class="cta-option" onclick="showToast('Opening in Conversational Flow editor...')"><span class="cta-num">1</span>Open in Conversational Flow</div><div class="cta-option" onclick="showToast('Starting test simulation...')"><span class="cta-num">2</span>Run a test simulation</div><div class="cta-option" onclick="showToast('Continuing in chat...')"><span class="cta-num">3</span>Refine the plan in chat</div></div><div class="cta-footer"><span class="cta-hint">Pick an option or answer above</span><button class="cta-skip" onclick="showToast('Skipped — keep typing to refine')">Skip</button></div></div>`
+    resp: `Got it. Here's the plan for the Wagwash Mobile Grooming chat agent:<br><br><strong>Agent type:</strong> Conversational Flow (you have branching logic between FAQ, booking, and human transfer)<br><br><strong>Structure:</strong><ul><li><strong>Greeting node:</strong> "Hi, this is Wag from Wagwash Mobile Grooming. How can I help today?"</li><li><strong>FAQ node:</strong> Pulls from your knowledge base for pricing, services, hours, locations</li><li><strong>Booking node:</strong> Asks for date, time, pet name, breed, and address. Confirms via SMS</li><li><strong>Transfer node:</strong> Triggered on allergy or pet-health questions. Routes to your human agent line</li></ul><div class="cta-block"><div class="cta-block-q">The draft is ready. What would you like to do next?</div><div class="cta-options"><div class="cta-option" onclick="showToast('Opening in Conversational Flow editor...')"><span class="cta-num">1</span>Open in Conversational Flow<span class="cta-option-arrow"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><div class="cta-option" onclick="showToast('Starting test simulation...')"><span class="cta-num">2</span>Run a test simulation<span class="cta-option-arrow"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div><div class="cta-option" onclick="showToast('Continuing in chat...')"><span class="cta-num">3</span>Refine the plan in chat<span class="cta-option-arrow"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div></div><div class="cta-else"><div class="cta-else-left"><span class="cta-else-icon"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M11.5 2.5l2 2-7 7-2.5.5.5-2.5 7-7z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" fill="none"/></svg></span>Something else</div><button class="cta-skip" onclick="showToast('Skipped — keep typing to refine')">Skip</button></div></div>`
   },
   droprate: {
     user: 'Why is my call drop rate 12%?',
